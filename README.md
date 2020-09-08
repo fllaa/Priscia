@@ -1,9 +1,4 @@
-# SKYLEEBOT
-
-> **:warning: Project unmaintained!** Developers and maintainers of this bot doesn't have much free time to maintain the project. You have the right
-> to fork the code, but no technical support will be given if problems arise on your fork.
->
-> See also from the updates channel: <https://t.me/NanamiAoyama/61>
+# 青山七海
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
@@ -13,19 +8,21 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
-![logo](https://telegra.ph/file/0dd4a92bb893c1aaa6cee.jpg)
+![logo](https://telegra.ph/file/ebe392b6901d885914e23.jpg)
 
 A modular telegram Python bot running on python3 with an sqlalchemy database.
 
 Originally a simple group management bot with multiple admin features, it has evolved, becoming extremely modular and 
 simple to use. Note that this project uses well-known Telegram-bot of it's time @BanhammerMarie_bot from Paul Larson as it's base.
 
-Can be found on telegram as [Skylee](https://t.me/aoyama_bot).
+Can be found on telegram as [Aoyama青山七海](https://t.me/NanamiAoyamaBot).
 
-Join the [news channel](https://t.me/NanamiAoyama) if you just want to stay in the loop about new features or
+Join the [news channel](https://t.me/NanamiAoyamaUpdate) if you just want to stay in the loop about new features or
 announcements.
 
 ## Credits
+
+SkyleeBot for Awesome Bot. Aoyamabot is based from Skyleebot
 
 Skittbot for Stickers module and memes in extras module.
 
