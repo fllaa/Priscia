@@ -83,7 +83,7 @@ if ENV:
     SPAMWATCH = os.environ.get("SPAMWATCH_API", None)
 
 else:
-    from skylee.config import Development as Config
+    from aoyama.config import Development as Config
 
     TOKEN = Config.API_KEY
     try:
@@ -150,7 +150,7 @@ else:
 # Telethon
 api_id = TELETHON_ID
 api_hash = TELETHON_HASH
-client = TelegramClient("skylee", api_id, api_hash)
+client = TelegramClient("aoyama", api_id, api_hash)
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 
@@ -161,7 +161,7 @@ WHITELIST_USERS = list(WHITELIST_USERS)
 SUPPORT_USERS = list(SUPPORT_USERS)
 
 # Load at end to ensure all prev variables have been set
-from skylee.modules.helper_funcs.handlers import CustomCommandHandler
+from aoyama.modules.helper_funcs.handlers import CustomCommandHandler
 
 if CUSTOM_CMD and len(CUSTOM_CMD) >= 1:
     tg.CommandHandler = CustomCommandHandler

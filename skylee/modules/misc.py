@@ -23,7 +23,7 @@ from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
 
-from skylee import (
+from aoyama import (
     dispatcher,
     OWNER_ID,
     SUDO_USERS,
@@ -32,11 +32,11 @@ from skylee import (
     WALL_API,
     spamwtc,
 )
-from skylee.__main__ import STATS, USER_INFO, GDPR
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.extraction import extract_user
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.alternate import typing_action, send_action
+from aoyama.__main__ import STATS, USER_INFO, GDPR
+from aoyama.modules.disable import DisableAbleCommandHandler
+from aoyama.modules.helper_funcs.extraction import extract_user
+from aoyama.modules.helper_funcs.filters import CustomFilters
+from aoyama.modules.helper_funcs.alternate import typing_action, send_action
 
 
 @run_async
@@ -341,7 +341,7 @@ def ud(update, context):
 @typing_action
 def src(update, context):
     update.effective_message.reply_text(
-        "Hey there! You can find what makes me click [here](www.github.com/starry69/skyleebot).",
+        "Hey there! You can find what makes me click [here](www.github.com/Fallavall/NanamiAoyama).",
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
     )

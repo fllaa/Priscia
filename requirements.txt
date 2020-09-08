@@ -22,5 +22,5 @@ googletrans
 wikipedia
 spamwatch
 bleach
-git+https://github.com/starry69/python-markdown2.git
+git+https://github.com/Fallavall/python-markdown2.git
 alphabet_detector

@@ -9,20 +9,20 @@ from telegram.utils.helpers import mention_html
 
 from alphabet_detector import AlphabetDetector
 
-import skylee.modules.sql.locks_sql as sql
-from skylee import dispatcher, SUDO_USERS, LOGGER
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.chat_status import (
+import aoyama.modules.sql.locks_sql as sql
+from aoyama import dispatcher, SUDO_USERS, LOGGER
+from aoyama.modules.disable import DisableAbleCommandHandler
+from aoyama.modules.helper_funcs.chat_status import (
     can_delete,
     is_user_admin,
     user_not_admin,
     is_bot_admin,
     user_admin,
 )
-from skylee.modules.log_channel import loggable
-from skylee.modules.connection import connected
+from aoyama.modules.log_channel import loggable
+from aoyama.modules.connection import connected
 
-from skylee.modules.helper_funcs.alternate import send_message, typing_action
+from aoyama.modules.helper_funcs.alternate import send_message, typing_action
 
 ad = AlphabetDetector()
 

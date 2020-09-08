@@ -16,26 +16,26 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from skylee import dispatcher  # BAN_STICKER
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.chat_status import (
+from aoyama import dispatcher  # BAN_STICKER
+from aoyama.modules.disable import DisableAbleCommandHandler
+from aoyama.modules.helper_funcs.chat_status import (
     is_user_admin,
     bot_admin,
     user_admin_no_reply,
     user_admin,
     can_restrict,
 )
-from skylee.modules.helper_funcs.extraction import (
+from aoyama.modules.helper_funcs.extraction import (
     extract_text,
     extract_user_and_text,
     extract_user,
 )
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.misc import split_message
-from skylee.modules.helper_funcs.string_handling import split_quotes
-from skylee.modules.helper_funcs.alternate import typing_action
-from skylee.modules.log_channel import loggable
-from skylee.modules.sql import warns_sql as sql
+from aoyama.modules.helper_funcs.filters import CustomFilters
+from aoyama.modules.helper_funcs.misc import split_message
+from aoyama.modules.helper_funcs.string_handling import split_quotes
+from aoyama.modules.helper_funcs.alternate import typing_action
+from aoyama.modules.log_channel import loggable
+from aoyama.modules.sql import warns_sql as sql
 
 WARN_HANDLER_GROUP = 9
 CURRENT_WARNING_FILTER_STRING = "<b>Current warning filters in this chat:</b>\n"

@@ -1,4 +1,4 @@
-from skylee import LOAD, NO_LOAD, LOGGER
+from aoyama import LOAD, NO_LOAD, LOGGER
 
 
 def __list_all_modules():

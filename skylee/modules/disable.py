@@ -5,20 +5,20 @@ from telegram import ParseMode, Update, Chat
 from telegram.ext import CommandHandler, MessageHandler
 from telegram.utils.helpers import escape_markdown
 
-from skylee import dispatcher
-from skylee.modules.helper_funcs.handlers import CMD_STARTERS
-from skylee.modules.helper_funcs.misc import is_module_loaded
-from skylee.modules.helper_funcs.alternate import send_message, typing_action
-from skylee.modules.connection import connected
+from aoyama import dispatcher
+from aoyama.modules.helper_funcs.handlers import CMD_STARTERS
+from aoyama.modules.helper_funcs.misc import is_module_loaded
+from aoyama.modules.helper_funcs.alternate import send_message, typing_action
+from aoyama.modules.connection import connected
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 # If module is due to be loaded, then setup all the magical handlers
 if is_module_loaded(FILENAME):
-    from skylee.modules.helper_funcs.chat_status import user_admin, is_user_admin
+    from aoyama.modules.helper_funcs.chat_status import user_admin, is_user_admin
     from telegram.ext.dispatcher import run_async
 
-    from skylee.modules.sql import disable_sql as sql
+    from aoyama.modules.sql import disable_sql as sql
 
     DISABLE_CMDS = []
     DISABLE_OTHER = []

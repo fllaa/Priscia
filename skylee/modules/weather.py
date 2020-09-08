@@ -4,9 +4,9 @@ from telegram import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import run_async
 
-from skylee import dispatcher, API_WEATHER as APPID
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.alternate import typing_action
+from aoyama import dispatcher, API_WEATHER as APPID
+from aoyama.modules.disable import DisableAbleCommandHandler
+from aoyama.modules.helper_funcs.alternate import typing_action
 
 
 @run_async

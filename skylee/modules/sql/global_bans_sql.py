@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Column, UnicodeText, Integer, String, Boolean
 
-from skylee.modules.sql import BASE, SESSION
+from aoyama.modules.sql import BASE, SESSION
 
 
 class GloballyBannedUsers(BASE):

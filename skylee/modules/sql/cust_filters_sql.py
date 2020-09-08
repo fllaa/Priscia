@@ -2,8 +2,8 @@ import threading
 
 from sqlalchemy import Column, String, UnicodeText, Boolean, Integer, distinct, func
 
-from skylee.modules.helper_funcs.msg_types import Types
-from skylee.modules.sql import BASE, SESSION
+from aoyama.modules.helper_funcs.msg_types import Types
+from aoyama.modules.sql import BASE, SESSION
 
 
 class CustomFilters(BASE):

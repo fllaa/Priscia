@@ -13,11 +13,11 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from skylee import dispatcher, LOGGER
-from skylee.modules.helper_funcs.chat_status import user_not_admin, user_admin
-from skylee.modules.helper_funcs.alternate import typing_action
-from skylee.modules.log_channel import loggable
-from skylee.modules.sql import reporting_sql as sql
+from aoyama import dispatcher, LOGGER
+from aoyama.modules.helper_funcs.chat_status import user_not_admin, user_admin
+from aoyama.modules.helper_funcs.alternate import typing_action
+from aoyama.modules.log_channel import loggable
+from aoyama.modules.sql import reporting_sql as sql
 
 REPORT_GROUP = 5
 

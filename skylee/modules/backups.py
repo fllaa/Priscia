@@ -5,23 +5,23 @@ from telegram import ParseMode, Message
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async
 
-import skylee.modules.sql.notes_sql as sql
-from skylee import dispatcher, LOGGER, OWNER_ID, MESSAGE_DUMP
-from skylee.__main__ import DATA_IMPORT
-from skylee.modules.helper_funcs.chat_status import user_admin
-from skylee.modules.helper_funcs.alternate import typing_action
+import aoyama.modules.sql.notes_sql as sql
+from aoyama import dispatcher, LOGGER, OWNER_ID, MESSAGE_DUMP
+from aoyama.__main__ import DATA_IMPORT
+from aoyama.modules.helper_funcs.chat_status import user_admin
+from aoyama.modules.helper_funcs.alternate import typing_action
 
-# from skylee.modules.rules import get_rules
-import skylee.modules.sql.rules_sql as rulessql
+# from aoyama.modules.rules import get_rules
+import aoyama.modules.sql.rules_sql as rulessql
 
-# from skylee.modules.sql import warns_sql as warnssql
-import skylee.modules.sql.blacklist_sql as blacklistsql
-from skylee.modules.sql import disable_sql as disabledsql
+# from aoyama.modules.sql import warns_sql as warnssql
+import aoyama.modules.sql.blacklist_sql as blacklistsql
+from aoyama.modules.sql import disable_sql as disabledsql
 
-# from skylee.modules.sql import cust_filters_sql as filtersql
-# import skylee.modules.sql.welcome_sql as welcsql
-import skylee.modules.sql.locks_sql as locksql
-from skylee.modules.connection import connected
+# from aoyama.modules.sql import cust_filters_sql as filtersql
+# import aoyama.modules.sql.welcome_sql as welcsql
+import aoyama.modules.sql.locks_sql as locksql
+from aoyama.modules.connection import connected
 
 
 @run_async

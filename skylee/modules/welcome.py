@@ -19,19 +19,19 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-import skylee.modules.sql.welcome_sql as sql
-from skylee.modules.sql.global_bans_sql import is_user_gbanned
-from skylee import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP, spamwtc
-from skylee.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected
-from skylee.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from skylee.modules.helper_funcs.msg_types import get_welcome_type
-from skylee.modules.helper_funcs.alternate import typing_action
-from skylee.modules.helper_funcs.string_handling import (
+import aoyama.modules.sql.welcome_sql as sql
+from aoyama.modules.sql.global_bans_sql import is_user_gbanned
+from aoyama import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP, spamwtc
+from aoyama.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected
+from aoyama.modules.helper_funcs.misc import build_keyboard, revert_buttons
+from aoyama.modules.helper_funcs.msg_types import get_welcome_type
+from aoyama.modules.helper_funcs.alternate import typing_action
+from aoyama.modules.helper_funcs.string_handling import (
     markdown_parser,
     escape_invalid_curly_brackets,
     markdown_to_html,
 )
-from skylee.modules.log_channel import loggable
+from aoyama.modules.log_channel import loggable
 
 VALID_WELCOME_FORMATTERS = [
     "first",
@@ -192,7 +192,7 @@ def new_member(update, context):
             elif new_mem.id == context.bot.id:
                 update.effective_message.reply_text(
                     "Hey {}, I'm {}! Thank you for adding me to {}"
-                    " and be sure to join our channel: @skyleebot to know more about updates and tricks!".format(
+                    " and be sure to join our channel: @NanamiAoyama to know more about updates and tricks!".format(
                         user.first_name, context.bot.first_name, chat_name
                     ),
                     reply_to_message_id=reply,

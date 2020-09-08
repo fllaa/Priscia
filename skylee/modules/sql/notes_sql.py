@@ -3,8 +3,8 @@ import threading
 
 from sqlalchemy import Column, String, Boolean, UnicodeText, Integer, func, distinct
 
-from skylee.modules.helper_funcs.msg_types import Types
-from skylee.modules.sql import SESSION, BASE
+from aoyama.modules.helper_funcs.msg_types import Types
+from aoyama.modules.sql import SESSION, BASE
 
 
 class Notes(BASE):

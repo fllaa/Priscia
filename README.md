@@ -3,13 +3,13 @@
 > **:warning: Project unmaintained!** Developers and maintainers of this bot doesn't have much free time to maintain the project. You have the right
 > to fork the code, but no technical support will be given if problems arise on your fork.
 >
-> See also from the updates channel: <https://t.me/skyleebot/61>
+> See also from the updates channel: <https://t.me/NanamiAoyama/61>
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/843cdeb7f4124dd39eb3930939478259)](https://app.codacy.com/manual/starry69/skyleebot?utm_source=github.com&utm_medium=referral&utm_content=starry69/skyleebot&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/843cdeb7f4124dd39eb3930939478259)](https://app.codacy.com/manual/Fallavall/NanamiAoyama?utm_source=github.com&utm_medium=referral&utm_content=Fallavall/NanamiAoyama&utm_campaign=Badge_Grade_Dashboard)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
@@ -20,9 +20,9 @@ A modular telegram Python bot running on python3 with an sqlalchemy database.
 Originally a simple group management bot with multiple admin features, it has evolved, becoming extremely modular and 
 simple to use. Note that this project uses well-known Telegram-bot of it's time @BanhammerMarie_bot from Paul Larson as it's base.
 
-Can be found on telegram as [Skylee](https://t.me/skylee_bot).
+Can be found on telegram as [Skylee](https://t.me/aoyama_bot).
 
-Join the [news channel](https://t.me/skyleebot) if you just want to stay in the loop about new features or
+Join the [news channel](https://t.me/NanamiAoyama) if you just want to stay in the loop about new features or
 announcements.
 
 ## Credits
@@ -47,7 +47,7 @@ Any other missing Credits can be seen in commits!
 
 Once you've setup your database and your configuration (see below) is complete, simply run:
 
-`python3 -m skylee`
+`python3 -m aoyama`
 
 
 ## Setting up the bot (Read this before trying to use!)
@@ -60,7 +60,7 @@ This is because markdown parsing is done by iterating through a dict, which are 
 There are two possible ways of configuring your bot: a config.py file, or ENV variables.
 
 The prefered version is to use a `config.py` file, as it makes it easier to see all your settings grouped together.
-This file should be placed in your `skylee` folder, alongside the `__main__.py` file . 
+This file should be placed in your `aoyama` folder, alongside the `__main__.py` file . 
 This is where your bot token will be loaded from, as well as your database URI (if you're using a database), and most of 
 your other settings.
 
@@ -69,7 +69,7 @@ defaults set in the sample_config, hence making it easier to upgrade.
 
 An example `config.py` file could be:
 ```
-from skylee.sample_config import Config
+from aoyama.sample_config import Config
 
 
 class Development(Config):
@@ -155,7 +155,7 @@ All that is needed is that your .py file be in the modules folder.
 
 To add commands, make sure to import the dispatcher via
 
-`from skylee import dispatcher`.
+`from aoyama import dispatcher`.
 
 You can then add commands using the usual
 
