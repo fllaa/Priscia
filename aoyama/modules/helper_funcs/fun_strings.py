@@ -202,7 +202,7 @@ RUN_STRINGS = (
     "As The Doctor would say... RUN!",
 )
 
-# SLAP_TEMPLATES From @SaitamaRobot
+# SLAP_TEMPLATES From @aoyama
 
 SLAP_TEMPLATES = (
     "{user2} was shot by {user1}.",
@@ -378,7 +378,7 @@ PUNCH = (
 
 HUG = ("hugs", "hugged", "kissed", "pinches")
 
-# Table strings credits: @SaitamaRobot
+# Table strings credits: @aoyama
 
 TABLE = (
     "(╯°□°）╯彡 ┻━┻",
