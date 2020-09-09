@@ -432,7 +432,7 @@ def iwi(update, context):
             r"¯\_༼ ಥ ‿ ಥ ༽_/¯",
             "乁( ⁰͡  Ĺ̯ ⁰͡ ) ㄏ",
         ]
-        reply_text = re.sub(r"(a|i|u|e|o)", "i", message)
+        reply_text = re.sub(r"(a|i|u|e|o)", "i", message.reply_to_message.text)
         reply_text = re.sub(r"(A|I|U|E|O)", "I", reply_text)
         reply_text = re.sub(r"\!+", " " + random.choice(ficis), reply_text)
         reply_text += " " + random.choice(ficis)
