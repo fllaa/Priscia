@@ -47,7 +47,7 @@ buttons = [
         InlineKeyboardButton(
             text="Add to Group 👥", url="t.me/aoyama_bot?startgroup=true"
         ),
-        InlineKeyboardButton(text="Updates 📢", url="https://t.me/NanamiAoyama"),
+        InlineKeyboardButton(text="Support Group ℹ️", url="https://t.me/aoyamasupport"),
     ]
 ]
 
