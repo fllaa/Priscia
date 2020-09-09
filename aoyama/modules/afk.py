@@ -63,9 +63,9 @@ def no_longer_afk(update, context):
                 "Where is {}?\nIn the chat!",
             ]
             chosen_option = random.choice(options)
-           unafk = update.effective_message.reply_text(chosen_option.format(firstname))
-             time.sleep(5)
-             unafk.delete   
+            unafk = update.effective_message.reply_text(chosen_option.format(firstname))
+            time.sleep(5)
+            unafk.delete
         except BaseException:
             return
 
