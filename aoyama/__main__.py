@@ -45,7 +45,7 @@ Wanna Add me to your Group? Just click the button below!
 buttons = [
     [
         InlineKeyboardButton(
-            text="Add to Group 👥", url="t.me/aoyama_bot?startgroup=true"
+            text="Add to Group 👥", url="t.me/NanamiAoyamaBot?startgroup=true"
         ),
         InlineKeyboardButton(text="Support Group ℹ️", url="https://t.me/aoyamasupport"),
     ]
