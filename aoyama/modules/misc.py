@@ -508,6 +508,9 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /wall <query> : Get random wallpapers directly from bot! 
  × /reverse : Reverse searches image or stickers on google.
  × /gdpr: Deletes your information from the bot's database. Private chats only.
+ × /setuser <username>: sets your last.fm username.
+   /clearuser: removes your last.fm username from the bot's database.
+   /lastfm: returns what you're scrobbling on last.fm.
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
 """
 
