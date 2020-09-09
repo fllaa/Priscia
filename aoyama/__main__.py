@@ -37,7 +37,7 @@ Hey there! my name is *{dispatcher.bot.first_name}*. If you have any questions o
 I'm here to make your group management fun and easy!
 i have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
 
-Any issues or need help related to me? join our group [aoyama support chat](https://t.me/NanamiAoyama).
+I'm exist :) thanks to [my creator](tg://user?id={OWNER_ID}).
 
 Wanna Add me to your Group? Just click the button below!
 """
@@ -165,7 +165,7 @@ def start(update, context):
 
         else:
             update.effective_message.reply_photo(
-                "https://telegra.ph/file/4edfb3738a35bdfa1922f.jpg",
+                "https://telegra.ph/file/3ad8129dc2a79d5a617e9.jpg",
                 PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
