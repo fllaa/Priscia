@@ -1,4 +1,5 @@
-import random, re
+import random
+import re
 import requests as r
 
 from telegram import ParseMode, TelegramError, MAX_MESSAGE_LENGTH
@@ -53,7 +54,8 @@ def slap(update, context):
 
     # if no target found, bot targets the sender
     else:
-        user1 = "[{}](tg://user?id={})".format(context.bot.first_name, context.bot.id)
+        user1 = "[{}](tg://user?id={})".format(context.bot.first_name,
+                                               context.bot.id)
         user2 = curr_user
 
     temp = random.choice(fun.SLAP_TEMPLATES)
@@ -61,7 +63,12 @@ def slap(update, context):
     hit = random.choice(fun.HIT)
     throw = random.choice(fun.THROW)
 
-    repl = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw)
+    repl = temp.format(
+        user1=user1,
+        user2=user2,
+        item=item,
+        hits=hit,
+        throws=throw)
 
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
@@ -98,7 +105,8 @@ def punch(update, context):
 
     # if no target found, bot targets the sender
     else:
-        user1 = "[{}](tg://user?id={})".format(context.bot.first_name, context.bot.id)
+        user1 = "[{}](tg://user?id={})".format(context.bot.first_name,
+                                               context.bot.id)
         user2 = curr_user
 
     temp = random.choice(fun.PUNCH_TEMPLATES)
@@ -267,7 +275,8 @@ def snipe(update, context):
         chat_id = str(args[0])
         del args[0]
     except TypeError:
-        update.effective_message.reply_text("Please give me a chat to echo to!")
+        update.effective_message.reply_text(
+            "Please give me a chat to echo to!")
     to_send = " ".join(args)
     if len(to_send) >= 2:
         try:
@@ -364,7 +373,7 @@ def owo(update, context):
             "UwU",
             ">w<",
             "^w^",
-            "\(^o\) (/o^)/",
+            r"\(^o\) (/o^)/",
             "( ^ _ ^)∠☆",
             "(ô_ô)",
             "~:o",
@@ -400,36 +409,36 @@ def iwi(update, context):
     else:
         ficis = [
             "┐(´д｀)┌",
-    		"┐(´～｀)┌",
-    		"┐(´ー｀)┌",
-    		"┐(￣ヘ￣)┌",
-    		"╮(╯∀╰)╭",
-    		"╮(╯_╰)╭",
-		    "┐(´д`)┌",
-		    "┐(´∀｀)┌",
-		    "ʅ(́◡◝)ʃ",
-		    "┐(ﾟ～ﾟ)┌",
-		    "┐('д')┌",
-		    "┐(‘～`;)┌",
-		    "ヘ(´－｀;)ヘ",
-		    "┐( -“-)┌",
-		    "ʅ（´◔౪◔）ʃ",
-		    "ヽ(゜～゜o)ノ",
-		    "ヽ(~～~ )ノ",
-		    "┐(~ー~;)┌",
-		    "┐(-。ー;)┌",
-		    r"¯\_(ツ)_/¯",
-		    r"¯\_(⊙_ʖ⊙)_/¯",
-		    r"¯\_༼ ಥ ‿ ಥ ༽_/¯",
-		    "乁( ⁰͡  Ĺ̯ ⁰͡ ) ㄏ",
-        ]        
+            "┐(´～｀)┌",
+            "┐(´ー｀)┌",
+            "┐(￣ヘ￣)┌",
+            "╮(╯∀╰)╭",
+            "╮(╯_╰)╭",
+            "┐(´д`)┌",
+            "┐(´∀｀)┌",
+            "ʅ(́◡◝)ʃ",
+            "┐(ﾟ～ﾟ)┌",
+            "┐('д')┌",
+            "┐(‘～`;)┌",
+            "ヘ(´－｀;)ヘ",
+            "┐( -“-)┌",
+            "ʅ（´◔౪◔）ʃ",
+            "ヽ(゜～゜o)ノ",
+            "ヽ(~～~ )ノ",
+            "┐(~ー~;)┌",
+            "┐(-。ー;)┌",
+            r"¯\_(ツ)_/¯",
+            r"¯\_(⊙_ʖ⊙)_/¯",
+            r"¯\_༼ ಥ ‿ ಥ ༽_/¯",
+            "乁( ⁰͡  Ĺ̯ ⁰͡ ) ㄏ",
+        ]
         reply_text = sub(r"(a|i|u|e|o)", "i", message)
-    	reply_text = sub(r"(A|I|U|E|O)", "I", reply_text)
-    	reply_text = sub(r"\!+", " " + random.choice(ficis), reply_text)
-    	reply_text += " " + random.choice(ficis)
+        reply_text = sub(r"(A|I|U|E|O)", "I", reply_text)
+        reply_text = sub(r"\!+", " " + random.choice(ficis), reply_text)
+        reply_text += " " + random.choice(ficis)
         message.reply_to_message.reply_text(reply_text)
-        
-        
+
+
 @run_async
 @typing_action
 def stretch(update, context):
@@ -439,7 +448,8 @@ def stretch(update, context):
     else:
         count = random.randint(3, 10)
         reply_text = re.sub(
-            r"([aeiouAEIOUａｅｉｏｕＡＥＩＯＵ])", (r"\1" * count), message.reply_to_message.text
+            r"([aeiouAEIOUａｅｉｏｕＡＥＩＯＵ])", (r"\1" *
+                                          count), message.reply_to_message.text
         )
         if len(reply_text) >= MAX_MESSAGE_LENGTH:
             return message.reply_text(
@@ -452,7 +462,8 @@ def stretch(update, context):
 @run_async
 def me_too(update, context):
     message = update.effective_message
-    reply = random.choice(["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
+    reply = random.choice(
+        ["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
     message.reply_text(reply)
 
 
@@ -468,7 +479,6 @@ def goodmorning(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDMORNING)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
-
 
 
 __help__ = """
