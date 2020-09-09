@@ -393,6 +393,45 @@ def owo(update, context):
 
 @run_async
 @typing_action
+def iwi(update, context):
+    message = update.effective_message
+    if not message.reply_to_message:
+        message.reply_text("I niid missigi ti mimi.")
+    else:
+        ficis = [
+            "┐(´д｀)┌",
+    		"┐(´～｀)┌",
+    		"┐(´ー｀)┌",
+    		"┐(￣ヘ￣)┌",
+    		"╮(╯∀╰)╭",
+    		"╮(╯_╰)╭",
+		    "┐(´д`)┌",
+		    "┐(´∀｀)┌",
+		    "ʅ(́◡◝)ʃ",
+		    "┐(ﾟ～ﾟ)┌",
+		    "┐('д')┌",
+		    "┐(‘～`;)┌",
+		    "ヘ(´－｀;)ヘ",
+		    "┐( -“-)┌",
+		    "ʅ（´◔౪◔）ʃ",
+		    "ヽ(゜～゜o)ノ",
+		    "ヽ(~～~ )ノ",
+		    "┐(~ー~;)┌",
+		    "┐(-。ー;)┌",
+		    r"¯\_(ツ)_/¯",
+		    r"¯\_(⊙_ʖ⊙)_/¯",
+		    r"¯\_༼ ಥ ‿ ಥ ༽_/¯",
+		    "乁( ⁰͡  Ĺ̯ ⁰͡ ) ㄏ",
+        ]        
+        reply_text = sub(r"(a|i|u|e|o)", "i", message)
+    	reply_text = sub(r"(A|I|U|E|O)", "I", reply_text)
+    	reply_text = sub(r"\!+", " " + random.choice(ficis), reply_text)
+    	reply_text += " " + random.choice(ficis)
+        message.reply_to_message.reply_text(reply_text)
+        
+        
+@run_async
+@typing_action
 def stretch(update, context):
     message = update.effective_message
     if not message.reply_to_message:
@@ -444,6 +483,7 @@ Some dank memes for fun or whatever!
  × /pasta: Famous copypasta meme, try and see.
  × /clap: Claps on someones message!
  × /owo: UwU-fy whole text XD.
+ × /iwi: IwI-fy whili tixt XD
  × /roll: Rolls a dice.
  × /recite: Logical quotes to change your life.
  × /stretch:  streeeeeeetch iiiiiiit.
@@ -482,6 +522,7 @@ CRI_HANDLER = DisableAbleCommandHandler("cri", cri)
 PASTA_HANDLER = DisableAbleCommandHandler("pasta", copypasta)
 CLAP_HANDLER = DisableAbleCommandHandler("clap", clapmoji)
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo)
+IWI_HANDLER = DisableAbleCommandHandler("iwi", iwi)
 STRECH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
 MEETOO_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"(?i)(me too)"), me_too, friendly="metoo"
@@ -512,6 +553,7 @@ dispatcher.add_handler(CRI_HANDLER)
 dispatcher.add_handler(PASTA_HANDLER)
 dispatcher.add_handler(CLAP_HANDLER)
 dispatcher.add_handler(OWO_HANDLER)
+dispatcher.add_handler(IWI_HANDLER)
 dispatcher.add_handler(STRECH_HANDLER)
 dispatcher.add_handler(MEETOO_HANDLER)
 dispatcher.add_handler(DICE_HANDLER)
