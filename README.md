@@ -38,6 +38,8 @@ ATechnoHazard for many stuffs
 
 corsicanu and nunopenim for android modules
 
+AnimeKaizoku for anime modules
+
 Any other missing Credits can be seen in commits!
 
 ## Starting the bot
