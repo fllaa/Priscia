@@ -7,9 +7,8 @@ import jikanpy
 import requests
 from aoyama import OWNER_ID, SUDO_USERS, dispatcher
 from aoyama.modules.disable import DisableAbleCommandHandler
-from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
-                      Update)
-from telegram.ext import CallbackContext, CallbackQueryHandler, run_async
+from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode)
+from telegram.ext import CallbackQueryHandler, run_async
 
 info_btn = "More Information"
 kaizoku_btn = "Kaizoku ☠️"
