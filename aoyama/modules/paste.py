@@ -1,8 +1,8 @@
 import requests
 from aoyama import dispatcher
 from aoyama.modules.disable import DisableAbleCommandHandler
-from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, run_async
+from telegram import ParseMode
+from telegram.ext import run_async
 
 
 @run_async
