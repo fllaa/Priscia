@@ -29,7 +29,7 @@ def shorten(description, info='anilist.co'):
     return msg
 
 
-#time formatter from uniborg
+# time formatter from uniborg
 def t(milliseconds: int) -> str:
     """Inputs time in milliseconds, to get beautified time,
     as string"""
@@ -46,8 +46,8 @@ def t(milliseconds: int) -> str:
 
 
 airing_query = '''
-    query ($id: Int,$search: String) { 
-      Media (id: $id, type: ANIME,search: $search) { 
+    query ($id: Int,$search: String) {
+      Media (id: $id, type: ANIME,search: $search) {
         id
         episodes
         title {
@@ -59,14 +59,14 @@ airing_query = '''
            airingAt
            timeUntilAiring
            episode
-        } 
+        }
       }
     }
     '''
 
 fav_query = """
-query ($id: Int) { 
-      Media (id: $id, type: ANIME) { 
+query ($id: Int) {
+      Media (id: $id, type: ANIME) {
         id
         title {
           romaji
@@ -78,8 +78,8 @@ query ($id: Int) {
 """
 
 anime_query = '''
-   query ($id: Int,$search: String) { 
-      Media (id: $id, type: ANIME,search: $search) { 
+   query ($id: Int,$search: String) {
+      Media (id: $id, type: ANIME,search: $search) {
         id
         title {
           romaji
@@ -104,7 +104,7 @@ anime_query = '''
           }
           trailer{
                id
-               site 
+               site
                thumbnail
           }
           averageScore
@@ -132,8 +132,8 @@ character_query = """
 """
 
 manga_query = """
-query ($id: Int,$search: String) { 
-      Media (id: $id, type: MANGA,search: $search) { 
+query ($id: Int,$search: String) {
+      Media (id: $id, type: MANGA,search: $search) {
         id
         title {
           romaji
@@ -236,7 +236,7 @@ def anime(update, context):
                     caption=msg,
                     parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(buttons))
-            except:
+            except BaseException:
                 msg += f" [〽️]({image})"
                 update.effective_message.reply_text(
                     msg,
@@ -334,7 +334,7 @@ def manga(update, context):
                     caption=msg,
                     parse_mode=ParseMode.MARKDOWN,
                     reply_markup=InlineKeyboardMarkup(buttons))
-            except:
+            except BaseException:
                 msg += f" [〽️]({image})"
                 update.effective_message.reply_text(
                     msg,
@@ -354,7 +354,7 @@ def user(update, context):
 
     try:
         search_query = args[1]
-    except:
+    except BaseException:
         if message.reply_to_message:
             search_query = message.reply_to_message.text
         else:
@@ -380,7 +380,7 @@ def user(update, context):
     try:
         user_birthday = datetime.datetime.fromisoformat(user['birthday'])
         user_birthday_formatted = user_birthday.strftime(date_format)
-    except:
+    except BaseException:
         user_birthday_formatted = "Unknown"
 
     user_joined_date = datetime.datetime.fromisoformat(user['joined'])
@@ -421,7 +421,7 @@ def user(update, context):
                    InlineKeyboardButton(
                        close_btn,
                        callback_data=f"anime_close, {message.from_user.id}")
-               ]]
+    ]]
 
     update.effective_message.reply_photo(
         photo=img,
