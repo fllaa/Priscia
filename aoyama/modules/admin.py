@@ -26,9 +26,6 @@ from aoyama.modules.helper_funcs.alternate import typing_action
 from aoyama.modules.connection import connected
 from aoyama.modules.log_channel import loggable
 from aoyama.modules.sql import admin_sql as sql
-from aoyama.modules.helper_funcs.alternate import typing_action
-from aoyama.modules.connection import connected
-from aoyama.modules.log_channel import loggable
 
 
 @run_async
