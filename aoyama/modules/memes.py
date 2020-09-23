@@ -442,6 +442,7 @@ def iwi(update, context):
 @run_async
 @typing_action
 def mock(update, context):
+    reply_text = []
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("i nEeD MeSsAgE To mOcK.")
