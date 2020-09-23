@@ -319,8 +319,7 @@ def check_and_ban(update, user_id, should_message=True):
                     parse_mode=ParseMode.HTML,
                 )
                 return
-            else:
-                return
+            return
     except Exception:
         pass
 

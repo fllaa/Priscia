@@ -20,8 +20,7 @@ def infinite_checker(repl):
         status = re.search(match, repl)
         if status:
             return True
-        else:
-            return False
+        return False
 
 
 def separate_sed(sed_string):

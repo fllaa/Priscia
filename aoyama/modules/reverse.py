@@ -72,7 +72,7 @@ def reverse(update, context):
             if HE.reason == "Not Found":
                 msg.reply_text("Image not found.")
                 return
-            elif HE.reason == "Forbidden":
+            if HE.reason == "Forbidden":
                 msg.reply_text(
                     "Couldn't access the provided link, The website might have blocked accessing to the website by bot or the website does not existed."
                 )

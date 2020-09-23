@@ -209,7 +209,7 @@ def get(bot, update, notename, show_none=True, no_format=False):
                     )
                     LOGGER.warning("Message was: %s", str(note.value))
         return
-    elif show_none:
+    if show_none:
         message.reply_text("This note doesn't exist")
 
 
@@ -369,24 +369,23 @@ def clear_notes(update, context):
         if not allnotes:
             msg.reply_text("No notes saved here what should i delete?")
             return
-        else:
-            msg.reply_text(
-                "Do you really wanna delete all of the notes??",
-                reply_markup=InlineKeyboardMarkup(
+        msg.reply_text(
+            "Do you really wanna delete all of the notes??",
+            reply_markup=InlineKeyboardMarkup(
+                [
                     [
-                        [
-                            InlineKeyboardButton(
-                                text="Yes I'm sure️", callback_data="rmnotes_true"
-                            )
-                        ],
-                        [
-                            InlineKeyboardButton(
-                                text="⚠️ Cancel", callback_data="rmnotes_cancel"
-                            )
-                        ],
-                    ]
-                ),
-            )
+                        InlineKeyboardButton(
+                            text="Yes I'm sure️", callback_data="rmnotes_true"
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="⚠️ Cancel", callback_data="rmnotes_cancel"
+                        )
+                    ],
+                ]
+            ),
+        )
 
     else:
         msg.reply_text("This command can be only used by chat OWNER!")
@@ -405,7 +404,7 @@ def rmbutton(update, context):
     if match == "cancel" and usermem == "creator":
         return query.message.edit_text("Cancelled deletion of notes.")
 
-    elif match == "true" and usermem == "creator":
+    if match == "true" and usermem == "creator":
 
         allnotes = sql.get_all_chat_notes(chat.id)
         count = 0

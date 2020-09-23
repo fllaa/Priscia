@@ -34,8 +34,7 @@ def send_rules(update, chat_id, from_pm=False):
                 "fix this.",
             )
             return
-        else:
-            raise
+        raise
 
     rules = sql.get_rules(chat_id)
     text = "The rules for *{}* are:\n\n{}".format(escape_markdown(chat.title), rules)

@@ -636,7 +636,7 @@ def welcomemute(update, context) -> str:
                     escape(chat.title), mention_html(user.id, user.first_name)
                 )
             )
-        elif args[0].lower() in ("soft"):
+        if args[0].lower() in ("soft"):
             sql.set_welcome_mutes(chat.id, "soft")
             msg.reply_text(
                 "I will restrict user's permission to send media for 24 hours"
@@ -649,7 +649,7 @@ def welcomemute(update, context) -> str:
                     escape(chat.title), mention_html(user.id, user.first_name)
                 )
             )
-        elif args[0].lower() in ("strong"):
+        if args[0].lower() in ("strong"):
             sql.set_welcome_mutes(chat.id, "strong")
             msg.reply_text(
                 "I will now mute people when they join and"
@@ -663,12 +663,11 @@ def welcomemute(update, context) -> str:
                     escape(chat.title), mention_html(user.id, user.first_name)
                 )
             )
-        else:
-            msg.reply_text(
-                "Please enter `off`/`on`/`soft`/`strong`!",
-                parse_mode=ParseMode.MARKDOWN,
-            )
-            return ""
+        msg.reply_text(
+            "Please enter `off`/`on`/`soft`/`strong`!",
+            parse_mode=ParseMode.MARKDOWN,
+        )
+        return ""
     else:
         curr_setting = sql.welcome_mutes(chat.id)
         reply = "\n Give me a setting! Choose one of: `off`/`no` or `soft` or `strong` only! \nCurrent setting: `{}`"
@@ -708,7 +707,7 @@ def clean_welcome(update, context) -> str:
                 escape(chat.title), mention_html(user.id, user.first_name)
             )
         )
-    elif args[0].lower() in ("off", "no"):
+    if args[0].lower() in ("off", "no"):
         sql.set_clean_welcome(str(chat.id), False)
         update.effective_message.reply_text("I won't delete old welcome messages.")
         return (
@@ -719,10 +718,9 @@ def clean_welcome(update, context) -> str:
                 escape(chat.title), mention_html(user.id, user.first_name)
             )
         )
-    else:
-        # idek what you're writing, say yes or no
-        update.effective_message.reply_text("I understand 'on/yes' or 'off/no' only!")
-        return ""
+    # idek what you're writing, say yes or no
+    update.effective_message.reply_text("I understand 'on/yes' or 'off/no' only!")
+    return ""
 
 
 @run_async

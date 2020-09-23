@@ -50,8 +50,7 @@ def ban(update, context):
         if excp.message == "User not found":
             message.reply_text("I can't seem to find this user")
             return ""
-        else:
-            raise
+        raise
 
     if is_user_ban_protected(chat, user_id, member):
         message.reply_text("I'm not gonna ban an admin, don't make fun of yourself!")
@@ -92,16 +91,15 @@ def ban(update, context):
             # Do not reply
             message.reply_text("Banned!", quote=False)
             return log
-        else:
-            LOGGER.warning(update)
-            LOGGER.exception(
-                "ERROR banning user %s in chat %s (%s) due to %s",
-                user_id,
-                chat.title,
-                chat.id,
-                excp.message,
-            )
-            message.reply_text("Well damn, I can't ban that user.")
+        LOGGER.warning(update)
+        LOGGER.exception(
+            "ERROR banning user %s in chat %s (%s) due to %s",
+            user_id,
+            chat.title,
+            chat.id,
+            excp.message,
+        )
+        message.reply_text("Well damn, I can't ban that user.")
 
     return ""
 
@@ -134,8 +132,7 @@ def temp_ban(update, context):
         if excp.message == "User not found":
             message.reply_text("I can't seem to find this user")
             return ""
-        else:
-            raise
+        raise
 
     if is_user_ban_protected(chat, user_id, member):
         message.reply_text("Wow! let's start banning Admins themselves?...")
@@ -191,16 +188,15 @@ def temp_ban(update, context):
                 "Goodbye.. we'll meet after {}.".format(time_val), quote=False
             )
             return log
-        else:
-            LOGGER.warning(update)
-            LOGGER.exception(
-                "ERROR banning user %s in chat %s (%s) due to %s",
-                user_id,
-                chat.title,
-                chat.id,
-                excp.message,
-            )
-            message.reply_text("Well damn, I can't ban that user.")
+        LOGGER.warning(update)
+        LOGGER.exception(
+            "ERROR banning user %s in chat %s (%s) due to %s",
+            user_id,
+            chat.title,
+            chat.id,
+            excp.message,
+        )
+        message.reply_text("Well damn, I can't ban that user.")
 
     return ""
 
@@ -232,8 +228,7 @@ def kick(update, context):
         if excp.message == "User not found":
             message.reply_text("I can't seem to find this user")
             return ""
-        else:
-            raise
+        raise
 
     if is_user_ban_protected(chat, user_id):
         message.reply_text("Yeahh... let's start kicking admins?")
@@ -268,9 +263,7 @@ def kick(update, context):
             log += "\n<b>Reason:</b> {}".format(reason)
 
         return log
-
-    else:
-        message.reply_text("Get Out!.")
+    message.reply_text("Get Out!.")
 
     return ""
 
@@ -300,9 +293,7 @@ def banme(update, context):
             )
         )
         return log
-
-    else:
-        update.effective_message.reply_text("Huh? I can't :/")
+    update.effective_message.reply_text("Huh? I can't :/")
 
 
 @run_async
@@ -349,8 +340,7 @@ def unban(update, context):
         if excp.message == "User not found":
             message.reply_text("I can't seem to find this user")
             return ""
-        else:
-            raise
+        raise
 
     if user_id == context.bot.id:
         message.reply_text("How would I unban myself if I wasn't here...?")
