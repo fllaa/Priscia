@@ -446,13 +446,14 @@ def mock(update, context):
     if not message.reply_to_message:
         message.reply_text("i nEeD MeSsAgE To mOcK.")
     else:
-        for charac in message:
-            if charac.isalpha() and randint(0, 1):
+        for charac in message.reply_to_message.text:
+            if charac.isalpha() and random.randint(0, 1):
                 to_app = charac.upper() if charac.islower() else charac.lower()
-                reply_text.append(to_app)
+                reply text = reply_text.append(to_app)
             else:
-                reply_text.append(charac)
-                message.reply_to_message.reply_text(reply_text)
+                reply text = reply_text.append(charac)
+                
+        message.reply_to_message.reply_text(reply_text)
 
 
 @run_async
