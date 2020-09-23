@@ -437,6 +437,21 @@ def iwi(update, context):
         reply_text = re.sub(r"\!+", " " + random.choice(ficis), reply_text)
         reply_text += " " + random.choice(ficis)
         message.reply_to_message.reply_text(reply_text)
+        
+        
+@run_async
+@typing_action
+def mock(update, context):
+    message = update.effective_message
+    if not message.reply_to_message:
+        message.reply_text("i nEeD MeSsAgE To mOcK.")
+    else:
+        if charac.isalpha() and randint(0, 1):
+            to_app = charac.upper() if charac.islower() else charac.lower()
+            reply_text.append(to_app)
+        else:
+            reply_text.append(charac)
+            message.reply_to_message.reply_text(reply_text)
 
 
 @run_async
@@ -533,6 +548,7 @@ PASTA_HANDLER = DisableAbleCommandHandler("pasta", copypasta)
 CLAP_HANDLER = DisableAbleCommandHandler("clap", clapmoji)
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo)
 IWI_HANDLER = DisableAbleCommandHandler("iwi", iwi)
+MOCK_HANDLER = DisableAbleCommandHandler("mock", mock)
 STRECH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
 MEETOO_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"(?i)(me too)"), me_too, friendly="metoo"
@@ -564,6 +580,7 @@ dispatcher.add_handler(PASTA_HANDLER)
 dispatcher.add_handler(CLAP_HANDLER)
 dispatcher.add_handler(OWO_HANDLER)
 dispatcher.add_handler(IWI_HANDLER)
+dispatcher.add_handler(MOCK_HANDLER)
 dispatcher.add_handler(STRECH_HANDLER)
 dispatcher.add_handler(MEETOO_HANDLER)
 dispatcher.add_handler(DICE_HANDLER)
