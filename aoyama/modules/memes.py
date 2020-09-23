@@ -449,11 +449,11 @@ def mock(update, context):
         for charac in message.reply_to_message.text:
             if charac.isalpha() and random.randint(0, 1):
                 to_app = charac.upper() if charac.islower() else charac.lower()
-                reply_text = reply_text.append(to_app)
+                texty = reply_text.append(to_app)
             else:
-                reply_text = reply_text.append(charac)
+                texty = reply_text.append(charac)
                 
-        message.reply_to_message.reply_text(reply_text)
+        message.reply_to_message.reply_text(texty)
 
 
 @run_async
