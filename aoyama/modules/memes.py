@@ -454,7 +454,7 @@ def mock(update, context):
             else:
                 reply_text.append(charac)
                 
-        message.reply_to_message.reply_text(reply_text)
+        message.reply_to_message.reply_text("".join(reply_text))
 
 
 @run_async
