@@ -512,6 +512,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
    /clearuser: removes your last.fm username from the bot's database.
    /lastfm: returns what you're scrobbling on last.fm.
  × /paste: Saves replied content to nekobin.com and replies with a url
+ × /lyrics <query>: search lyrics can be song name or artist name
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
 """
 
