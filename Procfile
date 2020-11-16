@@ -1,1 +1,1 @@
-web: python3 -m aoyama
+web: python3 -m priscia

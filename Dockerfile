@@ -64,12 +64,12 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-# Copy Python Requirements to /root/NanamiAoyama
-RUN git clone https://github.com/Fallavall/NanamiAoyama /root/NanamiAoyama
-WORKDIR /root/NanamiAoyama
+# Copy Python Requirements to /root/Priscia
+RUN git clone https://github.com/Fallavall/Priscia /root/Priscia
+WORKDIR /root/Priscia
 
-#Copy config file to /root/NanamiAoyama/aoyama
-COPY ./aoyama/sample_config.py ./aoyama/config.py* /root/NanamiAoyama/aoyama/
+#Copy config file to /root/Priscia/priscia
+COPY ./priscia/sample_config.py ./priscia/config.py* /root/Priscia/priscia/
 
 ENV PATH="/home/bot/bin:$PATH"
 
@@ -77,4 +77,4 @@ ENV PATH="/home/bot/bin:$PATH"
 RUN pip3 install -U -r requirements.txt
 
 # Starting Worker
-CMD ["python3","-m","aoyama"]
+CMD ["python3","-m","priscia"]
