@@ -217,7 +217,7 @@ def gdpr(update, context):
 
     update.effective_message.reply_text(
         "Your personal data has been deleted.\n\nNote that this will not unban "
-        "you from any chats, as that is telegram data, not Aoyama data. "
+        "you from any chats, as that is telegram data, not Priscia data. "
         "Flooding, warns, and gbans are also preserved, as of "
         "[this](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/), "
         "which clearly states that the right to erasure does not apply "
@@ -341,7 +341,7 @@ def ud(update, context):
 @typing_action
 def src(update, context):
     update.effective_message.reply_text(
-        "Hey there! You can find what makes me click [here](www.github.com/Fallavall/NanamiAoyama).",
+        "Hey there! You can find what makes me click [here](www.github.com/Fallavall/Priscia).",
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
     )

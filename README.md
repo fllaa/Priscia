@@ -4,7 +4,7 @@
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/843cdeb7f4124dd39eb3930939478259)](https://app.codacy.com/manual/Fallavall/NanamiAoyama?utm_source=github.com&utm_medium=referral&utm_content=Fallavall/NanamiAoyama&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/843cdeb7f4124dd39eb3930939478259)](https://app.codacy.com/manual/Fallavall/Priscia?utm_source=github.com&utm_medium=referral&utm_content=Fallavall/Priscia&utm_campaign=Badge_Grade_Dashboard)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
@@ -46,7 +46,7 @@ Any other missing Credits can be seen in commits!
 
 Once you've setup your database and your configuration (see below) is complete, simply run:
 
-`python3 -m aoyama`
+`python3 -m priscia`
 
 
 ## Setting up the bot (Read this before trying to use!)
@@ -59,7 +59,7 @@ This is because markdown parsing is done by iterating through a dict, which are 
 There are two possible ways of configuring your bot: a config.py file, or ENV variables.
 
 The prefered version is to use a `config.py` file, as it makes it easier to see all your settings grouped together.
-This file should be placed in your `aoyama` folder, alongside the `__main__.py` file . 
+This file should be placed in your `priscia` folder, alongside the `__main__.py` file . 
 This is where your bot token will be loaded from, as well as your database URI (if you're using a database), and most of 
 your other settings.
 
@@ -68,7 +68,7 @@ defaults set in the sample_config, hence making it easier to upgrade.
 
 An example `config.py` file could be:
 ```
-from aoyama.sample_config import Config
+from priscia.sample_config import Config
 
 
 class Development(Config):
@@ -154,7 +154,7 @@ All that is needed is that your .py file be in the modules folder.
 
 To add commands, make sure to import the dispatcher via
 
-`from aoyama import dispatcher`.
+`from priscia import dispatcher`.
 
 You can then add commands using the usual
 
