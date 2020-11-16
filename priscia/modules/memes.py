@@ -525,7 +525,7 @@ Some dank memes for fun or whatever!
 Some other regex filters are:
 `me too` | `goodmorning` | `goodnight`.
 
-Aoyama will reply random strings accordingly when these words are used!
+Priscia will reply random strings accordingly when these words are used!
 All regex filters can be disabled incase u don't want... like: `/disable metoo`.
 
 """
