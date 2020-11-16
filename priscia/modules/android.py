@@ -21,7 +21,7 @@ def magisk(update, context):
     for type, branch in {
         "Stable": ["master/stable", "master"],
         "Beta": ["master/beta", "master"],
-        "Canary (debug)": ["canary/debug", "canary"],
+        "Canary (debug)": ["canary/canary", "canary"],
     }.items():
         data = get(url + branch[0] + ".json").json()
         releases += (
