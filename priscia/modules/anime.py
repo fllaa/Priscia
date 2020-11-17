@@ -581,7 +581,7 @@ def site_search(update, context, site: str):
         search_url = f"https://oploverz.in/?s={search_query}"
         html_text = requests.get(search_url, headers={'User-Agent': 'Mozilla/5.0'}).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("div", {"class": "thumb"})
+        search_result = soup.find_all("div", {"class": "dtl"})
 
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Oploverz</code>: \n"
         for entry in search_result:
@@ -592,7 +592,7 @@ def site_search(update, context, site: str):
                 break
 
             post_link = entry.a["href"]
-            post_name = html.escape(entry.text.strip())
+            post_name = entry.a["title"]
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     buttons = [[InlineKeyboardButton("See all results", url=search_url)]]
