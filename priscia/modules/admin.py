@@ -54,7 +54,7 @@ def promote(update, context):
         return ""
 
     user_member = chat.get_member(user_id)
-    if user_member.status == "administrator" or user_member.status == "creator":
+    if user_member.status in ["administrator", "creator"]:
         message.reply_text("This person is already an admin...!")
         return ""
 
@@ -116,7 +116,7 @@ def demote(update, context):
         message.reply_text("I'm not gonna demote Creator this group.... 🙄")
         return ""
 
-    if not user_member.status == "administrator":
+    if user_member.status != "administrator":
         message.reply_text(
             "How I'm supposed to demote someone who is not even an admin!"
         )
@@ -170,7 +170,7 @@ def pin(update, context):
     chat = update.effective_chat
     message = update.effective_message
 
-    is_group = chat.type != "private" and chat.type != "channel"
+    is_group = chat.type not in ["private", "channel"]
 
     prev_message = update.effective_message.reply_to_message
 
@@ -180,11 +180,7 @@ def pin(update, context):
 
     is_silent = True
     if len(args) >= 1:
-        is_silent = not (
-            args[0].lower() == "notify"
-            or args[0].lower() == "loud"
-            or args[0].lower() == "violent"
-        )
+        is_silent = not args[0].lower() in ["notify", "loud", "violent"]
 
     if prev_message and is_group:
         try:
@@ -192,9 +188,7 @@ def pin(update, context):
                 chat.id, prev_message.message_id, disable_notification=is_silent
             )
         except BadRequest as excp:
-            if excp.message == "Chat_not_modified":
-                pass
-            else:
+            if excp.message != "Chat_not_modified":
                 raise
         return (
             "<b>{}:</b>"
@@ -275,7 +269,7 @@ def permanent_pin_set(update, context) -> str:
             update.effective_message.reply_text(text_maker, parse_mode="markdown")
             return ""
 
-    is_group = chat.type != "private" and chat.type != "channel"
+    is_group = chat.type not in ["private", "channel"]
 
     if prev_message and is_group:
         sql.set_permapin(chat.id, prev_message)
@@ -295,11 +289,11 @@ def permanent_pin_set(update, context) -> str:
 def permanent_pin(update, context):
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
-    message = update.effective_message
     bot = context.bot
 
     get_permapin = sql.get_permapin(chat.id)
-    if get_permapin and not user.id == bot.id:
+    if get_permapin and user.id != bot.id:
+        message = update.effective_message
         try:
             to_del = bot.pinChatMessage(
                 chat.id, get_permapin, disable_notification=True
@@ -334,18 +328,16 @@ def permanent_pin(update, context):
 def unpin(update, context):
     chat = update.effective_chat
     user = update.effective_user
-    message = update.effective_message
-
     if user_can_pin(chat, user, context.bot.id) is False:
+        message = update.effective_message
+
         message.reply_text("You are missing rights to unpin a message!")
         return ""
 
     try:
         context.bot.unpinChatMessage(chat.id)
     except BadRequest as excp:
-        if excp.message == "Chat_not_modified":
-            pass
-        else:
+        if excp.message != "Chat_not_modified":
             raise
 
     return (
@@ -378,7 +370,7 @@ def invite(update, context):
 
     if chat.username:
         msg.reply_text(chat.username)
-    elif chat.type == chat.SUPERGROUP or chat.type == chat.CHANNEL:
+    elif chat.type in [chat.SUPERGROUP, chat.CHANNEL]:
         bot_member = chat.get_member(context.bot.id)
         if bot_member.can_invite_users:
             invitelink = context.bot.exportChatInviteLink(chat.id)
@@ -440,7 +432,7 @@ def set_title(update, context):
         )
         return
 
-    if not user_member.status == "administrator":
+    if user_member.status != "administrator":
         message.reply_text(
             "Can't set title for non-admins!\nPromote them first to set custom title!"
         )

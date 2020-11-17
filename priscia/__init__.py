@@ -34,31 +34,34 @@ if ENV:
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
 
     try:
-        SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+        SUDO_USERS = {int(x) for x in os.environ.get("SUDO_USERS", "").split()}
     except ValueError:
         raise Exception("Your sudo users list does not contain valid integers.")
 
     try:
-        SUPPORT_USERS = set(int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
+        SUPPORT_USERS = {int(x) for x in os.environ.get("SUPPORT_USERS", "").split()}
     except ValueError:
         raise Exception("Your support users list does not contain valid integers.")
 
     try:
-        WHITELIST_USERS = set(
+        WHITELIST_USERS = {
             int(x) for x in os.environ.get("WHITELIST_USERS", "").split()
-        )
+        }
+
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
     try:
-        WHITELIST_CHATS = set(
+        WHITELIST_CHATS = {
             int(x) for x in os.environ.get("WHITELIST_CHATS", "").split()
-        )
+        }
+
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
     try:
-        BLACKLIST_CHATS = set(
+        BLACKLIST_CHATS = {
             int(x) for x in os.environ.get("BLACKLIST_CHATS", "").split()
-        )
+        }
+
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
 
@@ -96,25 +99,25 @@ else:
     OWNER_USERNAME = Config.OWNER_USERNAME
 
     try:
-        SUDO_USERS = set(int(x) for x in Config.SUDO_USERS or [])
+        SUDO_USERS = {int(x) for x in Config.SUDO_USERS or []}
     except ValueError:
         raise Exception("Your sudo users list does not contain valid integers.")
 
     try:
-        SUPPORT_USERS = set(int(x) for x in Config.SUPPORT_USERS or [])
+        SUPPORT_USERS = {int(x) for x in Config.SUPPORT_USERS or []}
     except ValueError:
         raise Exception("Your support users list does not contain valid integers.")
 
     try:
-        WHITELIST_USERS = set(int(x) for x in Config.WHITELIST_USERS or [])
+        WHITELIST_USERS = {int(x) for x in Config.WHITELIST_USERS or []}
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
     try:
-        WHITELIST_CHATS = set(int(x) for x in Config.WHITELIST_CHATS or [])
+        WHITELIST_CHATS = {int(x) for x in Config.WHITELIST_CHATS or []}
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
     try:
-        BLACKLIST_CHATS = set(int(x) for x in Config.BLACKLIST_CHATS or [])
+        BLACKLIST_CHATS = {int(x) for x in Config.BLACKLIST_CHATS or []}
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
 
@@ -143,7 +146,7 @@ else:
 SUDO_USERS.add(OWNER_ID)
 
 # Pass if SpamWatch token not set.
-if SPAMWATCH == None:
+if SPAMWATCH is None:
     spamwtc = None
     LOGGER.warning("Invalid spamwatch api")
 else:

@@ -54,7 +54,7 @@ def list_handlers(update, context):
     user = update.effective_user
 
     conn = connected(context.bot, update, chat, user.id, need_admin=False)
-    if not conn == False:
+    if conn != False:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
         filter_list = "*Filter in {}:*\n"
@@ -106,16 +106,12 @@ def filters(update, context):
     )  # use python's maxsplit to separate Cmd, keyword, and reply_text
 
     conn = connected(context.bot, update, chat, user.id)
-    if not conn == False:
+    if conn != False:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
-        if chat.type == "private":
-            chat_name = "local filters"
-        else:
-            chat_name = chat.title
-
+        chat_name = "local filters" if chat.type == "private" else chat.title
     if not msg.reply_to_message and len(args) < 2:
         send_message(
             update.effective_message,
@@ -230,16 +226,12 @@ def stop_filter(update, context):
     args = update.effective_message.text.split(None, 1)
 
     conn = connected(context.bot, update, chat, user.id)
-    if not conn == False:
+    if conn != False:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
-        if chat.type == "private":
-            chat_name = "Local filters"
-        else:
-            chat_name = chat.title
-
+        chat_name = "Local filters" if chat.type == "private" else chat.title
     if len(args) < 2:
         send_message(update.effective_message, "What should i stop?")
         return
@@ -368,7 +360,6 @@ def reply_filter(update, context):
                                 LOGGER.exception(
                                     "Failed to send message: " + excp.message
                                 )
-                                pass
                 else:
                     ENUM_FUNC_MAP[filt.file_type](
                         chat.id,
@@ -379,7 +370,6 @@ def reply_filter(update, context):
                         disable_web_page_preview=True,
                         reply_markup=keyboard,
                     )
-                break
             else:
                 if filt.is_sticker:
                     message.reply_sticker(filt.reply)
@@ -417,7 +407,6 @@ def reply_filter(update, context):
                                 )
                             except BadRequest as excp:
                                 LOGGER.exception("Error in filters: " + excp.message)
-                                pass
                         elif excp.message == "Reply message not found":
                             try:
                                 context.bot.send_message(
@@ -429,7 +418,6 @@ def reply_filter(update, context):
                                 )
                             except BadRequest as excp:
                                 LOGGER.exception("Error in filters: " + excp.message)
-                                pass
                         else:
                             try:
                                 send_message(
@@ -438,7 +426,6 @@ def reply_filter(update, context):
                                 )
                             except BadRequest as excp:
                                 LOGGER.exception("Error in filters: " + excp.message)
-                                pass
                             LOGGER.warning(
                                 "Message %s could not be parsed", str(filt.reply)
                             )
@@ -454,8 +441,8 @@ def reply_filter(update, context):
                         send_message(update.effective_message, filt.reply)
                     except BadRequest as excp:
                         LOGGER.exception("Error in filters: " + excp.message)
-                        pass
-                break
+
+            break
 
 
 @run_async
@@ -467,7 +454,7 @@ def rmall_filters(update, context):
     msg = update.effective_message
 
     usermem = chat.get_member(user.id)
-    if not usermem.status == "creator":
+    if usermem.status != "creator":
         msg.reply_text("This command can be only used by chat OWNER!")
         return
 

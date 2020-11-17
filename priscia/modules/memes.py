@@ -252,11 +252,11 @@ def recite(update, context):
 @typing_action
 def gbun(update, context):
     user = update.effective_user
-    chat = update.effective_chat
-
     if update.effective_message.chat.type == "private":
         return
     if int(user.id) in SUDO_USERS or int(user.id) in SUPPORT_USERS:
+        chat = update.effective_chat
+
         context.bot.sendMessage(chat.id, (random.choice(fun.GBUN)))
 
 
@@ -330,10 +330,7 @@ def copypasta(update, context):
             elif c.lower() == b_char:
                 reply_text += "🅱️"
             else:
-                if bool(random.getrandbits(1)):
-                    reply_text += c.upper()
-                else:
-                    reply_text += c.lower()
+                reply_text += c.upper() if bool(random.getrandbits(1)) else c.lower()
         reply_text += random.choice(emojis)
         message.reply_to_message.reply_text(reply_text)
 
@@ -434,11 +431,11 @@ def iwi(update, context):
 @run_async
 @typing_action
 def mock(update, context):
-    reply_text = []
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("i nEeD MeSsAgE To mOcK.")
     else:
+        reply_text = []
         for charac in message.reply_to_message.text:
             if charac.isalpha() and random.randint(0, 1):
                 to_app = charac.upper() if charac.islower() else charac.lower()

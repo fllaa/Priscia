@@ -41,13 +41,13 @@ def afk(update, context):
 @run_async
 def no_longer_afk(update, context):
     user = update.effective_user
-    message = update.effective_message
-
     if not user:  # ignore channels
         return
 
     res = sql.rm_afk(user.id)
     if res:
+        message = update.effective_message
+
         if message.new_chat_members:  # dont say msg
             return
         firstname = update.effective_user.first_name
@@ -93,32 +93,31 @@ def reply_afk(update, context):
                     return
                 chk_users.append(user_id)
 
-            if ent.type == MessageEntity.MENTION:
-                user_id = get_user_id(
-                    message.text[ent.offset : ent.offset + ent.length]
-                )
-                if not user_id:
-                    # Should never happen, since for a user to become AFK they
-                    # must have spoken. Maybe changed username?
-                    return
-
-                if user_id in chk_users:
-                    return
-                chk_users.append(user_id)
-
-                try:
-                    chat = bot.get_chat(user_id)
-                except BadRequest:
-                    print(
-                        "Error: Could not fetch userid {} for AFK module".format(
-                            user_id
-                        )
-                    )
-                    return
-                fst_name = chat.first_name
-
-            else:
+            if ent.type != MessageEntity.MENTION:
                 return
+
+            user_id = get_user_id(
+                message.text[ent.offset : ent.offset + ent.length]
+            )
+            if not user_id:
+                # Should never happen, since for a user to become AFK they
+                # must have spoken. Maybe changed username?
+                return
+
+            if user_id in chk_users:
+                return
+            chk_users.append(user_id)
+
+            try:
+                chat = bot.get_chat(user_id)
+            except BadRequest:
+                print(
+                    "Error: Could not fetch userid {} for AFK module".format(
+                        user_id
+                    )
+                )
+                return
+            fst_name = chat.first_name
 
             check_afk(update, context, user_id, fst_name, userc_id)
 
@@ -131,14 +130,12 @@ def reply_afk(update, context):
 def check_afk(update, context, user_id, fst_name, userc_id):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
+        if int(userc_id) == int(user_id):
+            return
         if not user.reason:
-            if int(userc_id) == int(user_id):
-                return
             res = "{} is afk".format(fst_name)
             update.effective_message.reply_text(res)
         else:
-            if int(userc_id) == int(user_id):
-                return
             res = "<b>{}</b> is away from keyboard! says it's because of <b>Reason:</b> <code>{}</code>".format(
                 fst_name, user.reason
             )

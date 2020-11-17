@@ -104,7 +104,7 @@ def unmute(update, context):
 
     member = chat.get_member(int(user_id))
 
-    if member.status != "kicked" and member.status != "left":
+    if member.status not in ["kicked", "left"]:
         if (
             member.can_send_messages
             and member.can_send_media_messages
@@ -174,12 +174,11 @@ def temp_mute(update, context):
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user")
-            return ""
-        else:
+        if excp.message != "User not found":
             raise
 
+        message.reply_text("I can't seem to find this user")
+        return ""
     if is_user_admin(chat, user_id, member):
         message.reply_text("I really wish I could mute admins...")
         return ""
@@ -195,11 +194,7 @@ def temp_mute(update, context):
     split_reason = reason.split(None, 1)
 
     time_val = split_reason[0].lower()
-    if len(split_reason) > 1:
-        reason = split_reason[1]
-    else:
-        reason = ""
-
+    reason = split_reason[1] if len(split_reason) > 1 else ""
     mutetime = extract_time(message, time_val)
 
     if not mutetime:

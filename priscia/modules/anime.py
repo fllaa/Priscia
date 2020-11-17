@@ -467,10 +467,10 @@ def button(update, context):
     query_type = data[0]
     original_user_id = int(data[1])
 
-    user_and_admin_list = [original_user_id, OWNER_ID] + SUDO_USERS
-
     bot.answer_callback_query(query.id)
     if query_type == "anime_close":
+        user_and_admin_list = [original_user_id, OWNER_ID] + SUDO_USERS
+
         if query.from_user.id in user_and_admin_list:
             message.delete()
         else:
@@ -507,7 +507,25 @@ def site_search(update, context, site: str):
         message.reply_text("Give something to search")
         return
 
-    if site == "kaizoku":
+    if site == "drive":
+        search_url = f"https://drivenime.com/?s={search_query}"
+        html_text = requests.get(search_url).text
+        soup = bs4.BeautifulSoup(html_text, "html.parser")
+        search_result = soup.find_all("h2", {"class": "title"})
+
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>: \n"
+        for entry in search_result:
+
+            if entry.text.strip() == "Nothing Found":
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>"
+                more_results = False
+                break
+
+            post_link = entry.a["href"]
+            post_name = html.escape(entry.text.strip())
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+
+    elif site == "kaizoku":
         search_url = f"https://animekaizoku.com/?s={search_query}"
         html_text = requests.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
@@ -559,22 +577,22 @@ def site_search(update, context, site: str):
             post_name = html.escape(entry.text.strip())
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
-    elif site == "drive":
-        search_url = f"https://drivenime.com/?s={search_query}"
+    elif site == "neo":
+        search_url = f"https://neonime.vip/?s={search_query}"
         html_text = requests.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("h2", {"class": "title"})
+        search_result = soup.find_all("div", {"class": "item episode-home"})
 
-        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>: \n"
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>: \n"
         for entry in search_result:
 
             if entry.text.strip() == "Nothing Found":
-                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>"
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>"
                 more_results = False
                 break
 
             post_link = entry.a["href"]
-            post_name = html.escape(entry.text.strip())
+            post_name = entry.img["alt"]
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "oploverz":
@@ -593,24 +611,6 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = entry.a["title"]
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
-
-    elif site == "neo":
-        search_url = f"https://neonime.vip/?s={search_query}"
-        html_text = requests.get(search_url).text
-        soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("div", {"class": "item episode-home"})
-
-        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>: \n"
-        for entry in search_result:
-
-            if entry.text.strip() == "Nothing Found":
-                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>"
-                more_results = False
-                break
-
-            post_link = entry.a["href"]
-            post_name = entry.img["alt"]
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "same":

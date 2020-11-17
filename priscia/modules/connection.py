@@ -93,9 +93,9 @@ def connect_chat(update, context):
 
     chat = update.effective_chat
     user = update.effective_user
-    args = context.args
-
     if update.effective_chat.type == "private":
+        args = context.args
+
         if args and len(args) >= 1:
             try:
                 connect_chat = int(args[0])
@@ -263,46 +263,45 @@ def disconnect_chat(update, context):
 
 
 def connected(bot, update, chat, user_id, need_admin=True):
+    if chat.type != chat.PRIVATE or not sql.get_connected_chat(user_id):
+
+        return False
+    conn_id = sql.get_connected_chat(user_id).chat_id
+    getstatusadmin = bot.get_chat_member(
+        conn_id, update.effective_message.from_user.id
+    )
+    isadmin = getstatusadmin.status in ("administrator", "creator")
+    ismember = getstatusadmin.status in ("member")
+    isallow = sql.allow_connect_to_chat(conn_id)
+
     user = update.effective_user
 
-    if chat.type == chat.PRIVATE and sql.get_connected_chat(user_id):
-
-        conn_id = sql.get_connected_chat(user_id).chat_id
-        getstatusadmin = bot.get_chat_member(
-            conn_id, update.effective_message.from_user.id
-        )
-        isadmin = getstatusadmin.status in ("administrator", "creator")
-        ismember = getstatusadmin.status in ("member")
-        isallow = sql.allow_connect_to_chat(conn_id)
-
-        if (
-            (isadmin)
-            or (isallow and ismember)
-            or (user.id in SUDO_USERS)
-            or (user.id in DEV_USERS)
-        ):
-            if need_admin == True:
-                if (
-                    getstatusadmin.status in ("administrator", "creator")
-                    or user_id in SUDO_USERS
-                    or user.id in DEV_USERS
-                ):
-                    return conn_id
-                else:
-                    send_message(
-                        update.effective_message,
-                        "You must be an admin in the connected group!",
-                    )
-            else:
+    if (
+        (isadmin)
+        or (isallow and ismember)
+        or (user.id in SUDO_USERS)
+        or (user.id in DEV_USERS)
+    ):
+        if need_admin == True:
+            if (
+                getstatusadmin.status in ("administrator", "creator")
+                or user_id in SUDO_USERS
+                or user.id in DEV_USERS
+            ):
                 return conn_id
+            else:
+                send_message(
+                    update.effective_message,
+                    "You must be an admin in the connected group!",
+                )
         else:
-            send_message(
-                update.effective_message,
-                "The group changed the connection rights or you are no longer an admin.\nI've disconnected you.",
-            )
-            disconnect_chat(update, bot)
+            return conn_id
     else:
-        return False
+        send_message(
+            update.effective_message,
+            "The group changed the connection rights or you are no longer an admin.\nI've disconnected you.",
+        )
+        disconnect_chat(update, bot)
 
 
 CONN_HELP = """
