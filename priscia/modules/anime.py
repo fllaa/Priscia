@@ -594,6 +594,42 @@ def site_search(update, context, site: str):
             post_link = entry.a["href"]
             post_name = entry.a["title"]
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            
+    elif site == "neo":
+        search_url = f"https://neonime.vip/?s={search_query}"
+        html_text = requests.get(search_url).text
+        soup = bs4.BeautifulSoup(html_text, "html.parser")
+        search_result = soup.find_all("div", {"class": "item episode-home"})
+
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>: \n"
+        for entry in search_result:
+
+            if entry.text.strip() == "Nothing Found":
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>"
+                more_results = False
+                break
+
+            post_link = entry.a["href"]
+            post_name = entry.img["alt"]
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            
+    elif site == "same":
+        search_url = f"https://samehadaku.vip/?s={search_query}"
+        html_text = requests.get(search_url).text
+        soup = bs4.BeautifulSoup(html_text, "html.parser")
+        search_result = soup.find_all("div", {"class": "animposx"})
+
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Samehadaku</code>: \n"
+        for entry in search_result:
+
+            if entry.text.strip() == "Nothing Found":
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Samehadaku</code>"
+                more_results = False
+                break
+
+            post_link = entry.a["href"]
+            post_name = entry.a["title"]
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"        
 
     buttons = [[InlineKeyboardButton("See all results", url=search_url)]]
 
@@ -633,6 +669,16 @@ def drive(update, context):
 @run_async
 def oploverz(update, context):
     site_search(update, context, "oploverz")
+    
+    
+@run_async
+def neo(update, context):
+    site_search(update, context, "neo")
+    
+    
+@run_async
+def same(update, context):
+    site_search(update, context, "same")    
 
 
 __help__ = """
@@ -652,6 +698,8 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  • `/kuso <anime>`*:* Cari anime di kusonime.com
  • `/drive <anime>`*:* Cari anime di drivenime.com
  • `/oploverz <anime>`*:* Cari anime di oploverz.in
+ • `/neo <anime>`*:* Cari anime di neonime.vip
+ • `/same <anime>`*:* Cari anime di samehadaku.vip
 
  """
 
@@ -666,6 +714,8 @@ KAYO_SEARCH_HANDLER = DisableAbleCommandHandler("kayo", kayo)
 KUSO_SEARCH_HANDLER = DisableAbleCommandHandler("kuso", kuso)
 DRIVE_SEARCH_HANDLER = DisableAbleCommandHandler("drive", drive)
 OPLOVERZ_SEARCH_HANDLER = DisableAbleCommandHandler("oploverz", oploverz)
+NEO_SEARCH_HANDLER = DisableAbleCommandHandler("neo", neo)
+SAME_SEARCH_HANDLER = DisableAbleCommandHandler("same", same)
 BUTTON_HANDLER = CallbackQueryHandler(button, pattern="anime_.*")
 
 dispatcher.add_handler(BUTTON_HANDLER)
@@ -679,6 +729,8 @@ dispatcher.add_handler(KAYO_SEARCH_HANDLER)
 dispatcher.add_handler(KUSO_SEARCH_HANDLER)
 dispatcher.add_handler(DRIVE_SEARCH_HANDLER)
 dispatcher.add_handler(OPLOVERZ_SEARCH_HANDLER)
+dispatcher.add_handler(NEO_SEARCH_HANDLER)
+dispatcher.add_handler(SAME_SEARCH_HANDLER)
 dispatcher.add_handler(UPCOMING_HANDLER)
 
 __mod_name__ = "Anime"
@@ -694,6 +746,8 @@ __command_list__ = [
     "kuso",
     "drive",
     "oploverz",
+    "neo",
+    "same",
 ]
 __handlers__ = [
     ANIME_HANDLER,
@@ -706,6 +760,8 @@ __handlers__ = [
     KUSO_SEARCH_HANDLER,
     DRIVE_SEARCH_HANDLER,
     OPLOVERZ_SEARCH_HANDLER,
+    NEO_SEARCH_HANDLER,
+    SAME_SEARCH_HANDLER,
     BUTTON_HANDLER,
     AIRING_HANDLER,
 ]
