@@ -541,6 +541,60 @@ def site_search(update, context, site: str):
             post_name = html.escape(entry.text.strip())
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
+    elif site == "kuso":
+        search_url = f"https://kusonime.com/?s={search_query}"
+        html_text = requests.get(search_url).text
+        soup = bs4.BeautifulSoup(html_text, "html.parser")
+        search_result = soup.find_all("h2", {"class": "title"})
+
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Kusonime</code>: \n"
+        for entry in search_result:
+
+            if entry.text.strip() == "Nothing Found":
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Kusonime</code>"
+                more_results = False
+                break
+
+            post_link = entry.a["href"]
+            post_name = html.escape(entry.text.strip())
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+
+    elif site == "drive":
+        search_url = f"https://drivenime.com/?s={search_query}"
+        html_text = requests.get(search_url).text
+        soup = bs4.BeautifulSoup(html_text, "html.parser")
+        search_result = soup.find_all("h2", {"class": "title"})
+
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>: \n"
+        for entry in search_result:
+
+            if entry.text.strip() == "Nothing Found":
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>"
+                more_results = False
+                break
+
+            post_link = entry.a["href"]
+            post_name = html.escape(entry.text.strip())
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+
+    elif site == "oploverz":
+        search_url = f"https://oploverz.in/?s={search_query}"
+        html_text = requests.get(search_url).text
+        soup = bs4.BeautifulSoup(html_text, "html.parser")
+        search_result = soup.find_all("h2", {"class": "title"})
+
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Oploverz</code>: \n"
+        for entry in search_result:
+
+            if entry.text.strip() == "Nothing Found":
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Oploverz</code>"
+                more_results = False
+                break
+
+            post_link = entry.a["href"]
+            post_name = html.escape(entry.text.strip())
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+
     buttons = [[InlineKeyboardButton("See all results", url=search_url)]]
 
     if more_results:
@@ -566,6 +620,21 @@ def kayo(update, context):
     site_search(update, context, "kayo")
 
 
+@run_async
+def kuso(update, context):
+    site_search(update, context, "kuso")
+
+
+@run_async
+def drive(update, context):
+    site_search(update, context, "drive")
+
+
+@run_async
+def oploverz(update, context):
+    site_search(update, context, "oploverz")
+
+
 __help__ = """
 Get information about anime, manga or characters from [AniList](anilist.co).
 
@@ -579,6 +648,10 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  • `/kaizoku <anime>`*:* search an anime on animekaizoku.com
  • `/kayo <anime>`*:* search an anime on animekayo.com
  • `/airing <anime>`*:* returns anime airing info.
+ *Only for* 🇮🇩
+ • `/kuso <anime>`*:* Cari anime di kusonime.com
+ • `/drive <anime>`*:* Cari anime di drivenime.com
+ • `/oploverz <anime>`*:* Cari anime di oploverz.in
 
  """
 
@@ -590,6 +663,9 @@ USER_HANDLER = DisableAbleCommandHandler("user", user)
 UPCOMING_HANDLER = DisableAbleCommandHandler("upcoming", upcoming)
 KAIZOKU_SEARCH_HANDLER = DisableAbleCommandHandler("kaizoku", kaizoku)
 KAYO_SEARCH_HANDLER = DisableAbleCommandHandler("kayo", kayo)
+KUSO_SEARCH_HANDLER = DisableAbleCommandHandler("kuso", kuso)
+DRIVE_SEARCH_HANDLER = DisableAbleCommandHandler("drive", drive)
+OPLOVERZ_SEARCH_HANDLER = DisableAbleCommandHandler("oploverz", oploverz)
 BUTTON_HANDLER = CallbackQueryHandler(button, pattern="anime_.*")
 
 dispatcher.add_handler(BUTTON_HANDLER)
@@ -600,6 +676,9 @@ dispatcher.add_handler(AIRING_HANDLER)
 dispatcher.add_handler(USER_HANDLER)
 dispatcher.add_handler(KAIZOKU_SEARCH_HANDLER)
 dispatcher.add_handler(KAYO_SEARCH_HANDLER)
+dispatcher.add_handler(KUSO_SEARCH_HANDLER)
+dispatcher.add_handler(DRIVE_SEARCH_HANDLER)
+dispatcher.add_handler(OPLOVERZ_SEARCH_HANDLER)
 dispatcher.add_handler(UPCOMING_HANDLER)
 
 __mod_name__ = "Anime"
@@ -612,6 +691,9 @@ __command_list__ = [
     "kaizoku",
     "airing",
     "kayo",
+    "kuso",
+    "drive",
+    "oploverz",
 ]
 __handlers__ = [
     ANIME_HANDLER,
@@ -621,6 +703,9 @@ __handlers__ = [
     UPCOMING_HANDLER,
     KAIZOKU_SEARCH_HANDLER,
     KAYO_SEARCH_HANDLER,
+    KUSO_SEARCH_HANDLER,
+    DRIVE_SEARCH_HANDLER,
+    OPLOVERZ_SEARCH_HANDLER,
     BUTTON_HANDLER,
     AIRING_HANDLER,
 ]
