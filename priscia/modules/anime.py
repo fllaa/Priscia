@@ -518,7 +518,7 @@ def site_search(update, context, site: str):
             for entry in search_result:
                 post_link = entry.a["href"]
                 post_name = html.escape(entry.text)
-                result += f"• <a href='{post_link}'>{post_name}</a>\n"
+                result += f"• <a href='https://animekaizoku.com/{post_link}'>{post_name}</a>\n"
         else:
             more_results = False
             result = f"<b>No result found for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>"
@@ -579,9 +579,9 @@ def site_search(update, context, site: str):
 
     elif site == "oploverz":
         search_url = f"https://oploverz.in/?s={search_query}"
-        html_text = requests.get(search_url).text
+        html_text = requests.get(search_url, headers={'User-Agent': 'Mozilla/5.0'}).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("h2", {"class": "title"})
+        search_result = soup.find_all("div", {"class": "thumb"})
 
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Oploverz</code>: \n"
         for entry in search_result:
