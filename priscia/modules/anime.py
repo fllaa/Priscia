@@ -579,7 +579,7 @@ def site_search(update, context, site: str):
 
     elif site == "oploverz":
         search_url = f"https://oploverz.in/?s={search_query}"
-        html_text = requests.get(search_url, headers={'User-Agent': 'Mozilla/5.0'}).text
+        html_text = requests.get(search_url, headers={"User-Agent": "Mozilla/5.0"}).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
         search_result = soup.find_all("div", {"class": "dtl"})
 
@@ -594,7 +594,7 @@ def site_search(update, context, site: str):
             post_link = entry.a["href"]
             post_name = entry.a["title"]
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
-            
+
     elif site == "neo":
         search_url = f"https://neonime.vip/?s={search_query}"
         html_text = requests.get(search_url).text
@@ -612,7 +612,7 @@ def site_search(update, context, site: str):
             post_link = entry.a["href"]
             post_name = entry.img["alt"]
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
-            
+
     elif site == "same":
         search_url = f"https://samehadaku.vip/?s={search_query}"
         html_text = requests.get(search_url).text
@@ -629,7 +629,7 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = entry.a["title"]
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"        
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     buttons = [[InlineKeyboardButton("See all results", url=search_url)]]
 
@@ -669,16 +669,16 @@ def drive(update, context):
 @run_async
 def oploverz(update, context):
     site_search(update, context, "oploverz")
-    
-    
+
+
 @run_async
 def neo(update, context):
     site_search(update, context, "neo")
-    
-    
+
+
 @run_async
 def same(update, context):
-    site_search(update, context, "same")    
+    site_search(update, context, "same")
 
 
 __help__ = """

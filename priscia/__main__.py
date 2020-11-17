@@ -47,7 +47,7 @@ buttons = [
         InlineKeyboardButton(
             text="Add to Group 👥", url="t.me/PrisciaBot?startgroup=true"
         ),
-        InlineKeyboardButton(text="Support Group ℹ️", url="https://t.me/prisciasupport"),
+        InlineKeyboardButton(text="Join Channel ℹ️", url="https://t.me/fvllsupport"),
     ]
 ]
 
