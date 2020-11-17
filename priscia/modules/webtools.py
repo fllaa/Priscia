@@ -45,8 +45,8 @@ def speed_convert(size):
 @run_async
 @typing_action
 def get_bot_ip(update, context):
-    """ Sends the bot's IP address, so as to be able to ssh in if necessary.
-        OWNER ONLY.
+    """Sends the bot's IP address, so as to be able to ssh in if necessary.
+    OWNER ONLY.
     """
     res = requests.get("http://ipinfo.io/ip")
     update.message.reply_text(res.text)

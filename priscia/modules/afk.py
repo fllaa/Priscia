@@ -1,5 +1,6 @@
 from typing import Optional
-import random, time
+import random
+import time
 from telegram import MessageEntity
 from telegram.error import BadRequest
 from telegram.ext import Filters, MessageHandler, run_async
@@ -32,8 +33,7 @@ def afk(update, context):
     sql.set_afk(update.effective_user.id, reason)
     afkstr = random.choice(fun.AFK)
     msg = update.effective_message
-    afksend = msg.reply_text(
-        afkstr.format(update.effective_user.first_name, notice))
+    afksend = msg.reply_text(afkstr.format(update.effective_user.first_name, notice))
     time.sleep(5)
     afksend.delete()
 
@@ -164,7 +164,9 @@ AFK_REGEX_HANDLER = DisableAbleMessageHandler(
     Filters.regex("(?i)brb"), afk, friendly="afk"
 )
 NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk)
-AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.group & ~Filters.update.edited_message, reply_afk)
+AFK_REPLY_HANDLER = MessageHandler(
+    Filters.all & Filters.group & ~Filters.update.edited_message, reply_afk
+)
 
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
