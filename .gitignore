@@ -1,7 +1,7 @@
-aoyama/config.py
+priscia/config.py
 logfile
-aoyama.session
-aoyama.session-journal
+priscia.session
+priscia.session-journal
 *.pyc
 .idea/
 .project
@@ -14,5 +14,5 @@ sticker.png
 kangsticker.png
 kangsticker.tgs
 kangsticker
-aoyama.mp3
+priscia.mp3
 gpic.png
