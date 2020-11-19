@@ -1,9 +1,10 @@
 import asyncio
-from priscia import client, SUDO_USERS
 
 from telethon import events
-from telethon.tl.types import ChannelParticipantsAdmins
 from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
+from telethon.tl.types import ChannelParticipantsAdmins
+
+from priscia import SUDO_USERS, client
 
 # Check if user has admin rights
 

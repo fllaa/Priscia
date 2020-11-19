@@ -1,27 +1,28 @@
-import json, time, os
+import json
+import os
+import time
 from io import BytesIO
 
-from telegram import ParseMode, Message
+from telegram import Message, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async
 
-import priscia.modules.sql.notes_sql as sql
-from priscia import dispatcher, LOGGER, OWNER_ID, MESSAGE_DUMP
-from priscia.__main__ import DATA_IMPORT
-from priscia.modules.helper_funcs.chat_status import user_admin
-from priscia.modules.helper_funcs.alternate import typing_action
-
-# from priscia.modules.rules import get_rules
-import priscia.modules.sql.rules_sql as rulessql
-
 # from priscia.modules.sql import warns_sql as warnssql
 import priscia.modules.sql.blacklist_sql as blacklistsql
-from priscia.modules.sql import disable_sql as disabledsql
 
 # from priscia.modules.sql import cust_filters_sql as filtersql
 # import priscia.modules.sql.welcome_sql as welcsql
 import priscia.modules.sql.locks_sql as locksql
+import priscia.modules.sql.notes_sql as sql
+
+# from priscia.modules.rules import get_rules
+import priscia.modules.sql.rules_sql as rulessql
+from priscia import LOGGER, MESSAGE_DUMP, OWNER_ID, dispatcher
+from priscia.__main__ import DATA_IMPORT
 from priscia.modules.connection import connected
+from priscia.modules.helper_funcs.alternate import typing_action
+from priscia.modules.helper_funcs.chat_status import user_admin
+from priscia.modules.sql import disable_sql as disabledsql
 
 
 @run_async
@@ -71,7 +72,7 @@ def import_data(update, context):
 
         # Check if backup is this chat
         try:
-            if data.get(str(chat.id)) == None:
+            if data.get(str(chat.id)) is None:
                 if conn:
                     text = "Backup comes from another chat, I can't return another chat to chat *{}*".format(
                         chat_name
@@ -359,7 +360,7 @@ def export_data(update, context):
 # Temporary data
 def put_chat(chat_id, value, chat_data):
     # print(chat_data)
-    if value == False:
+    if not value:
         status = False
     else:
         status = True

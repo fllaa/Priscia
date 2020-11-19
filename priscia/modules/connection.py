@@ -1,12 +1,12 @@
-import time
 import re
+import time
 
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CommandHandler, CallbackQueryHandler, run_async
+from telegram.ext import CallbackQueryHandler, CommandHandler, run_async
 
 import priscia.modules.sql.connection_sql as sql
-from priscia import dispatcher, SUDO_USERS
+from priscia import SUDO_USERS, dispatcher
 from priscia.modules.helper_funcs import chat_status
 from priscia.modules.helper_funcs.alternate import send_message, typing_action
 
@@ -281,7 +281,7 @@ def connected(bot, update, chat, user_id, need_admin=True):
             or (user.id in SUDO_USERS)
             or (user.id in DEV_USERS)
         ):
-            if need_admin == True:
+            if need_admin:
                 if (
                     getstatusadmin.status in ("administrator", "creator")
                     or user_id in SUDO_USERS
@@ -321,7 +321,7 @@ CONN_HELP = """
 @run_async
 def help_connect_chat(update, context):
 
-    args = context.args
+    context.args
 
     if update.effective_message.chat.type != "private":
         send_message(update.effective_message, "PM me with that command to get help.")

@@ -1,4 +1,5 @@
 import time
+
 from bs4 import BeautifulSoup
 from requests import get
 from telegram import ParseMode
@@ -150,7 +151,7 @@ def twrp(update, context):
             brand = db[newdevice][0]["brand"]
             name = db[newdevice][0]["name"]
             reply += f"*{brand} - {name}*\n"
-        except KeyError as err:
+        except KeyError:
             pass
         page = BeautifulSoup(url.content, "lxml")
         date = page.find("em").text.strip()

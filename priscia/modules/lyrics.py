@@ -1,6 +1,5 @@
-from tswift import Song
-
 from telegram.ext import run_async
+from tswift import Song
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler

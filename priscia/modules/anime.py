@@ -5,10 +5,11 @@ import textwrap
 import bs4
 import jikanpy
 import requests
-from priscia import OWNER_ID, SUDO_USERS, dispatcher
-from priscia.modules.disable import DisableAbleCommandHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.ext import CallbackQueryHandler, run_async
+
+from priscia import OWNER_ID, SUDO_USERS, dispatcher
+from priscia.modules.disable import DisableAbleCommandHandler
 
 info_btn = "More Information"
 kaizoku_btn = "Kaizoku ☠️"
@@ -210,7 +211,7 @@ def anime(update, context):
         msg = msg[:-2] + "`\n"
         info = json.get("siteUrl")
         trailer = json.get("trailer", None)
-        anime_id = json["id"]
+        json["id"]
         if trailer:
             trailer_id = trailer.get("id", None)
             site = trailer.get("site", None)

@@ -1,42 +1,41 @@
 import html
-import random, re
-import wikipedia
-from typing import Optional, List
-from requests import get
-
+import random
+import re
 from io import BytesIO
 from random import randint
-import requests as r
+from typing import Optional
 
+import requests as r
+import wikipedia
+from requests import get
 from telegram import (
-    Message,
     Chat,
-    MessageEntity,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    ParseMode,
     ChatAction,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+    MessageEntity,
+    ParseMode,
     TelegramError,
 )
-
-from telegram.ext import CommandHandler, run_async, Filters
-from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
+from telegram.ext import CommandHandler, Filters, run_async
+from telegram.utils.helpers import escape_markdown, mention_html
 
 from priscia import (
-    dispatcher,
     OWNER_ID,
     SUDO_USERS,
     SUPPORT_USERS,
-    WHITELIST_USERS,
     WALL_API,
+    WHITELIST_USERS,
+    dispatcher,
     spamwtc,
 )
-from priscia.__main__ import STATS, USER_INFO, GDPR
+from priscia.__main__ import GDPR, STATS, USER_INFO
 from priscia.modules.disable import DisableAbleCommandHandler
+from priscia.modules.helper_funcs.alternate import send_action, typing_action
 from priscia.modules.helper_funcs.extraction import extract_user
 from priscia.modules.helper_funcs.filters import CustomFilters
-from priscia.modules.helper_funcs.alternate import typing_action, send_action
 
 
 @run_async
@@ -138,7 +137,7 @@ def info(update, context):
             text += f"\nResason: <pre>{sw.reason}</pre>"
         else:
             pass
-    except:
+    except BaseException:
         pass  # Don't break on exceptions like if api is down?
 
     if user.id == OWNER_ID:
@@ -505,7 +504,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /wiki : Search wikipedia articles.
  × /rmeme: Sends random meme scraped from reddit.
  × /ud <query> : Search stuffs in urban dictionary.
- × /wall <query> : Get random wallpapers directly from bot! 
+ × /wall <query> : Get random wallpapers directly from bot!
  × /reverse : Reverse searches image or stickers on google.
  × /gdpr: Deletes your information from the bot's database. Private chats only.
  × /setuser <username>: sets your last.fm username.

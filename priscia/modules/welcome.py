@@ -1,37 +1,37 @@
-from html import escape
-import time
 import re
+import time
+from html import escape
 
 from telegram import (
-    ParseMode,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    ChatPermissions,
     CallbackQuery,
+    ChatPermissions,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    ParseMode,
 )
 from telegram.error import BadRequest
 from telegram.ext import (
-    MessageHandler,
-    Filters,
-    CommandHandler,
-    run_async,
     CallbackQueryHandler,
+    CommandHandler,
+    Filters,
+    MessageHandler,
+    run_async,
 )
 from telegram.utils.helpers import mention_html
 
 import priscia.modules.sql.welcome_sql as sql
-from priscia.modules.sql.global_bans_sql import is_user_gbanned
-from priscia import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP, spamwtc
-from priscia.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected
+from priscia import LOGGER, MESSAGE_DUMP, OWNER_ID, dispatcher, spamwtc
+from priscia.modules.helper_funcs.alternate import typing_action
+from priscia.modules.helper_funcs.chat_status import is_user_ban_protected, user_admin
 from priscia.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from priscia.modules.helper_funcs.msg_types import get_welcome_type
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.string_handling import (
-    markdown_parser,
     escape_invalid_curly_brackets,
+    markdown_parser,
     markdown_to_html,
 )
 from priscia.modules.log_channel import loggable
+from priscia.modules.sql.global_bans_sql import is_user_gbanned
 
 VALID_WELCOME_FORMATTERS = [
     "first",
@@ -353,7 +353,7 @@ def left_member(update, context):
                 sw = spamwtc.get_ban(int(left_mem.id))
                 if sw:
                     return
-            except:
+            except BaseException:
                 pass
 
             # Ignore bot being kicked

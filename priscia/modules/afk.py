@@ -1,18 +1,15 @@
-from typing import Optional
 import random
 import time
+
 from telegram import MessageEntity
 from telegram.error import BadRequest
 from telegram.ext import Filters, MessageHandler, run_async
 
+import priscia.modules.helper_funcs.fun_strings as fun
 from priscia import dispatcher
-from priscia.modules.disable import (
-    DisableAbleCommandHandler,
-    DisableAbleMessageHandler,
-)
+from priscia.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
 from priscia.modules.sql import afk_sql as sql
 from priscia.modules.users import get_user_id
-import priscia.modules.helper_funcs.fun_strings as fun
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8

@@ -1,18 +1,18 @@
-import speedtest
-import requests
 import datetime
 import platform
 import time
-
-from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
 from platform import python_version
-from telegram import __version__
+
+import requests
+import speedtest
+from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
 from spamwatch import __version__ as __sw__
-from telegram import ParseMode
-from telegram.ext import CommandHandler, run_async, Filters
-from priscia import dispatcher, OWNER_ID
-from priscia.modules.helper_funcs.filters import CustomFilters
+from telegram import ParseMode, __version__
+from telegram.ext import CommandHandler, Filters, run_async
+
+from priscia import OWNER_ID, dispatcher
 from priscia.modules.helper_funcs.alternate import typing_action
+from priscia.modules.helper_funcs.filters import CustomFilters
 
 
 @typing_action

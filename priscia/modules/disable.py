@@ -1,23 +1,23 @@
 from typing import Union
 
 from future.utils import string_types
-from telegram import ParseMode, Update, Chat
+from telegram import Chat, ParseMode, Update
 from telegram.ext import CommandHandler, MessageHandler
 from telegram.utils.helpers import escape_markdown
 
 from priscia import dispatcher
+from priscia.modules.connection import connected
+from priscia.modules.helper_funcs.alternate import send_message, typing_action
 from priscia.modules.helper_funcs.handlers import CMD_STARTERS
 from priscia.modules.helper_funcs.misc import is_module_loaded
-from priscia.modules.helper_funcs.alternate import send_message, typing_action
-from priscia.modules.connection import connected
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 # If module is due to be loaded, then setup all the magical handlers
 if is_module_loaded(FILENAME):
-    from priscia.modules.helper_funcs.chat_status import user_admin, is_user_admin
     from telegram.ext.dispatcher import run_async
 
+    from priscia.modules.helper_funcs.chat_status import is_user_admin, user_admin
     from priscia.modules.sql import disable_sql as sql
 
     DISABLE_CMDS = []
@@ -143,7 +143,6 @@ if is_module_loaded(FILENAME):
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
         if conn:
             chat = dispatcher.bot.getChat(conn)
-            chat_id = conn
             chat_name = dispatcher.bot.getChat(conn).title
         else:
             if update.effective_message.chat.type == "private":
@@ -153,7 +152,7 @@ if is_module_loaded(FILENAME):
                 )
                 return ""
             chat = update.effective_chat
-            chat_id = update.effective_chat.id
+            update.effective_chat.id
             chat_name = update.effective_message.chat.title
 
         if len(args) >= 1:
@@ -211,7 +210,6 @@ if is_module_loaded(FILENAME):
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
         if conn:
             chat = dispatcher.bot.getChat(conn)
-            chat_id = conn
         else:
             if update.effective_message.chat.type == "private":
                 send_message(
@@ -220,7 +218,7 @@ if is_module_loaded(FILENAME):
                 )
                 return ""
             chat = update.effective_chat
-            chat_id = update.effective_chat.id
+            update.effective_chat.id
 
         text = build_curr_disabled(chat.id)
         send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
@@ -267,7 +265,8 @@ It'll also allow you to autodelete them, stopping people from bluetexting.
     COMMANDS_HANDLER = CommandHandler(
         ["cmds", "disabled"], commands
     )  # , filters=Filters.group)
-    TOGGLE_HANDLER = CommandHandler("listcmds", list_cmds)  # , filters=Filters.group)
+    # , filters=Filters.group)
+    TOGGLE_HANDLER = CommandHandler("listcmds", list_cmds)
 
     dispatcher.add_handler(DISABLE_HANDLER)
     dispatcher.add_handler(ENABLE_HANDLER)

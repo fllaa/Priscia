@@ -1,8 +1,9 @@
+from telegram import ParseMode
+from telegram.ext import run_async
+
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
 from priscia.modules.helper_funcs.alternate import typing_action
-from telegram import ParseMode
-from telegram.ext import run_async
 
 normiefont = [
     "a",

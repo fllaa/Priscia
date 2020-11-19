@@ -1,18 +1,16 @@
-from typing import Optional, List
-from gtts import gTTS
-import os
-import requests
 import json
-from emoji import UNICODE_EMOJI
+import os
 
+import requests
+from emoji import UNICODE_EMOJI
+from googletrans import Translator
+from gtts import gTTS
 from telegram import ChatAction
 from telegram.ext import run_async
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action, send_action
-
-from googletrans import Translator
+from priscia.modules.helper_funcs.alternate import send_action, typing_action
 
 
 @run_async
@@ -35,7 +33,7 @@ def gtrans(update, context):
         trl = translated.src
         results = translated.text
         msg.reply_text("Translated from {} to {}.\n {}".format(trl, lang, results))
-    except:
+    except BaseException:
         msg.reply_text("Error! invalid language code.")
 
 
@@ -86,7 +84,8 @@ def spellcheck(update, context):
             end = change.get("To") + 1
             suggestions = change.get("Suggestions")
             if suggestions:
-                sugg_str = suggestions[0].get("Text")  # should look at this list more
+                # should look at this list more
+                sugg_str = suggestions[0].get("Text")
                 curr_string += msg.text[prev_end:start] + sugg_str
                 prev_end = end
 

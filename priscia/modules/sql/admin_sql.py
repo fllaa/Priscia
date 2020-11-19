@@ -1,5 +1,4 @@
 import threading
-from typing import Union
 
 from sqlalchemy import Column, Integer, String
 

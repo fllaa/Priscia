@@ -3,37 +3,43 @@ import re
 from typing import Optional
 
 import telegram
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, User
-from telegram import Message, Chat
+from telegram import (
+    Chat,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+    ParseMode,
+    User,
+)
 from telegram.error import BadRequest
 from telegram.ext import (
-    CommandHandler,
-    run_async,
-    DispatcherHandlerStop,
-    MessageHandler,
-    Filters,
     CallbackQueryHandler,
+    CommandHandler,
+    DispatcherHandlerStop,
+    Filters,
+    MessageHandler,
+    run_async,
 )
 from telegram.utils.helpers import mention_html
 
 from priscia import dispatcher  # BAN_STICKER
 from priscia.modules.disable import DisableAbleCommandHandler
+from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.chat_status import (
-    is_user_admin,
     bot_admin,
-    user_admin_no_reply,
-    user_admin,
     can_restrict,
+    is_user_admin,
+    user_admin,
+    user_admin_no_reply,
 )
 from priscia.modules.helper_funcs.extraction import (
     extract_text,
-    extract_user_and_text,
     extract_user,
+    extract_user_and_text,
 )
 from priscia.modules.helper_funcs.filters import CustomFilters
 from priscia.modules.helper_funcs.misc import split_message
 from priscia.modules.helper_funcs.string_handling import split_quotes
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.log_channel import loggable
 from priscia.modules.sql import warns_sql as sql
 
@@ -73,7 +79,8 @@ def warn(
         for warn_reason in reasons:
             reply += "\n - {}".format(html.escape(warn_reason))
 
-        # message.bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
+        # message.bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie
+        # sticker
         keyboard = None
         log_reason = (
             "<b>{}:</b>"
@@ -324,7 +331,8 @@ def add_warn_filter(update, context):
     extracted = split_quotes(args[1])
 
     if len(extracted) >= 2:
-        # set trigger -> lower, so as to avoid adding duplicate filters with different cases
+        # set trigger -> lower, so as to avoid adding duplicate filters with
+        # different cases
         keyword = extracted[0].lower()
         content = extracted[1]
 
@@ -555,7 +563,7 @@ __help__ = """
  × /rmwarn <userhandle>: Removes latest warn for a user. It also can be used as reply.
  × /unwarn <userhandle>: Same as /rmwarn
  × /addwarn <keyword> <reply message>: Sets a warning filter on a certain keyword. If you want your keyword to \
-be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is an angry user`. 
+be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is an angry user`.
  × /nowarn <keyword>: Stops a warning filter
  × /warnlimit <num>: Sets the warning limit
  × /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just kick.

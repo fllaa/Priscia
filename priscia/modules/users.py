@@ -1,14 +1,13 @@
 from io import BytesIO
 from time import sleep
-from typing import Optional
 
 from telegram import TelegramError
 from telegram.error import BadRequest
-from telegram.ext import MessageHandler, Filters, CommandHandler
+from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.ext.dispatcher import run_async
 
 import priscia.modules.sql.users_sql as sql
-from priscia import dispatcher, OWNER_ID, LOGGER
+from priscia import LOGGER, OWNER_ID, dispatcher
 from priscia.modules.helper_funcs.filters import CustomFilters
 
 USERS_GROUP = 4

@@ -1,8 +1,9 @@
 import requests
-from priscia import dispatcher
-from priscia.modules.disable import DisableAbleCommandHandler
 from telegram import ParseMode
 from telegram.ext import run_async
+
+from priscia import dispatcher
+from priscia.modules.disable import DisableAbleCommandHandler
 
 
 @run_async

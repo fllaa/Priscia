@@ -1,14 +1,12 @@
 # Last.fm module by @TheRealPhoenix - https://github.com/rsktg
 
 import requests
-
 from telegram import ParseMode
-from telegram.ext import run_async, CommandHandler
-
-from priscia import dispatcher, LASTFM_API_KEY
-from priscia.modules.disable import DisableAbleCommandHandler
+from telegram.ext import CommandHandler, run_async
 
 import priscia.modules.sql.last_fm_sql as sql
+from priscia import LASTFM_API_KEY, dispatcher
+from priscia.modules.disable import DisableAbleCommandHandler
 
 
 @run_async

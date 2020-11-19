@@ -9,26 +9,23 @@ from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 from priscia import dispatcher
+from priscia.modules.connection import connected
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.chat_status import (
-    bot_admin,
-    can_promote,
-    user_admin,
-    can_pin,
-)
-from priscia.modules.helper_funcs.extraction import extract_user, extract_user_and_text
 from priscia.modules.helper_funcs.admin_rights import (
+    user_can_changeinfo,
     user_can_pin,
     user_can_promote,
-    user_can_changeinfo,
 )
 from priscia.modules.helper_funcs.alternate import typing_action
-from priscia.modules.connection import connected
+from priscia.modules.helper_funcs.chat_status import (
+    bot_admin,
+    can_pin,
+    can_promote,
+    user_admin,
+)
+from priscia.modules.helper_funcs.extraction import extract_user, extract_user_and_text
 from priscia.modules.log_channel import loggable
 from priscia.modules.sql import admin_sql as sql
-from priscia.modules.helper_funcs.alternate import typing_action
-from priscia.modules.connection import connected
-from priscia.modules.log_channel import loggable
 
 
 @run_async
@@ -220,7 +217,7 @@ def permanent_pin_set(update, context) -> str:
     if conn:
         chat = dispatcher.bot.getChat(conn)
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        dispatcher.bot.getChat(conn).title
         if not args:
             get_permapin = sql.get_permapin(chat_id)
             text_maker = "Permanent pin is currently set:`{}`".format(
@@ -253,7 +250,7 @@ def permanent_pin_set(update, context) -> str:
             return ""
         chat = update.effective_chat
         chat_id = update.effective_chat.id
-        chat_name = update.effective_message.chat.title
+        update.effective_message.chat.title
         if update.effective_message.reply_to_message:
             prev_message = update.effective_message.reply_to_message.message_id
         elif len(args) >= 1 and args[0] == "off":
@@ -365,7 +362,7 @@ def invite(update, context):
     user = update.effective_user
     msg = update.effective_message
     chat = update.effective_chat
-    args = context.args
+    context.args
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:
