@@ -461,7 +461,7 @@ def imdb(update, context):
                         mov_language.append(i.text)
         if soup.findAll("div", "ratingValue"):
             for r in soup.findAll("div", "ratingValue"):
-                mov_rating = requests.strong["title"]
+                mov_rating = r.strong["title"]
         else:
             mov_rating = "Not available"
         update.effective_message.reply_text(
