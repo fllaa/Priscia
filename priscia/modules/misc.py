@@ -4,10 +4,10 @@ import re
 from io import BytesIO
 from random import randint
 from typing import Optional
-from bs4 import BeautifulSoup
 
 import requests as r
 import wikipedia
+from bs4 import BeautifulSoup
 from requests import get
 from telegram import (
     Chat,
@@ -393,7 +393,7 @@ def wall(update, context):
                     timeout=60,
                 )
 
-                
+
 @run_async
 @typing_action
 def imdb(update, context):
@@ -401,7 +401,9 @@ def imdb(update, context):
         movie_name = context.args(1)
         remove_space = movie_name.split(" ")
         final_name = "+".join(remove_space)
-        page = r.get("https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all")
+        page = r.get(
+            "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
+        )
         str(page.status_code)
         soup = BeautifulSoup(page.content, "lxml")
         odds = soup.findAll("tr", "odd")
@@ -488,7 +490,7 @@ def imdb(update, context):
         )
     except IndexError:
         update.effective_message.reply_text("Plox enter **Valid movie name** kthx")
-                
+
 
 @run_async
 @typing_action
