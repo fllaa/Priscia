@@ -4,9 +4,8 @@
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/843cdeb7f4124dd39eb3930939478259)](https://app.codacy.com/manual/Fallavall/Priscia?utm_source=github.com&utm_medium=referral&utm_content=Fallavall/Priscia&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/149aa62b46a14eb4b0b6fdd46f294ad3)](https://www.codacy.com/gh/Fallavall/Priscia/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Fallavall/Priscia&amp;utm_campaign=Badge_Grade)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 ![logo](https://telegra.ph/file/b11ef1ec276a2d85e4c46.png)
 
