@@ -464,30 +464,9 @@ def imdb(update, context):
                 mov_rating = r.strong["title"]
         else:
             mov_rating = "Not available"
-        update.effective_message.reply_text(
-            "<a href=" + poster + ">&#8203;</a>"
-            "<b>Title : </b><code>"
-            + mov_title
-            + "</code>\n<code>"
-            + mov_details
-            + "</code>\n<b>Rating : </b><code>"
-            + mov_rating
-            + "</code>\n<b>Country : </b><code>"
-            + mov_country[0]
-            + "</code>\n<b>Language : </b><code>"
-            + mov_language[0]
-            + "</code>\n<b>Director : </b><code>"
-            + director
-            + "</code>\n<b>Writer : </b><code>"
-            + writer
-            + "</code>\n<b>Stars : </b><code>"
-            + stars
-            + "</code>\n<b>IMDB Url : </b>"
-            + mov_link
-            + "\n<b>Story Line : </b>"
-            + story_line,
-            link_preview=True,
-            parse_mode="HTML",
+        msg = f"*Title :* {mov_title}\n{mov_details}\n*Rating :* {mov_rating} \n*Country :*  {mov_country}\n*Language :* {mov_language}\n*Director :* {director}\n*Writer :* {writer}\n*Stars :* {stars}\n*IMDB Url :* {mov_link}\n*Story Line :* {story_line}"
+        update.effective_message.reply_photo(
+            photo=poster, caption=msg, parse_mode=ParseMode.MARKDOWN
         )
     except IndexError:
         update.effective_message.reply_text("Plox enter **Valid movie name** kthx")
