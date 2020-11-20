@@ -5,7 +5,7 @@ from io import BytesIO
 from random import randint
 from typing import Optional
 
-import requests as r
+import requests
 import wikipedia
 from bs4 import BeautifulSoup
 from requests import get
@@ -361,7 +361,7 @@ def wall(update, context):
     else:
         caption = query
         term = query.replace(" ", "%20")
-        json_rep = r.get(
+        json_rep = requests.get(
             f"https://wall.alphacoders.com/api2.0/get.php?auth={WALL_API}&method=search&term={term}"
         ).json()
         if not json_rep.get("success"):
@@ -402,7 +402,7 @@ def imdb(update, context):
         movie_name = " ".join(args)
         remove_space = movie_name.split(" ")
         final_name = "+".join(remove_space)
-        page = r.get(
+        page = requests.get(
             "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
         )
         str(page.status_code)
@@ -412,7 +412,7 @@ def imdb(update, context):
         mov_link = (
             "http://www.imdb.com/" + odds[0].findNext("td").findNext("td").a["href"]
         )
-        page1 = r.get(mov_link)
+        page1 = requests.get(mov_link)
         soup = BeautifulSoup(page1.content, "lxml")
         if soup.find("div", "poster"):
             poster = soup.find("div", "poster").img["src"]
@@ -461,7 +461,7 @@ def imdb(update, context):
                         mov_language.append(i.text)
         if soup.findAll("div", "ratingValue"):
             for r in soup.findAll("div", "ratingValue"):
-                mov_rating = r.strong["title"]
+                mov_rating = requests.strong["title"]
         else:
             mov_rating = "Not available"
         update.effective_message.reply_text(
@@ -543,7 +543,7 @@ def rmemes(update, context):
     ]
 
     subreddit = random.choice(SUBREDS)
-    res = r.get(f"https://meme-api.herokuapp.com/gimme/{subreddit}")
+    res = requests.get(f"https://meme-api.herokuapp.com/gimme/{subreddit}")
 
     if res.status_code != 200:  # Like if api is down?
         msg.reply_text("Sorry some error occurred :(")
