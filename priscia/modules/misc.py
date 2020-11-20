@@ -398,7 +398,8 @@ def wall(update, context):
 @typing_action
 def imdb(update, context):
     try:
-        movie_name = context.args(1)
+        args = context.args
+        movie_name = " ".join(args)
         remove_space = movie_name.split(" ")
         final_name = "+".join(remove_space)
         page = r.get(
