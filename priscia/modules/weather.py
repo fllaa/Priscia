@@ -40,7 +40,7 @@ def weather(update, context):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={APPID}"
     request = requests.get(url)
     result = json.loads(request.text)
-    if request.status_code != 200:
+    if request.status_code == 404:
         reply = "Location not valid."
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
