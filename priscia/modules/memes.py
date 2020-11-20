@@ -505,6 +505,7 @@ Some dank memes for fun or whatever!
  × /stretch:  streeeeeeetch iiiiiiit.
  × /warm: Hug a user warmly, or get hugged if not a reply.
  × /punch: Punch a user, or get punched if not a reply.
+ × /mock: mOcKinG wHoLe TexT.
 
 *Regex based memes:*
 
