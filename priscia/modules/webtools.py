@@ -3,7 +3,9 @@ import html
 import os
 import platform
 import subprocess
+import sys
 import time
+import traceback
 from platform import python_version
 
 import requests
@@ -175,9 +177,24 @@ def restart(update, context):
         )
 
     os.system("bash start")
+    
+    
+@run_async
+def executor(update, context):
+	msg = update.effective_message
+	if msg.text:
+		args = msg.text.split(None, 1)
+		code = args[1]
+		chat = msg.chat.id
+		try:
+			exec(code)
+		except:
+			exc_type, exc_obj, exc_tb = sys.exc_info()
+			errors = traceback.format_exception(etype=exc_type, value=exc_obj, tb=exc_tb)
+			send_message(update.effective_message, "**Execute**\n`{}`\n\n*Failed:*\n```{}```".format(code, "".join(errors)), parse_mode="markdown")
 
 
-IP_HANDLER = CommandHandler("ip", get_bot_ip, filters=Filters.chat(OWNER_ID))
+IP_HANDLER = CommandHandler("ip", get_bot_ip, filters=Filters.user(OWNER_ID))
 PING_HANDLER = CommandHandler("ping", ping, filters=CustomFilters.sudo_filter)
 SPEED_HANDLER = CommandHandler("speedtest", speedtst, filters=CustomFilters.sudo_filter)
 SYS_STATUS_HANDLER = CommandHandler(
@@ -191,6 +208,7 @@ LEAVECHAT_HANDLER = CommandHandler(
 )
 GITPULL_HANDLER = CommandHandler("gitpull", gitpull, filters=CustomFilters.sudo_filter)
 RESTART_HANDLER = CommandHandler("reboot", restart, filters=CustomFilters.sudo_filter)
+EXEC_HANDLER = CommandHandler("exec", executor, filters=Filters.user(OWNER_ID))
 
 dispatcher.add_handler(IP_HANDLER)
 dispatcher.add_handler(SPEED_HANDLER)
@@ -199,3 +217,4 @@ dispatcher.add_handler(SYS_STATUS_HANDLER)
 dispatcher.add_handler(LEAVECHAT_HANDLER)
 dispatcher.add_handler(GITPULL_HANDLER)
 dispatcher.add_handler(RESTART_HANDLER)
+dispatcher.add_handler(EXEC_HANDLER)
