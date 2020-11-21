@@ -106,8 +106,8 @@ def system_status(update, context):
     status += "<b>Library version:</b> <code>" + str(__version__) + "</code>\n"
     status += "<b>Spamwatch API:</b> <code>" + str(__sw__) + "</code>\n"
     context.bot.sendMessage(update.effective_chat.id, status, parse_mode=ParseMode.HTML)
-    
-    
+
+
 @run_async
 @typing_action
 def leavechat(update, context):
@@ -134,14 +134,13 @@ def leavechat(update, context):
             )
 
         else:
-            return    
+            return
 
-            
+
 @run_async
 @typing_action
 def gitpull(update, context):
-    sent_msg = update.effective_message.reply_text(
-        "Pulling all changes from remote...")
+    sent_msg = update.effective_message.reply_text("Pulling all changes from remote...")
     subprocess.Popen("git pull", stdout=subprocess.PIPE, shell=True)
 
     sent_msg_text = (
@@ -175,8 +174,8 @@ def restart(update, context):
             disable_web_page_preview=True,
         )
 
-    os.system("bash start")          
-            
+    os.system("bash start")
+
 
 IP_HANDLER = CommandHandler("ip", get_bot_ip, filters=Filters.chat(OWNER_ID))
 PING_HANDLER = CommandHandler("ping", ping, filters=CustomFilters.sudo_filter)
@@ -190,10 +189,8 @@ LEAVECHAT_HANDLER = CommandHandler(
     pass_args=True,
     filters=CustomFilters.sudo_filter,
 )
-GITPULL_HANDLER = CommandHandler(
-    "gitpull", gitpull, filters=CustomFilters.sudo_filter)
-RESTART_HANDLER = CommandHandler(
-    "reboot", restart, filters=CustomFilters.sudo_filter)
+GITPULL_HANDLER = CommandHandler("gitpull", gitpull, filters=CustomFilters.sudo_filter)
+RESTART_HANDLER = CommandHandler("reboot", restart, filters=CustomFilters.sudo_filter)
 
 dispatcher.add_handler(IP_HANDLER)
 dispatcher.add_handler(SPEED_HANDLER)
