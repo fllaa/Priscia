@@ -18,7 +18,7 @@ telegraph
 pillow
 psutil
 speedtest-cli>=2.0.2
-googletrans
+translators
 wikipedia
 spamwatch
 bleach

@@ -2,8 +2,8 @@ import json
 import os
 
 import requests
+import translators as ts
 from emoji import UNICODE_EMOJI
-from googletrans import Translator
 from gtts import gTTS
 from telegram import ChatAction
 from telegram.ext import run_async
@@ -29,13 +29,10 @@ def gtrans(update, context):
     for emoji in ignore_text:
         if emoji in translate_text:
             translate_text = translate_text.replace(emoji, "")
-
-    translator = Translator()
+            
     try:
-        translated = translator.translate(translate_text, dest=lang)
-        trl = translated.src
-        results = translated.text
-        msg.reply_text("Translated from {} to {}.\n {}".format(trl, lang, results))
+        translated = ts.google(translate_text, to_language=lang)
+        msg.reply_text("Result translation to {}.\n {}".format(lang, translated))
     except BaseException:
         msg.reply_text("Error! invalid language code.")
 
