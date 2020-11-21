@@ -177,21 +177,29 @@ def restart(update, context):
         )
 
     os.system("bash start")
-    
-    
+
+
 @run_async
 def executor(update, context):
-	msg = update.effective_message
-	if msg.text:
-		args = msg.text.split(None, 1)
-		code = args[1]
-		chat = msg.chat.id
-		try:
-			exec(code)
-		except:
-			exc_type, exc_obj, exc_tb = sys.exc_info()
-			errors = traceback.format_exception(etype=exc_type, value=exc_obj, tb=exc_tb)
-			send_message(update.effective_message, "**Execute**\n`{}`\n\n*Failed:*\n```{}```".format(code, "".join(errors)), parse_mode="markdown")
+    msg = update.effective_message
+    if msg.text:
+        args = msg.text.split(None, 1)
+        code = args[1]
+        msg.chat.id
+        try:
+            exec(code)
+        except BaseException:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            errors = traceback.format_exception(
+                etype=exc_type, value=exc_obj, tb=exc_tb
+            )
+            send_message(
+                update.effective_message,
+                "**Execute**\n`{}`\n\n*Failed:*\n```{}```".format(
+                    code, "".join(errors)
+                ),
+                parse_mode="markdown",
+            )
 
 
 IP_HANDLER = CommandHandler("ip", get_bot_ip, filters=Filters.user(OWNER_ID))
