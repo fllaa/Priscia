@@ -1,5 +1,8 @@
 import datetime
+import html
+import os
 import platform
+import subprocess
 import time
 from platform import python_version
 
@@ -8,9 +11,10 @@ import speedtest
 from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
 from spamwatch import __version__ as __sw__
 from telegram import ParseMode, __version__
+from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, run_async
 
-from priscia import OWNER_ID, dispatcher
+from priscia import MESSAGE_DUMP, OWNER_ID, dispatcher
 from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.filters import CustomFilters
 
@@ -102,7 +106,77 @@ def system_status(update, context):
     status += "<b>Library version:</b> <code>" + str(__version__) + "</code>\n"
     status += "<b>Spamwatch API:</b> <code>" + str(__sw__) + "</code>\n"
     context.bot.sendMessage(update.effective_chat.id, status, parse_mode=ParseMode.HTML)
+    
+    
+@run_async
+@typing_action
+def leavechat(update, context):
+    args = context.args
+    msg = update.effective_message
+    if args:
+        chat_id = int(args[0])
 
+    else:
+        msg.reply_text("Bro.. Give Me ChatId And boom!!")
+    try:
+        titlechat = context.bot.get_chat(chat_id).title
+        context.bot.sendMessage(
+            chat_id,
+            "I'm here trying to survive, but this world is too cruel, goodbye everyone 😌",
+        )
+        context.bot.leaveChat(chat_id)
+        msg.reply_text("I have left the group {}".format(titlechat))
+
+    except BadRequest as excp:
+        if excp.message == "bot is not a member of the supergroup chat":
+            msg = update.effective_message.reply_text(
+                "I'Am not Joined The Group, Maybe You set wrong id or I Already Kicked out"
+            )
+
+        else:
+            return    
+
+            
+@run_async
+@typing_action
+def gitpull(update, context):
+    sent_msg = update.effective_message.reply_text(
+        "Pulling all changes from remote...")
+    subprocess.Popen("git pull", stdout=subprocess.PIPE, shell=True)
+
+    sent_msg_text = (
+        sent_msg.text
+        + "\n\nChanges pulled... I guess..\nContinue to restart with /reboot "
+    )
+    sent_msg.edit_text(sent_msg_text)
+
+
+@run_async
+@typing_action
+def restart(update, context):
+    user = update.effective_message.from_user
+
+    update.effective_message.reply_text(
+        "Starting a new instance and shutting down this one"
+    )
+
+    if MESSAGE_DUMP:
+        datetime_fmt = "%H:%M - %d-%m-%Y"
+        current_time = datetime.datetime.utcnow().strftime(datetime_fmt)
+        message = (
+            f"<b>Bot Restarted </b>"
+            f"<b>By :</b> <code>{html.escape(user.first_name)}</code>"
+            f"<b>\nDate Bot Restart : </b><code>{current_time}</code>"
+        )
+        context.bot.send_message(
+            chat_id=MESSAGE_DUMP,
+            text=message,
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
+        )
+
+    os.system("bash start")          
+            
 
 IP_HANDLER = CommandHandler("ip", get_bot_ip, filters=Filters.chat(OWNER_ID))
 PING_HANDLER = CommandHandler("ping", ping, filters=CustomFilters.sudo_filter)
@@ -110,8 +184,21 @@ SPEED_HANDLER = CommandHandler("speedtest", speedtst, filters=CustomFilters.sudo
 SYS_STATUS_HANDLER = CommandHandler(
     "sysinfo", system_status, filters=CustomFilters.sudo_filter
 )
+LEAVECHAT_HANDLER = CommandHandler(
+    ["leavechat", "leavegroup", "leave"],
+    leavechat,
+    pass_args=True,
+    filters=CustomFilters.sudo_filter,
+)
+GITPULL_HANDLER = CommandHandler(
+    "gitpull", gitpull, filters=CustomFilters.sudo_filter)
+RESTART_HANDLER = CommandHandler(
+    "reboot", restart, filters=CustomFilters.sudo_filter)
 
 dispatcher.add_handler(IP_HANDLER)
 dispatcher.add_handler(SPEED_HANDLER)
 dispatcher.add_handler(PING_HANDLER)
 dispatcher.add_handler(SYS_STATUS_HANDLER)
+dispatcher.add_handler(LEAVECHAT_HANDLER)
+dispatcher.add_handler(GITPULL_HANDLER)
+dispatcher.add_handler(RESTART_HANDLER)
