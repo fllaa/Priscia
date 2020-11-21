@@ -29,7 +29,7 @@ def gtrans(update, context):
     for emoji in ignore_text:
         if emoji in translate_text:
             translate_text = translate_text.replace(emoji, "")
-            
+
     try:
         translated = ts.google(translate_text, to_language=lang)
         msg.reply_text("Result translation to {}.\n {}".format(lang, translated))
