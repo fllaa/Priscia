@@ -733,36 +733,3 @@ dispatcher.add_handler(OPLOVERZ_SEARCH_HANDLER)
 dispatcher.add_handler(NEO_SEARCH_HANDLER)
 dispatcher.add_handler(SAME_SEARCH_HANDLER)
 dispatcher.add_handler(UPCOMING_HANDLER)
-
-__mod_name__ = "Anime"
-__command_list__ = [
-    "anime",
-    "manga",
-    "character",
-    "user",
-    "upcoming",
-    "kaizoku",
-    "airing",
-    "kayo",
-    "kuso",
-    "drive",
-    "oploverz",
-    "neo",
-    "same",
-]
-__handlers__ = [
-    ANIME_HANDLER,
-    CHARACTER_HANDLER,
-    MANGA_HANDLER,
-    USER_HANDLER,
-    UPCOMING_HANDLER,
-    KAIZOKU_SEARCH_HANDLER,
-    KAYO_SEARCH_HANDLER,
-    KUSO_SEARCH_HANDLER,
-    DRIVE_SEARCH_HANDLER,
-    OPLOVERZ_SEARCH_HANDLER,
-    NEO_SEARCH_HANDLER,
-    SAME_SEARCH_HANDLER,
-    BUTTON_HANDLER,
-    AIRING_HANDLER,
-]
