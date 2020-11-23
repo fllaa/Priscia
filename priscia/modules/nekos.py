@@ -1,5 +1,4 @@
 import nekos
-
 from telegram import ParseMode
 from telegram.ext import run_async
 
@@ -15,242 +14,246 @@ def nekoimage(update, context, site: str):
 
 
 def nekovideo(update, context, site: str):
-	message = update.effective_message
-	img = nekos.img(site)
-	message.reply_video(video=img, caption=site, parse_mode=ParseMode.MARKDOWN)
+    message = update.effective_message
+    img = nekos.img(site)
+    message.reply_video(video=img, caption=site, parse_mode=ParseMode.MARKDOWN)
 
 
 def nekodoc(update, context, site: str):
-	message = update.effective_message
-	img = nekos.img(site)
-	message.reply_document(document=img, filename=site.jpg, parse_mode=ParseMode.MARKDOWN)
+    message = update.effective_message
+    img = nekos.img(site)
+    message.reply_document(
+        document=img, filename=site.jpg, parse_mode=ParseMode.MARKDOWN
+    )
+
 
 @run_async
 @typing_action
 def pussy(update, context):
-  nekoimage(update, context, "pussy_jpg")
+    nekoimage(update, context, "pussy_jpg")
 
 
 @run_async
 @typing_action
 def hentaig(update, context):
-  nekovideo(update, context, "hentaig")
+    nekovideo(update, context, "hentaig")
 
 
 @run_async
 @typing_action
 def neko(update, context):
-  nekodoc(update, context, "neko")
+    nekodoc(update, context, "neko")
 
 
 @run_async
 @typing_action
 def feet(update, context):
-  nekoimage(update, context, "feet")
+    nekoimage(update, context, "feet")
 
 
 @run_async
 @typing_action
 def yuri(update, context):
-  nekoimage(update, context, "yuri")
+    nekoimage(update, context, "yuri")
 
 
 @run_async
 @typing_action
 def trap(update, context):
-  nekoimage(update, context, "trap")
+    nekoimage(update, context, "trap")
 
 
 @run_async
 @typing_action
 def futunari(update, context):
-  nekoimage(update, context, "futunari")
+    nekoimage(update, context, "futunari")
 
 
 @run_async
 @typing_action
 def hololewd(update, context):
-  nekoimage(update, context, "hololewd")
+    nekoimage(update, context, "hololewd")
 
 
 @run_async
 @typing_action
 def lewdkemo(update, context):
-  nekoimage(update, context, "lewdkemo")
+    nekoimage(update, context, "lewdkemo")
 
 
 @run_async
 @typing_action
 def solog(update, context):
-  nekovideo(update, context, "solog")
+    nekovideo(update, context, "solog")
 
 
 @run_async
 @typing_action
 def feetg(update, context):
-  nekovideo(update, context, "feetg") 
+    nekovideo(update, context, "feetg")
 
 
 @run_async
 @typing_action
 def cumgif(update, context):
-  nekovideo(update, context, "cum")
+    nekovideo(update, context, "cum")
 
 
 @run_async
 @typing_action
 def erokemo(update, context):
-  nekoimage(update, context, "erokemo")
+    nekoimage(update, context, "erokemo")
 
 
 @run_async
 @typing_action
 def lesbian(update, context):
-  nekoimage(update, context, "les")
+    nekoimage(update, context, "les")
 
 
 @run_async
 @typing_action
 def wallpaper(update, context):
-  nekodoc(update, context, "wallpaper")
+    nekodoc(update, context, "wallpaper")
 
 
 @run_async
 @typing_action
 def lewdk(update, context):
-  nekoimage(update, context, "lewdk")
+    nekoimage(update, context, "lewdk")
 
 
 @run_async
 @typing_action
 def ngif(update, context):
-  nekovideo(update, context, "ngif")
+    nekovideo(update, context, "ngif")
 
 
 @run_async
 @typing_action
 def tickle(update, context):
-  nekoimage(update, context, "tickle")
+    nekoimage(update, context, "tickle")
 
 
 @run_async
 @typing_action
 def lewd(update, context):
-  nekoimage(update, context, "lewd")
+    nekoimage(update, context, "lewd")
 
 
 @run_async
 @typing_action
 def feed(update, context):
-  nekoimage(update, context, "feed")
+    nekoimage(update, context, "feed")
 
 
 @run_async
 @typing_action
 def eroyuri(update, context):
-  nekoimage(update, context, "eroyuri")
+    nekoimage(update, context, "eroyuri")
 
 
 @run_async
 @typing_action
 def eron(update, context):
-  nekoimage(update, context, "eron")
+    nekoimage(update, context, "eron")
 
 
 @run_async
 @typing_action
 def cum(update, context):
-  nekoimage(update, context, "cum_jpg")
+    nekoimage(update, context, "cum_jpg")
 
 
 @run_async
 @typing_action
 def bjgif(update, context):
-  nekovideo(update, context, "bj")
+    nekovideo(update, context, "bj")
 
 
 @run_async
 @typing_action
 def bj(update, context):
-  nekoimage(update, context, "blowjob")
+    nekoimage(update, context, "blowjob")
+
 
 @run_async
 @typing_action
 def nekonsfw(update, context):
-  nekovideo(update, context, "neko_nsfw_gif")
+    nekovideo(update, context, "neko_nsfw_gif")
 
 
 @run_async
 @typing_action
 def solo(update, context):
-  nekoimage(update, context, "solo")
+    nekoimage(update, context, "solo")
 
 
 @run_async
 @typing_action
 def kemonomimi(update, context):
-  nekoimage(update, context, "kemonomimi")
+    nekoimage(update, context, "kemonomimi")
 
 
 @run_async
 @typing_action
 def pokegif(update, context):
-  nekovideo(update, context, "poke")
+    nekovideo(update, context, "poke")
 
 
 @run_async
 @typing_action
 def analgif(update, context):
-  nekovideo(update, context, "anal")
-
+    nekovideo(update, context, "anal")
 
 
 @run_async
 @typing_action
 def hentai(update, context):
-  nekoimage(update, context, "hentai")
+    nekoimage(update, context, "hentai")
 
 
 @run_async
 @typing_action
 def erofeet(update, context):
-  nekoimage(update, context, "erofeet")
+    nekoimage(update, context, "erofeet")
 
 
 @run_async
 @typing_action
 def holo(update, context):
-  nekoimage(update, context, "holo")
+    nekoimage(update, context, "holo")
 
 
 @run_async
 @typing_action
 def pussygif(update, context):
-  nekovideo(update, context, "pussy")
+    nekovideo(update, context, "pussy")
 
 
 @run_async
 @typing_action
 def tits(update, context):
-  nekoimage(update, context, "tits")
+    nekoimage(update, context, "tits")
 
 
 @run_async
 @typing_action
 def holoero(update, context):
-  nekoimage(update, context, "holoero")
+    nekoimage(update, context, "holoero")
 
 
 @run_async
 @typing_action
 def classic(update, context):
-  nekovideo(update, context, "classic")
+    nekovideo(update, context, "classic")
 
 
 @run_async
 @typing_action
 def kuni(update, context):
-  nekovideo(update, context, "kuni")
+    nekovideo(update, context, "kuni")
+
 
 __help__ = """
 Get images from [Nekos API](nekos.life)
