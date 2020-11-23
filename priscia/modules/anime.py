@@ -704,8 +704,8 @@ Get information about anime, manga or characters from [AniList](anilist.co).
 
  """
 
-__mod_name__ = "Anime" 
- 
+__mod_name__ = "Anime"
+
 ANIME_HANDLER = DisableAbleCommandHandler("anime", anime)
 AIRING_HANDLER = DisableAbleCommandHandler("airing", airing)
 CHARACTER_HANDLER = DisableAbleCommandHandler("character", character)
