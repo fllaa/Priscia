@@ -26,3 +26,4 @@ git+https://github.com/Fallavall/python-markdown2.git
 alphabet_detector
 jikanpy
 tswift
+nekos
