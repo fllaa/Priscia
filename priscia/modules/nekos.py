@@ -22,9 +22,7 @@ def nekovideo(update, context, site: str):
 def nekodoc(update, context, site: str):
     message = update.effective_message
     img = nekos.img(site)
-    message.reply_document(
-        document=img, parse_mode=ParseMode.MARKDOWN
-    )
+    message.reply_document(document=img, parse_mode=ParseMode.MARKDOWN)
 
 
 @run_async
