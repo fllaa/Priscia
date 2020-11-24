@@ -125,8 +125,8 @@ def foxgirl(update, context):
 @typing_action
 def hug(update, context):
     nekovideo(update, context, "hug")
- 
- 
+
+
 @run_async
 @typing_action
 def smug(update, context):
