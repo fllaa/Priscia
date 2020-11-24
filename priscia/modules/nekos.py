@@ -27,74 +27,8 @@ def nekodoc(update, context, site: str):
 
 @run_async
 @typing_action
-def pussy(update, context):
-    nekoimage(update, context, "pussy_jpg")
-
-
-@run_async
-@typing_action
-def hentaig(update, context):
-    nekovideo(update, context, "hentaig")
-
-
-@run_async
-@typing_action
 def neko(update, context):
     nekodoc(update, context, "neko")
-
-
-@run_async
-@typing_action
-def feet(update, context):
-    nekoimage(update, context, "feet")
-
-
-@run_async
-@typing_action
-def yuri(update, context):
-    nekoimage(update, context, "yuri")
-
-
-@run_async
-@typing_action
-def trap(update, context):
-    nekoimage(update, context, "trap")
-
-
-@run_async
-@typing_action
-def futunari(update, context):
-    nekoimage(update, context, "futunari")
-
-
-@run_async
-@typing_action
-def hololewd(update, context):
-    nekoimage(update, context, "hololewd")
-
-
-@run_async
-@typing_action
-def lewdkemo(update, context):
-    nekoimage(update, context, "lewdkemo")
-
-
-@run_async
-@typing_action
-def solog(update, context):
-    nekovideo(update, context, "solog")
-
-
-@run_async
-@typing_action
-def feetg(update, context):
-    nekovideo(update, context, "feetg")
-
-
-@run_async
-@typing_action
-def cumgif(update, context):
-    nekovideo(update, context, "cum")
 
 
 @run_async
@@ -105,20 +39,8 @@ def erokemo(update, context):
 
 @run_async
 @typing_action
-def lesbian(update, context):
-    nekoimage(update, context, "les")
-
-
-@run_async
-@typing_action
 def wallpaper(update, context):
     nekodoc(update, context, "wallpaper")
-
-
-@run_async
-@typing_action
-def lewdk(update, context):
-    nekoimage(update, context, "lewdk")
 
 
 @run_async
@@ -135,56 +57,20 @@ def tickle(update, context):
 
 @run_async
 @typing_action
-def lewd(update, context):
-    nekoimage(update, context, "lewd")
-
-
-@run_async
-@typing_action
 def feed(update, context):
     nekoimage(update, context, "feed")
 
 
 @run_async
 @typing_action
-def eroyuri(update, context):
-    nekoimage(update, context, "eroyuri")
-
-
-@run_async
-@typing_action
-def eron(update, context):
+def eroneko(update, context):
     nekoimage(update, context, "eron")
 
 
 @run_async
 @typing_action
-def cum(update, context):
-    nekoimage(update, context, "cum_jpg")
-
-
-@run_async
-@typing_action
-def bjgif(update, context):
-    nekovideo(update, context, "bj")
-
-
-@run_async
-@typing_action
-def bj(update, context):
-    nekoimage(update, context, "blowjob")
-
-
-@run_async
-@typing_action
 def nekonsfw(update, context):
-    nekovideo(update, context, "neko_nsfw_gif")
-
-
-@run_async
-@typing_action
-def solo(update, context):
-    nekoimage(update, context, "solo")
+    nekovideo(update, context, "nsfw_neko_gif")
 
 
 @run_async
@@ -195,152 +81,126 @@ def kemonomimi(update, context):
 
 @run_async
 @typing_action
-def pokegif(update, context):
+def poke(update, context):
     nekovideo(update, context, "poke")
 
 
 @run_async
 @typing_action
-def analgif(update, context):
-    nekovideo(update, context, "anal")
+def avatar(update, context):
+    nekoimage(update, context, "avatar")
 
 
 @run_async
 @typing_action
-def hentai(update, context):
-    nekoimage(update, context, "hentai")
+def pwankg(update, context):
+    nekovideo(update, context, "pwankg")
 
 
 @run_async
 @typing_action
-def erofeet(update, context):
-    nekoimage(update, context, "erofeet")
+def waifu(update, context):
+    nekoimage(update, context, "waifu")
 
 
 @run_async
 @typing_action
-def holo(update, context):
-    nekoimage(update, context, "holo")
+def pat(update, context):
+    nekovideo(update, context, "pat")
 
 
 @run_async
 @typing_action
-def pussygif(update, context):
-    nekovideo(update, context, "pussy")
+def cuddle(update, context):
+    nekovideo(update, context, "cuddle")
 
 
 @run_async
 @typing_action
-def tits(update, context):
-    nekoimage(update, context, "tits")
+def foxgirl(update, context):
+    nekovideo(update, context, "fox_girls")
 
 
 @run_async
 @typing_action
-def holoero(update, context):
-    nekoimage(update, context, "holoero")
+def hug(update, context):
+    nekovideo(update, context, "hug")
+ 
+ 
+@run_async
+@typing_action
+def smug(update, context):
+    nekovideo(update, context, "smug")
 
 
 @run_async
 @typing_action
-def classic(update, context):
-    nekovideo(update, context, "classic")
+def goose(update, context):
+    nekovideo(update, context, "goose")
 
 
 @run_async
 @typing_action
-def kuni(update, context):
-    nekovideo(update, context, "kuni")
+def baka(update, context):
+    nekovideo(update, context, "baka")
+
+
+@run_async
+@typing_action
+def woof(update, context):
+    nekovideo(update, context, "woof")
 
 
 __help__ = """
 Get images from [Nekos API](nekos.life)
-× /pussy   × /hentaig   × /neko   × /feet   × /yuri
-× /trap   × /futunari   × /hololewd   × /lewdkemo
-× /solog   × /feetg   × /cumgif   × /erokemo   × /lesbian
-× /wallpaper   × lewdk   × /ngif   × /tickle   × /lewd
-× /feed   × /eroyuri   × /eron   × /cum   × /bjgif
-× /bj   × /nekonsfw   × /solo   × /kemonomimi   × pokegif
-× /analgif   × /hentai   × /erofeet   × /holo   × /pussygif
-× /tits   × /holoero   × /classic   × /kuni
+× /neko × /erokemo × /wallpaper × /ngif × /tickle
+× /feed × /eron × /nekonsfw × /kemonomimi × /poke
+× /avatar × /pwankg × /waifu × /pat × /cuddle
+× /foxgirl × /hug × /smug × /goose × /baka × /woof
 """
 
-__modname__ = "Nekos"
+__mod_name__ = "Nekos"
 
-PUSSY_HANDLER = DisableAbleCommandHandler("pussy", pussy)
-HENTAIG_HANDLER = DisableAbleCommandHandler("hentaig", hentaig)
 NEKO_HANDLER = DisableAbleCommandHandler("neko", neko)
-FEET_HANDLER = DisableAbleCommandHandler("feet", feet)
-YURI_HANDLER = DisableAbleCommandHandler("yuri", yuri)
-TRAP_HANDLER = DisableAbleCommandHandler("trap", trap)
-FUTUNARI_HANDLER = DisableAbleCommandHandler("futunari", futunari)
-HOLOLEWD_HANDLER = DisableAbleCommandHandler("hololewd", hololewd)
-LEWDKEMO_HANDLER = DisableAbleCommandHandler("lewdkemo", lewdkemo)
-SOLOG_HANDLER = DisableAbleCommandHandler("solog", solog)
-FEETG_HANDLER = DisableAbleCommandHandler("feetg", feetg)
-CUMGIF_HANDLER = DisableAbleCommandHandler("cumgif", cumgif)
 EROKEMO_HANDLER = DisableAbleCommandHandler("erokemo", erokemo)
-LESBIAN_HANDLER = DisableAbleCommandHandler("lesbian", lesbian)
 WALLPAPER_HANDLER = DisableAbleCommandHandler("wallpaper", wallpaper)
-LEWDK_HANDLER = DisableAbleCommandHandler("lewdk", lewdk)
 NGIF_HANDLER = DisableAbleCommandHandler("ngif", ngif)
 TICKLE_HANDLER = DisableAbleCommandHandler("tickle", tickle)
-LEWD_HANDLER = DisableAbleCommandHandler("lewd", lewd)
 FEED_HANDLER = DisableAbleCommandHandler("feed", feed)
-EROYURI_HANDLER = DisableAbleCommandHandler("eroyuri", eroyuri)
-ERON_HANDLER = DisableAbleCommandHandler("eron", eron)
-CUM_HANDLER = DisableAbleCommandHandler("cum", cum)
-BJGIF_HANDLER = DisableAbleCommandHandler("bjgif", bjgif)
-BJ_HANDLER = DisableAbleCommandHandler("bj", bj)
+ERONEKO_HANDLER = DisableAbleCommandHandler("eroneko", eroneko)
 NEKONSFW_HANDLER = DisableAbleCommandHandler("nekonsfw", nekonsfw)
-SOLO_HANDLER = DisableAbleCommandHandler("solo", solo)
 KEMONOMIMI_HANDLER = DisableAbleCommandHandler("kemonomimi", kemonomimi)
-POKEGIF_HANDLER = DisableAbleCommandHandler("pokegif", pokegif)
-ANALGIF_HANDLER = DisableAbleCommandHandler("analgif", analgif)
-HENTAI_HANDLER = DisableAbleCommandHandler("hentai", hentai)
-EROFEET_HANDLER = DisableAbleCommandHandler("erofeet", erofeet)
-HOLO_HANDLER = DisableAbleCommandHandler("holo", holo)
-PUSSYGIF_HANDLER = DisableAbleCommandHandler("pussygif", pussygif)
-TITS_HANDLER = DisableAbleCommandHandler("tits", tits)
-HOLOERO_HANDLER = DisableAbleCommandHandler("holoero", holoero)
-CLASSIC_HANDLER = DisableAbleCommandHandler("classic", classic)
-KUNI_HANDLER = DisableAbleCommandHandler("kuni", kuni)
+POKE_HANDLER = DisableAbleCommandHandler("poke", poke)
+AVATAR_HANDLER = DisableAbleCommandHandler("avatar", avatar)
+PWANKG_HANDLER = DisableAbleCommandHandler("pwankg", pwankg)
+WAIFU_HANDLER = DisableAbleCommandHandler("waifu", waifu)
+PAT_HANDLER = DisableAbleCommandHandler("pat", pat)
+CUDDLE_HANDLER = DisableAbleCommandHandler("cuddle", cuddle)
+FOXGIRL_HANDLER = DisableAbleCommandHandler("foxgirl", foxgirl)
+HUG_HANDLER = DisableAbleCommandHandler("hug", hug)
+SMUG_HANDLER = DisableAbleCommandHandler("smug", smug)
+GOOSE_HANDLER = DisableAbleCommandHandler("goose", goose)
+BAKA_HANDLER = DisableAbleCommandHandler("baka", baka)
+WOOF_HANDLER = DisableAbleCommandHandler("woof", woof)
 
-dispatcher.add_handler(PUSSY_HANDLER)
-dispatcher.add_handler(HENTAIG_HANDLER)
 dispatcher.add_handler(NEKO_HANDLER)
-dispatcher.add_handler(FEET_HANDLER)
-dispatcher.add_handler(YURI_HANDLER)
-dispatcher.add_handler(TRAP_HANDLER)
-dispatcher.add_handler(FUTUNARI_HANDLER)
-dispatcher.add_handler(HOLOLEWD_HANDLER)
-dispatcher.add_handler(LEWDKEMO_HANDLER)
-dispatcher.add_handler(SOLOG_HANDLER)
-dispatcher.add_handler(FEETG_HANDLER)
-dispatcher.add_handler(CUMGIF_HANDLER)
 dispatcher.add_handler(EROKEMO_HANDLER)
-dispatcher.add_handler(LESBIAN_HANDLER)
 dispatcher.add_handler(WALLPAPER_HANDLER)
-dispatcher.add_handler(LEWDK_HANDLER)
 dispatcher.add_handler(NGIF_HANDLER)
 dispatcher.add_handler(TICKLE_HANDLER)
-dispatcher.add_handler(LEWD_HANDLER)
 dispatcher.add_handler(FEED_HANDLER)
-dispatcher.add_handler(EROYURI_HANDLER)
-dispatcher.add_handler(ERON_HANDLER)
-dispatcher.add_handler(CUM_HANDLER)
-dispatcher.add_handler(BJGIF_HANDLER)
-dispatcher.add_handler(BJ_HANDLER)
+dispatcher.add_handler(ERONEKO_HANDLER)
 dispatcher.add_handler(NEKONSFW_HANDLER)
-dispatcher.add_handler(SOLO_HANDLER)
 dispatcher.add_handler(KEMONOMIMI_HANDLER)
-dispatcher.add_handler(POKEGIF_HANDLER)
-dispatcher.add_handler(ANALGIF_HANDLER)
-dispatcher.add_handler(HENTAI_HANDLER)
-dispatcher.add_handler(EROFEET_HANDLER)
-dispatcher.add_handler(HOLO_HANDLER)
-dispatcher.add_handler(PUSSYGIF_HANDLER)
-dispatcher.add_handler(TITS_HANDLER)
-dispatcher.add_handler(HOLOERO_HANDLER)
-dispatcher.add_handler(CLASSIC_HANDLER)
-dispatcher.add_handler(KUNI_HANDLER)
+dispatcher.add_handler(POKE_HANDLER)
+dispatcher.add_handler(AVATAR_HANDLER)
+dispatcher.add_handler(PWANKG_HANDLER)
+dispatcher.add_handler(WAIFU_HANDLER)
+dispatcher.add_handler(PAT_HANDLER)
+dispatcher.add_handler(CUDDLE_HANDLER)
+dispatcher.add_handler(FOXGIRL_HANDLER)
+dispatcher.add_handler(HUG_HANDLER)
+dispatcher.add_handler(SMUG_HANDLER)
+dispatcher.add_handler(GOOSE_HANDLER)
+dispatcher.add_handler(BAKA_HANDLER)
+dispatcher.add_handler(WOOF_HANDLER)
