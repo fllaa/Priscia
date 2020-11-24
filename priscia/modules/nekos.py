@@ -10,20 +10,20 @@ from priscia.modules.helper_funcs.alternate import typing_action
 def nekoimage(update, context, site: str):
     message = update.effective_message
     img = nekos.img(site)
-    message.reply_photo(photo=img, caption=site, parse_mode=ParseMode.MARKDOWN)
+    message.reply_photo(photo=img, parse_mode=ParseMode.MARKDOWN)
 
 
 def nekovideo(update, context, site: str):
     message = update.effective_message
     img = nekos.img(site)
-    message.reply_video(video=img, caption=site, parse_mode=ParseMode.MARKDOWN)
+    message.reply_video(video=img, parse_mode=ParseMode.MARKDOWN)
 
 
 def nekodoc(update, context, site: str):
     message = update.effective_message
     img = nekos.img(site)
     message.reply_document(
-        document=img, filename=site.jpg, parse_mode=ParseMode.MARKDOWN
+        document=img, parse_mode=ParseMode.MARKDOWN
     )
 
 
@@ -258,8 +258,8 @@ def kuni(update, context):
 __help__ = """
 Get images from [Nekos API](nekos.life)
 × /pussy   × /hentaig   × /neko   × /feet   × /yuri
-× /trap   × futunari   × /hololewd   × /lewdkemo
-× /solog   × feetg   × /cumgif   × /erokemo   × /lesbian
+× /trap   × /futunari   × /hololewd   × /lewdkemo
+× /solog   × /feetg   × /cumgif   × /erokemo   × /lesbian
 × /wallpaper   × lewdk   × /ngif   × /tickle   × /lewd
 × /feed   × /eroyuri   × /eron   × /cum   × /bjgif
 × /bj   × /nekonsfw   × /solo   × /kemonomimi   × pokegif
