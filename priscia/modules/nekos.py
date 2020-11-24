@@ -69,12 +69,6 @@ def eroneko(update, context):
 
 @run_async
 @typing_action
-def nekonsfw(update, context):
-    nekovideo(update, context, "nsfw_neko_gif")
-
-
-@run_async
-@typing_action
 def kemonomimi(update, context):
     nekoimage(update, context, "kemonomimi")
 
@@ -89,12 +83,6 @@ def poke(update, context):
 @typing_action
 def avatar(update, context):
     nekoimage(update, context, "avatar")
-
-
-@run_async
-@typing_action
-def pwankg(update, context):
-    nekovideo(update, context, "pwankg")
 
 
 @run_async
@@ -118,15 +106,15 @@ def cuddle(update, context):
 @run_async
 @typing_action
 def foxgirl(update, context):
-    nekovideo(update, context, "fox_girls")
+    nekoimage(update, context, "fox_girl")
 
 
 @run_async
 @typing_action
 def hug(update, context):
     nekovideo(update, context, "hug")
-
-
+ 
+ 
 @run_async
 @typing_action
 def smug(update, context):
@@ -136,7 +124,7 @@ def smug(update, context):
 @run_async
 @typing_action
 def goose(update, context):
-    nekovideo(update, context, "goose")
+    nekoimage(update, context, "goose")
 
 
 @run_async
@@ -148,15 +136,15 @@ def baka(update, context):
 @run_async
 @typing_action
 def woof(update, context):
-    nekovideo(update, context, "woof")
+    nekoimage(update, context, "woof")
 
 
 __help__ = """
-Get images from [Nekos API](nekos.life)
+Get random images from [Nekos API](nekos.life)
 × /neko × /erokemo × /wallpaper × /ngif × /tickle
-× /feed × /eron × /nekonsfw × /kemonomimi × /poke
-× /avatar × /pwankg × /waifu × /pat × /cuddle
-× /foxgirl × /hug × /smug × /goose × /baka × /woof
+× /feed × /eron × /kemonomimi × /poke × /avatar
+× /waifu × /pat × /cuddle × /foxgirl × /hug
+× /smug × /goose × /baka × /woof
 """
 
 __mod_name__ = "Nekos"
@@ -168,11 +156,9 @@ NGIF_HANDLER = DisableAbleCommandHandler("ngif", ngif)
 TICKLE_HANDLER = DisableAbleCommandHandler("tickle", tickle)
 FEED_HANDLER = DisableAbleCommandHandler("feed", feed)
 ERONEKO_HANDLER = DisableAbleCommandHandler("eroneko", eroneko)
-NEKONSFW_HANDLER = DisableAbleCommandHandler("nekonsfw", nekonsfw)
 KEMONOMIMI_HANDLER = DisableAbleCommandHandler("kemonomimi", kemonomimi)
 POKE_HANDLER = DisableAbleCommandHandler("poke", poke)
 AVATAR_HANDLER = DisableAbleCommandHandler("avatar", avatar)
-PWANKG_HANDLER = DisableAbleCommandHandler("pwankg", pwankg)
 WAIFU_HANDLER = DisableAbleCommandHandler("waifu", waifu)
 PAT_HANDLER = DisableAbleCommandHandler("pat", pat)
 CUDDLE_HANDLER = DisableAbleCommandHandler("cuddle", cuddle)
@@ -190,11 +176,9 @@ dispatcher.add_handler(NGIF_HANDLER)
 dispatcher.add_handler(TICKLE_HANDLER)
 dispatcher.add_handler(FEED_HANDLER)
 dispatcher.add_handler(ERONEKO_HANDLER)
-dispatcher.add_handler(NEKONSFW_HANDLER)
 dispatcher.add_handler(KEMONOMIMI_HANDLER)
 dispatcher.add_handler(POKE_HANDLER)
 dispatcher.add_handler(AVATAR_HANDLER)
-dispatcher.add_handler(PWANKG_HANDLER)
 dispatcher.add_handler(WAIFU_HANDLER)
 dispatcher.add_handler(PAT_HANDLER)
 dispatcher.add_handler(CUDDLE_HANDLER)
