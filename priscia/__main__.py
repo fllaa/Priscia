@@ -35,7 +35,7 @@ from priscia.modules.helper_funcs.alternate import typing_action
 
 
 PM_START_TEXT = f"""
-Hey there! my name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, Click Help button.
+Kon'nichiwa! my name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, Click Help button.
 
 I'm here to make your group management fun and easy!
 i have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
@@ -52,7 +52,7 @@ buttons = [
             url="t.me/PrisciaBot?startgroup=true"),
         InlineKeyboardButton(
             text="Join Channel ℹ️",
-            url="https://t.me/fvllsupport"),
+            url="https://t.me/fvllprojekt"),
     ]]
 
 buttons += [[InlineKeyboardButton(text="Help & Commands ❔",
@@ -60,9 +60,9 @@ buttons += [[InlineKeyboardButton(text="Help & Commands ❔",
 
 
 HELP_STRINGS = f"""
-Hello there! My name is *{dispatcher.bot.first_name}*.
-I'm a modular group management bot with a few fun extras! Have a look at the following for an idea of some of \
-the things I can help you with.
+Kon'nichiwa! My name is *{dispatcher.bot.first_name}*.
+I'm a advanced modular group management bot with a lot of additional features! \
+Have a look at the following for an idea of some of the things I can help you with.
 
 *Main* commands available:
  × /start: Starts me, can be used to check i'm alive or no...
@@ -174,8 +174,8 @@ def start(update, context):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            update.effective_message.reply_photo(
-                "https://telegra.ph/file/99b13fa90b5a862c5c7d6.png",
+            update.effective_message.reply_video(
+                "https://telegra.ph/file/47343fdcd34ccdccd4867.mp4",
                 PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
