@@ -65,7 +65,7 @@ RUN apt update && apt upgrade -y && \
 RUN pip3 install --upgrade pip setuptools
 
 # Copy Python Requirements to /root/Priscia
-RUN git clone https://github.com/Fallavall/Priscia /root/Priscia
+RUN git clone https://github.com/AkaruiAikara/Priscia /root/Priscia
 WORKDIR /root/Priscia
 
 #Copy config file to /root/Priscia/priscia

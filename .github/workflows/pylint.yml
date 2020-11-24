@@ -76,8 +76,8 @@ jobs:
 
           repository: .
 
-          commit_user_name: Fallavall
+          commit_user_name: AkaruiAikara
 
           commit_user_email: fallahandyprakasa26@gmail.com
 
-          commit_author: Fallavall <fallahandyprakasa26@gmail.com>
+          commit_author: AkaruiAikara <fallahandyprakasa26@gmail.com>

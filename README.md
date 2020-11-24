@@ -1,10 +1,10 @@
-# PRISCIA - ペリセイア
+# Priscia • ペリセイア
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
+[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/AkaruiAikara/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/149aa62b46a14eb4b0b6fdd46f294ad3)](https://www.codacy.com/gh/Fallavall/Priscia/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Fallavall/Priscia&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/149aa62b46a14eb4b0b6fdd46f294ad3)](https://www.codacy.com/gh/AkaruiAikara/Priscia/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Fallavall/Priscia&amp;utm_campaign=Badge_Grade)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ![logo](https://telegra.ph/file/b11ef1ec276a2d85e4c46.png)
@@ -16,7 +16,7 @@ simple to use. Note that this project uses well-known Telegram-bot of it's time 
 
 Can be found on telegram as [Priscia](https://t.me/PrisciaBot).
 
-Join the [news channel](https://t.me/PrisciaUpdateCh) if you just want to stay in the loop about new features or
+Join the [news channel](https://t.me/fvllprojekt) if you just want to stay in the loop about new features or
 announcements.
 
 ## Credits
@@ -71,8 +71,8 @@ from priscia.sample_config import Config
 
 
 class Development(Config):
-    OWNER_ID =  894380120 # my telegram ID
-    OWNER_USERNAME = "starryboi"  # my telegram username
+    OWNER_ID =  1063318130 # my telegram ID
+    OWNER_USERNAME = "falla_vall"  # my telegram username
     API_KEY = "your bot api key"  # my api key, as provided by the botfather
     SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost:5432/database'  # sample db credentials
     MESSAGE_DUMP = '-1234567890' # some group chat that your bot is a member of

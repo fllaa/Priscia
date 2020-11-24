@@ -338,16 +338,6 @@ def ud(update, context):
 
 
 @run_async
-@typing_action
-def src(update, context):
-    update.effective_message.reply_text(
-        "Hey there! You can find what makes me click [here](www.github.com/Fallavall/Priscia).",
-        parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True,
-    )
-
-
-@run_async
 @send_action(ChatAction.UPLOAD_PHOTO)
 def wall(update, context):
     chat_id = update.effective_chat.id
@@ -614,7 +604,6 @@ STAFFLIST_HANDLER = CommandHandler(
     "staffids", staff_ids, filters=Filters.user(OWNER_ID)
 )
 REDDIT_MEMES_HANDLER = DisableAbleCommandHandler("rmeme", rmemes)
-SRC_HANDLER = CommandHandler("source", src, filters=Filters.private)
 
 dispatcher.add_handler(WALLPAPER_HANDLER)
 dispatcher.add_handler(UD_HANDLER)
@@ -628,5 +617,4 @@ dispatcher.add_handler(WIKI_HANDLER)
 dispatcher.add_handler(GETLINK_HANDLER)
 dispatcher.add_handler(STAFFLIST_HANDLER)
 dispatcher.add_handler(REDDIT_MEMES_HANDLER)
-dispatcher.add_handler(SRC_HANDLER)
 dispatcher.add_handler(IMDB_HANDLER)
