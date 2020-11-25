@@ -577,7 +577,7 @@ def covid(update, context):
     """
     try:
         message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
-    except:
+    except BaseException:
         message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 
 
