@@ -561,7 +561,10 @@ def covid(update, context):
     json_date = case["updated"]
     float_date = float(json_date) / 1000.0
     date = datetime.datetime.fromtimestamp(float_date).strftime("%d %b %Y %I:%M:%S %p")
-    flag = case["countryInfo"]["flag"]
+    try:
+        flag = case["countryInfo"]["flag"]
+    except KeyError:
+        pass
     text = f"""
     *Corona virus Statistics in {country} :*
     Last Updated on {date}\n
@@ -574,7 +577,7 @@ def covid(update, context):
     """
     try:
         message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
-    except KeyError:
+    except:
         message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 
 
