@@ -1,3 +1,4 @@
+import datetime
 import html
 import random
 import re
@@ -5,6 +6,7 @@ from io import BytesIO
 from random import randint
 from typing import Optional
 
+import json
 import requests
 import wikipedia
 from bs4 import BeautifulSoup
@@ -544,6 +546,40 @@ def rmemes(update, context):
 
 
 @run_async
+@typing_action
+def covid(update, context):
+    message = update.effective_message
+    args = context.args
+    country = " ".join(args)
+    if not country:
+        url = "https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=true"
+        case_country = "World"
+    else:
+        url = f"https://disease.sh/v3/covid-19/countries/{country}?yesterday=false&twoDaysAgo=false&strict=true&allowNull=true"
+        case_country = "country"
+    try:
+        request = requests.get(url).text
+        case = json.loads(request)
+        json_date = case['updated']
+        int_date = int(json_date[:10])
+        date = datetime.datetime.fromtimestamp(int_date).strftime('%d %b %Y %I:%M:%S %p')
+        flag = case['flag']
+        text = f"""
+        *Corona virus Statistics in {case_country}*\n
+        Last Updated on {date}\n\n
+        Confirmed Cases : {case['cases']} +{case['todayCases']} on today\n
+        Active Cases : {case['active']}\n
+        Deaths : {case['deaths']} +{case['todayDeaths']} on today\n
+        Recovered Cases: {case['recovered']} +{case['todayRecovered']} on today\n
+        Total Tests : {case['tests']}\n
+        Populations : {case['population']}\n
+        """
+        message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
+    except Exception:
+        message.reply_text("An Error have occured! Are you sure the country name is correct?")
+
+
+@run_async
 def staff_ids(update, context):
     sfile = "List of SUDO & SUPPORT users:\n"
     sfile += f"× SUDO USER IDs; {SUDO_USERS}\n"
@@ -600,6 +636,7 @@ UD_HANDLER = DisableAbleCommandHandler("ud", ud)
 GETLINK_HANDLER = CommandHandler(
     "getlink", getlink, pass_args=True, filters=Filters.user(OWNER_ID)
 )
+COVID_HANDLER = DisableAbleCommandHandler("covid", covid)
 STAFFLIST_HANDLER = CommandHandler(
     "staffids", staff_ids, filters=Filters.user(OWNER_ID)
 )
@@ -615,6 +652,7 @@ dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(WIKI_HANDLER)
 dispatcher.add_handler(GETLINK_HANDLER)
+dispatcher.add_handler(COVID_HANDLER)
 dispatcher.add_handler(STAFFLIST_HANDLER)
 dispatcher.add_handler(REDDIT_MEMES_HANDLER)
 dispatcher.add_handler(IMDB_HANDLER)
