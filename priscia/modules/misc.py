@@ -557,30 +557,25 @@ def covid(update, context):
     else:
         url = f"https://disease.sh/v3/covid-19/countries/{country}?yesterday=false&twoDaysAgo=false&strict=true&allowNull=true"
         case_country = "country"
-    try:
-        request = requests.get(url).text
-        case = json.loads(request)
-        json_date = case["updated"]
-        int_date = int(json_date[:10])
-        date = datetime.datetime.fromtimestamp(int_date).strftime(
-            "%d %b %Y %I:%M:%S %p"
-        )
-        flag = case["flag"]
-        text = f"""
-        *Corona virus Statistics in {case_country}*\n
-        Last Updated on {date}\n\n
-        Confirmed Cases : {case['cases']} +{case['todayCases']} on today\n
-        Active Cases : {case['active']}\n
-        Deaths : {case['deaths']} +{case['todayDeaths']} on today\n
-        Recovered Cases: {case['recovered']} +{case['todayRecovered']} on today\n
-        Total Tests : {case['tests']}\n
-        Populations : {case['population']}\n
-        """
-        message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
-    except Exception:
-        message.reply_text(
-            "An Error have occured! Are you sure the country name is correct?"
-        )
+    request = requests.get(url).text
+    case = json.loads(request)
+    json_date = case["updated"]
+    int_date = int(json_date[:10])
+    date = datetime.datetime.fromtimestamp(int_date).strftime(
+        "%d %b %Y %I:%M:%S %p"
+    )
+    flag = case["flag"]
+    text = f"""
+    *Corona virus Statistics in {case_country}*\n
+    Last Updated on {date}\n\n
+    Confirmed Cases : {case['cases']} +{case['todayCases']} on today\n
+    Active Cases : {case['active']}\n
+    Deaths : {case['deaths']} +{case['todayDeaths']} on today\n
+    Recovered Cases: {case['recovered']} +{case['todayRecovered']} on today\n
+    Total Tests : {case['tests']}\n
+    Populations : {case['population']}\n
+    """
+    message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
 
 
 @run_async
