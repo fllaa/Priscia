@@ -562,7 +562,7 @@ def covid(update, context):
     json_date = case["updated"]
     float_date = float(json_date) / 1000.0
     date = datetime.datetime.fromtimestamp(float_date).strftime("%d %b %Y %I:%M:%S %p")
-    flag = case["flag"]
+    flag = case["countryInfo"]["flag"]
     text = f"""
     *Corona virus Statistics in {case_country}*\n
     Last Updated on {date}\n\n
