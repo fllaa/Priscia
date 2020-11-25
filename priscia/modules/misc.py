@@ -1,12 +1,12 @@
 import datetime
 import html
+import json
 import random
 import re
 from io import BytesIO
 from random import randint
 from typing import Optional
 
-import json
 import requests
 import wikipedia
 from bs4 import BeautifulSoup
@@ -560,10 +560,12 @@ def covid(update, context):
     try:
         request = requests.get(url).text
         case = json.loads(request)
-        json_date = case['updated']
+        json_date = case["updated"]
         int_date = int(json_date[:10])
-        date = datetime.datetime.fromtimestamp(int_date).strftime('%d %b %Y %I:%M:%S %p')
-        flag = case['flag']
+        date = datetime.datetime.fromtimestamp(int_date).strftime(
+            "%d %b %Y %I:%M:%S %p"
+        )
+        flag = case["flag"]
         text = f"""
         *Corona virus Statistics in {case_country}*\n
         Last Updated on {date}\n\n
@@ -576,7 +578,9 @@ def covid(update, context):
         """
         message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
     except Exception:
-        message.reply_text("An Error have occured! Are you sure the country name is correct?")
+        message.reply_text(
+            "An Error have occured! Are you sure the country name is correct?"
+        )
 
 
 @run_async
