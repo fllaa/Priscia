@@ -553,10 +553,9 @@ def covid(update, context):
     country = " ".join(args)
     if not country:
         url = "https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=true"
-        case_country = "World"
+        country = "World"
     else:
         url = f"https://disease.sh/v3/covid-19/countries/{country}?yesterday=false&twoDaysAgo=false&strict=true&allowNull=true"
-        case_country = "country"
     request = requests.get(url).text
     case = json.loads(request)
     json_date = case["updated"]
@@ -564,16 +563,19 @@ def covid(update, context):
     date = datetime.datetime.fromtimestamp(float_date).strftime("%d %b %Y %I:%M:%S %p")
     flag = case["countryInfo"]["flag"]
     text = f"""
-    *Corona virus Statistics in {case_country}*\n
-    Last Updated on {date}\n\n
-    Confirmed Cases : {case['cases']} +{case['todayCases']} on today\n
-    Active Cases : {case['active']}\n
-    Deaths : {case['deaths']} +{case['todayDeaths']} on today\n
-    Recovered Cases: {case['recovered']} +{case['todayRecovered']} on today\n
-    Total Tests : {case['tests']}\n
-    Populations : {case['population']}\n
+    *Corona virus Statistics in {country} :*
+    Last Updated on {date}\n
+    Confirmed Cases : {case['cases']} +{case['todayCases']} on today
+    Active Cases : {case['active']}
+    Deaths : {case['deaths']} +{case['todayDeaths']} on today
+    Recovered Cases: {case['recovered']} +{case['todayRecovered']} on today
+    Total Tests : {case['tests']}
+    Populations : {case['population']}
     """
-    message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
+    try:
+        message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
+    except KeyError:
+        message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 
 
 @run_async
