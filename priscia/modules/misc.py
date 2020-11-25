@@ -561,9 +561,7 @@ def covid(update, context):
     case = json.loads(request)
     json_date = case["updated"]
     int_date = int(json_date[:10])
-    date = datetime.datetime.fromtimestamp(int_date).strftime(
-        "%d %b %Y %I:%M:%S %p"
-    )
+    date = datetime.datetime.fromtimestamp(int_date).strftime("%d %b %Y %I:%M:%S %p")
     flag = case["flag"]
     text = f"""
     *Corona virus Statistics in {case_country}*\n
