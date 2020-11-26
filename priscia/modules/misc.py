@@ -571,15 +571,15 @@ def covid(update, context):
     except KeyError:
         pass
     text = f"""
-    *Corona virus Statistics in {country} :*
-    Last Updated on {date}\n
-    Confirmed Cases : `{case['cases']}` `+{case['todayCases']}` on today
-    Active Cases : `{case['active']}`
-    Deaths : `{case['deaths']}` `+{case['todayDeaths']}` on today
-    Recovered Cases: `{case['recovered']}` `+{case['todayRecovered']}` on today
-    Total Tests : `{case['tests']}`
-    Populations : `{case['population']}`
-    Source : [worldometers](url)
+    *COVID-19 Statistics in {country} :*
+    📅 Last Updated on {date}\n
+    🔼 Confirmed Cases : `{case['cases']}` `+{case['todayCases']}` on today
+    🔺 Active Cases : `{case['active']}`
+    ⚰️ Deaths : `{case['deaths']}` `+{case['todayDeaths']}` on today
+    💹 Recovered Cases: `{case['recovered']}` `+{case['todayRecovered']}` on today
+    💉 Total Tests : `{case['tests']}`
+    👥 Populations : `{case['population']}`
+    🌐 Source : [worldometers]({url})
     """
     try:
         message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
