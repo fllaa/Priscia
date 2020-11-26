@@ -163,11 +163,9 @@ def info(update, context):
             "\n\nThis person has been whitelisted! "
             "That means I'm not allowed to ban/kick them."
         )
-        
+
     elif user.id == int(1087968824):
-        text+= (
-            "\n\nThis person is anonymous admin in this group. "
-        )
+        text += "\n\nThis person is anonymous admin in this group. "
 
     try:
         memstatus = chat.get_member(user.id).status
