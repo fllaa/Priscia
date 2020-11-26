@@ -163,6 +163,11 @@ def info(update, context):
             "\n\nThis person has been whitelisted! "
             "That means I'm not allowed to ban/kick them."
         )
+        
+    elif user.id == int(1087968824):
+        text+= (
+            "\n\nThis person is anonymous admin in this group. "
+        )
 
     try:
         memstatus = chat.get_member(user.id).status
@@ -550,7 +555,9 @@ def rmemes(update, context):
 def covid(update, context):
     message = update.effective_message
     args = context.args
-    country = " ".join(args)
+    query = " ".join(args)
+    remove_space = query.split(" ")
+    country = "+".join(remove_space)
     if not country:
         url = "https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=true"
         country = "World"
@@ -568,12 +575,13 @@ def covid(update, context):
     text = f"""
     *Corona virus Statistics in {country} :*
     Last Updated on {date}\n
-    Confirmed Cases : {case['cases']} +{case['todayCases']} on today
-    Active Cases : {case['active']}
-    Deaths : {case['deaths']} +{case['todayDeaths']} on today
-    Recovered Cases: {case['recovered']} +{case['todayRecovered']} on today
-    Total Tests : {case['tests']}
-    Populations : {case['population']}
+    Confirmed Cases : `{case['cases']}` `+{case['todayCases']}` on today
+    Active Cases : `{case['active']}`
+    Deaths : `{case['deaths']}` `+{case['todayDeaths']}` on today
+    Recovered Cases: `{case['recovered']}` `+{case['todayRecovered']}` on today
+    Total Tests : `{case['tests']}`
+    Populations : `{case['population']}`
+    Source : [worldometers](url)
     """
     try:
         message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
