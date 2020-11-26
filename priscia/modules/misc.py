@@ -555,7 +555,7 @@ def covid(update, context):
     args = context.args
     query = " ".join(args)
     remove_space = query.split(" ")
-    country = "+".join(remove_space)
+    country = "%20".join(remove_space)
     if not country:
         url = "https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=true"
         country = "World"
