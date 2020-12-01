@@ -8,6 +8,8 @@ psycopg2-binary
 pythonping
 feedparser
 pytz
+future
+google_trans_new
 gtts
 bs4
 lxml
@@ -18,7 +20,6 @@ telegraph
 pillow
 psutil
 speedtest-cli>=2.0.2
-translators
 wikipedia
 spamwatch
 bleach
