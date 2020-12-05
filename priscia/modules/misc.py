@@ -585,6 +585,35 @@ def covid(update, context):
         message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
     except BaseException:
         message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
+        
+        
+@run_async
+@typing_action
+def app(update, context):
+    try:
+        args = context.args
+        app_name = " ".join(args)
+        remove_space = app_name.split(' ')
+        final_name = '+'.join(remove_space)
+        page = get("https://play.google.com/store/search?q="+final_name+"&c=apps")
+        soup = BeautifulSoup(page.content,'lxml', from_encoding='utf-8')
+        results = soup.findAll("div","ZmHEEd")
+        app_name = results[0].findNext('div', 'Vpfmgd').findNext('div', 'WsMG1c nnK0zc').text
+        app_dev = results[0].findNext('div', 'Vpfmgd').findNext('div', 'KoLSrc').text
+        app_dev_link = "https://play.google.com"+results[0].findNext('div', 'Vpfmgd').findNext('a', 'mnKHRc')['href']
+        app_rating = results[0].findNext('div', 'Vpfmgd').findNext('div', 'pf5lIe').find('div')['aria-label']
+        app_link = "https://play.google.com"+results[0].findNext('div', 'Vpfmgd').findNext('div', 'vU6FJ p63iDd').a['href']
+        app_icon = results[0].findNext('div', 'Vpfmgd').findNext('div', 'uzcko').img['data-src']
+        app_details = "<a href='"+app_icon+"'>📲&#8203;</a>"
+        app_details += " <b>"+app_name+"</b>"
+        app_details += "\n\n<code>Developer :</code> <a href='"+app_dev_link+"'>"+app_dev+"</a>"
+        app_details += "\n<code>Rating :</code> "+app_rating.replace("Rated ", "⭐ ").replace(" out of ", "/").replace(" stars", "", 1).replace(" stars", "⭐ ").replace("five", "5")
+        app_details += "\n<code>Features :</code> <a href='"+app_link+"'>View in Play Store</a>"
+        update.effective_message.reply_text(app_details, link_preview = True, parse_mode = 'HTML')
+    except IndexError:
+        update.effective_message.reply_text("No result found in search. Please enter **Valid app name**")
+    except Exception as err:
+        update.effective_message.reply_text("Exception Occured:- "+str(err))
 
 
 @run_async
@@ -625,6 +654,8 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
    /lastfm: returns what you're scrobbling on last.fm.
  × /paste: Saves replied content to nekobin.com and replies with a url
  × /lyrics <query>: search lyrics can be song name or artist name
+ × /covid <country>: Get information about COVID-19 Stats, empty query = world
+ × /app <query>: search an app on Play Store
  × /imdb <movie>: search movie info and other stuff
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
 """
@@ -645,6 +676,7 @@ GETLINK_HANDLER = CommandHandler(
     "getlink", getlink, pass_args=True, filters=Filters.user(OWNER_ID)
 )
 COVID_HANDLER = DisableAbleCommandHandler("covid", covid)
+APP_HANDLER = DisableAbleCommandHandler("app", app)
 STAFFLIST_HANDLER = CommandHandler(
     "staffids", staff_ids, filters=Filters.user(OWNER_ID)
 )
@@ -661,6 +693,7 @@ dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(WIKI_HANDLER)
 dispatcher.add_handler(GETLINK_HANDLER)
 dispatcher.add_handler(COVID_HANDLER)
+dispatcher.add_handler(APP_HANDLER)
 dispatcher.add_handler(STAFFLIST_HANDLER)
 dispatcher.add_handler(REDDIT_MEMES_HANDLER)
 dispatcher.add_handler(IMDB_HANDLER)
