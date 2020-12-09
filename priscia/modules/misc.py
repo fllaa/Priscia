@@ -1,15 +1,20 @@
 import datetime
+import glob
 import html
 import json
 import random
 import re
+import os
 from io import BytesIO
 from random import randint
 from typing import Optional
 
+import html2text
 import requests
 import wikipedia
+from bing_image_downloader import downloader
 from bs4 import BeautifulSoup
+from geopy.geocoders import Nominatim
 from requests import get
 from telegram import (
     Chat,
@@ -658,6 +663,65 @@ def app(update, context):
 
 
 @run_async
+@typing_action
+def google(update, context):
+    args = context.args
+    query = " ".join(args)
+    remove_space = query.split(" ")
+    input_str = "%20".join(remove_space) # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
+    input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
+    headers = {"USER-AGENT": "UniBorg"}
+    response = requests.get(input_url, headers=headers).json()
+    output_str = " "
+    for result in response["results"]:
+        text = result.get("title")
+        url = result.get("url")
+        description = result.get("description")
+        last = html2text.html2text(description)
+        output_str += "[{}]({})\n{}\n".format(text, url, last)       
+    update.effective_message.reply_text("{}".format(output_str), link_preview=False, parse_mode='MARKDOWN')
+
+
+@run_async
+@typing_action
+def img(update, context):
+     args = context.args
+     query = " ".join(args)
+     jit = f'"{query}"'
+     downloader.download(jit, limit=5, output_dir='store', adult_filter_off=False, force_replace=False, timeout=60)
+     os.chdir(f'./store/"{query}"')
+     types = ('*.png', '*.jpeg', '*.jpg') # the tuple of file types
+     files_grabbed = []
+     for files in types:
+         files_grabbed.extend(glob.glob(files))
+     update.effective_message.reply_photo(files_grabbed)
+     os.remove(files_grabbed)
+     os.chdir('./')
+
+
+@run_async
+@typing_action
+def gps(update, context):
+    args = context.args
+    try:
+        geolocator = Nominatim(user_agent="SkittBot")
+        location = args
+        geoloc = geolocator.geocode(location)
+        longitude = geoloc.longitude
+        latitude = geoloc.latitude
+        gm = "https://www.google.com/maps/search/{},{}".format(
+            latitude, longitude)
+        update.effective_message.send_location(latitide=float(latitude), longitude=float(longitude))
+        update.effective_message.reply_text(
+            "Open with: [Google Maps]({})".format(gm),
+            link_preview=False,
+        )
+    except Exception as e:
+        print(e)
+        message.reply_text("I can't find that")
+
+
+@run_async
 def staff_ids(update, context):
     sfile = "List of SUDO & SUPPORT users:\n"
     sfile += f"× SUDO USER IDs; {SUDO_USERS}\n"
@@ -688,11 +752,16 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /rmeme: Sends random meme scraped from reddit.
  × /ud <query> : Search stuffs in urban dictionary.
  × /wall <query> : Get random wallpapers directly from bot!
- × /reverse : Reverse searches image or stickers on google.
  × /gdpr: Deletes your information from the bot's database. Private chats only.
+ *Last.FM*
  × /setuser <username>: sets your last.fm username.
-   /clearuser: removes your last.fm username from the bot's database.
-   /lastfm: returns what you're scrobbling on last.fm.
+ × /clearuser: removes your last.fm username from the bot's database.
+ × /lastfm: returns what you're scrobbling on last.fm.
+ *Google*
+ × /google <query> : Search query on google
+ × /img <query> : Search image on google
+ × /reverse : Reverse searches image or stickers on google.
+ × /gps <query> : find location from query
  × /paste: Saves replied content to nekobin.com and replies with a url
  × /lyrics <query>: search lyrics can be song name or artist name
  × /covid <country>: Get information about COVID-19 Stats, empty query = world
@@ -718,6 +787,10 @@ GETLINK_HANDLER = CommandHandler(
 )
 COVID_HANDLER = DisableAbleCommandHandler("covid", covid)
 APP_HANDLER = DisableAbleCommandHandler("app", app)
+GOOGLE_HANDLER = DisableAbleCommandHandler("google", google)
+IMG_HANDLER = DisableAbleCommandHandler("img", img)
+GPS_HANDLER = DisableAbleCommandHandler("gps", gps)
+
 STAFFLIST_HANDLER = CommandHandler(
     "staffids", staff_ids, filters=Filters.user(OWNER_ID)
 )
@@ -735,6 +808,9 @@ dispatcher.add_handler(WIKI_HANDLER)
 dispatcher.add_handler(GETLINK_HANDLER)
 dispatcher.add_handler(COVID_HANDLER)
 dispatcher.add_handler(APP_HANDLER)
+dispatcher.add_handler(GOOGLE_HANDLER)
+dispatcher.add_handler(IMG_HANDLER)
+dispatcher.add_handler(GPS_HANDLER)
 dispatcher.add_handler(STAFFLIST_HANDLER)
 dispatcher.add_handler(REDDIT_MEMES_HANDLER)
 dispatcher.add_handler(IMDB_HANDLER)
