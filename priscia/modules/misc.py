@@ -729,7 +729,7 @@ def gps(update, context):
         )
     except Exception as e:
         print(e)
-        message.reply_text("I can't find that")
+        update.effective_message.reply_text("I can't find that")
 
 
 @run_async
