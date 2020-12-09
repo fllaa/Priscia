@@ -2,9 +2,9 @@ import datetime
 import glob
 import html
 import json
+import os
 import random
 import re
-import os
 from io import BytesIO
 from random import randint
 from typing import Optional
@@ -668,7 +668,8 @@ def google(update, context):
     args = context.args
     query = " ".join(args)
     remove_space = query.split(" ")
-    input_str = "%20".join(remove_space) # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
+    # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
+    input_str = "%20".join(remove_space)
     input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
     headers = {"USER-AGENT": "UniBorg"}
     response = requests.get(input_url, headers=headers).json()
@@ -678,25 +679,34 @@ def google(update, context):
         url = result.get("url")
         description = result.get("description")
         last = html2text.html2text(description)
-        output_str += "[{}]({})\n{}\n".format(text, url, last)       
-    update.effective_message.reply_text("{}".format(output_str), link_preview=False, parse_mode='MARKDOWN')
+        output_str += "[{}]({})\n{}\n".format(text, url, last)
+    update.effective_message.reply_text(
+        "{}".format(output_str), link_preview=False, parse_mode="MARKDOWN"
+    )
 
 
 @run_async
 @typing_action
 def img(update, context):
-     args = context.args
-     query = " ".join(args)
-     jit = f'"{query}"'
-     downloader.download(jit, limit=5, output_dir='store', adult_filter_off=False, force_replace=False, timeout=60)
-     os.chdir(f'./store/"{query}"')
-     types = ('*.png', '*.jpeg', '*.jpg') # the tuple of file types
-     files_grabbed = []
-     for files in types:
-         files_grabbed.extend(glob.glob(files))
-     update.effective_message.reply_photo(files_grabbed)
-     os.remove(files_grabbed)
-     os.chdir('./')
+    args = context.args
+    query = " ".join(args)
+    jit = f'"{query}"'
+    downloader.download(
+        jit,
+        limit=5,
+        output_dir="store",
+        adult_filter_off=False,
+        force_replace=False,
+        timeout=60,
+    )
+    os.chdir(f'./store/"{query}"')
+    types = ("*.png", "*.jpeg", "*.jpg")  # the tuple of file types
+    files_grabbed = []
+    for files in types:
+        files_grabbed.extend(glob.glob(files))
+    update.effective_message.reply_photo(files_grabbed)
+    os.remove(files_grabbed)
+    os.chdir("./")
 
 
 @run_async
@@ -709,9 +719,10 @@ def gps(update, context):
         geoloc = geolocator.geocode(location)
         longitude = geoloc.longitude
         latitude = geoloc.latitude
-        gm = "https://www.google.com/maps/search/{},{}".format(
-            latitude, longitude)
-        update.effective_message.send_location(latitide=float(latitude), longitude=float(longitude))
+        gm = "https://www.google.com/maps/search/{},{}".format(latitude, longitude)
+        update.effective_message.send_location(
+            latitide=float(latitude), longitude=float(longitude)
+        )
         update.effective_message.reply_text(
             "Open with: [Google Maps]({})".format(gm),
             link_preview=False,
