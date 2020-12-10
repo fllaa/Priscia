@@ -704,7 +704,7 @@ def img(update, context):
     files_grabbed = []
     for files in types:
         files_grabbed.extend(glob.glob(files))
-    update.effective_message.reply_photo(files_grabbed)
+    context.bot.sendPhoto(files_grabbed)
     os.remove(files_grabbed)
     os.chdir("./")
 
@@ -720,7 +720,7 @@ def gps(update, context):
         longitude = geoloc.longitude
         latitude = geoloc.latitude
         gm = "https://www.google.com/maps/search/{},{}".format(latitude, longitude)
-        update.effective_message.send_location(
+        context.bot.sendLocation(
             latitide=float(latitude), longitude=float(longitude)
         )
         update.effective_message.reply_text(
