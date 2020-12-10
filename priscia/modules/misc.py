@@ -720,9 +720,7 @@ def gps(update, context):
         longitude = geoloc.longitude
         latitude = geoloc.latitude
         gm = "https://www.google.com/maps/search/{},{}".format(latitude, longitude)
-        context.bot.sendLocation(
-            latitide=float(latitude), longitude=float(longitude)
-        )
+        context.bot.sendLocation(latitide=float(latitude), longitude=float(longitude))
         update.effective_message.reply_text(
             "Open with: [Google Maps]({})".format(gm),
             link_preview=False,
