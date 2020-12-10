@@ -688,6 +688,7 @@ def google(update, context):
 @run_async
 @typing_action
 def img(update, context):
+    chat_id = update.effective_chat.id
     args = context.args
     query = " ".join(args)
     jit = f'"{query}"'
@@ -704,7 +705,7 @@ def img(update, context):
     files_grabbed = []
     for files in types:
         files_grabbed.extend(glob.glob(files))
-    context.bot.sendPhoto(files_grabbed)
+    context.bot.sendPhoto(chat_id, photo=files_grabbed)
     os.remove(files_grabbed)
     os.chdir("./")
 
@@ -713,6 +714,7 @@ def img(update, context):
 @typing_action
 def gps(update, context):
     args = context.args
+    chat_id = update.effective_chat.id
     try:
         geolocator = Nominatim(user_agent="SkittBot")
         location = args
@@ -720,7 +722,7 @@ def gps(update, context):
         longitude = geoloc.longitude
         latitude = geoloc.latitude
         gm = "https://www.google.com/maps/search/{},{}".format(latitude, longitude)
-        context.bot.sendLocation(latitide=float(latitude), longitude=float(longitude))
+        context.bot.sendLocation(chat_id, latitide=float(latitude), longitude=float(longitude))
         update.effective_message.reply_text(
             "Open with: [Google Maps]({})".format(gm),
             link_preview=False,
