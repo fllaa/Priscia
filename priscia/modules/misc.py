@@ -705,7 +705,7 @@ def img(update, context):
     files_grabbed = []
     for files in types:
         files_grabbed.extend(glob.glob(files))
-    context.bot.send_media_group(chat_id, media=files_grabbed)
+    context.bot.send_media_group(chat_id, media=InputMediaPhoto(files_grabbed))
     os.remove(files_grabbed)
     os.chdir("./")
 
@@ -723,7 +723,7 @@ def gps(update, context):
         latitude = geoloc.latitude
         gm = "https://www.google.com/maps/search/{},{}".format(latitude, longitude)
         context.bot.sendLocation(
-            chat_id, latitide=float(latitude), longitude=float(longitude)
+            chat_id, latitude=float(latitude), longitude=float(longitude)
         )
         update.effective_message.reply_text(
             "Open with: [Google Maps]({})".format(gm),
