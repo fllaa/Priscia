@@ -705,7 +705,7 @@ def img(update, context):
     files_grabbed = []
     for files in types:
         files_grabbed.extend(glob.glob(files))
-    context.bot.sendPhoto(chat_id, photo=files_grabbed)
+    context.bot.send_media_group(chat_id, media=files_grabbed)
     os.remove(files_grabbed)
     os.chdir("./")
 
