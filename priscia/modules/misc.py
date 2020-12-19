@@ -21,7 +21,7 @@ from telegram import (
     ChatAction,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    InputMediaPhoto
+    InputMediaPhoto,
     Message,
     MessageEntity,
     ParseMode,
