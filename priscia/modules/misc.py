@@ -1,8 +1,6 @@
 import datetime
-import glob
 import html
 import json
-import os
 import random
 import re
 from io import BytesIO
@@ -12,16 +10,13 @@ from typing import Optional
 import html2text
 import requests
 import wikipedia
-from bing_image_downloader import downloader
 from bs4 import BeautifulSoup
-from geopy.geocoders import Nominatim
 from requests import get
 from telegram import (
     Chat,
     ChatAction,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    InputMediaPhoto,
     Message,
     MessageEntity,
     ParseMode,
@@ -687,55 +682,6 @@ def google(update, context):
 
 
 @run_async
-@typing_action
-def img(update, context):
-    chat_id = update.effective_chat.id
-    args = context.args
-    query = " ".join(args)
-    jit = f'"{query}"'
-    downloader.download(
-        jit,
-        limit=5,
-        output_dir="store",
-        adult_filter_off=False,
-        force_replace=False,
-        timeout=60,
-    )
-    os.chdir(f'./store/"{query}"')
-    types = ("*.png", "*.jpeg", "*.jpg")  # the tuple of file types
-    files_grabbed = []
-    for files in types:
-        files_grabbed.extend(glob.glob(files))
-    context.bot.send_media_group(chat_id, media=InputMediaPhoto(files_grabbed))
-    os.remove(files_grabbed)
-    os.chdir("./")
-
-
-@run_async
-@typing_action
-def gps(update, context):
-    args = context.args
-    chat_id = update.effective_chat.id
-    try:
-        geolocator = Nominatim(user_agent="SkittBot")
-        location = args
-        geoloc = geolocator.geocode(location)
-        longitude = geoloc.longitude
-        latitude = geoloc.latitude
-        gm = "https://www.google.com/maps/search/{},{}".format(latitude, longitude)
-        context.bot.sendLocation(
-            chat_id, latitude=float(latitude), longitude=float(longitude)
-        )
-        update.effective_message.reply_text(
-            "Open with: [Google Maps]({})".format(gm),
-            link_preview=False,
-        )
-    except Exception as e:
-        print(e)
-        update.effective_message.reply_text("I can't find that")
-
-
-@run_async
 def staff_ids(update, context):
     sfile = "List of SUDO & SUPPORT users:\n"
     sfile += f"× SUDO USER IDs; {SUDO_USERS}\n"
@@ -773,9 +719,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /lastfm: returns what you're scrobbling on last.fm.
  *Google*
  × /google <query> : Search query on google
- × /img <query> : Search image on google
  × /reverse : Reverse searches image or stickers on google.
- × /gps <query> : find location from query
  × /paste: Saves replied content to nekobin.com and replies with a url
  × /lyrics <query>: search lyrics can be song name or artist name
  × /covid <country>: Get information about COVID-19 Stats, empty query = world
@@ -802,8 +746,6 @@ GETLINK_HANDLER = CommandHandler(
 COVID_HANDLER = DisableAbleCommandHandler("covid", covid)
 APP_HANDLER = DisableAbleCommandHandler("app", app)
 GOOGLE_HANDLER = DisableAbleCommandHandler("google", google)
-IMG_HANDLER = DisableAbleCommandHandler("img", img)
-GPS_HANDLER = DisableAbleCommandHandler("gps", gps)
 
 STAFFLIST_HANDLER = CommandHandler(
     "staffids", staff_ids, filters=Filters.user(OWNER_ID)
@@ -823,8 +765,6 @@ dispatcher.add_handler(GETLINK_HANDLER)
 dispatcher.add_handler(COVID_HANDLER)
 dispatcher.add_handler(APP_HANDLER)
 dispatcher.add_handler(GOOGLE_HANDLER)
-dispatcher.add_handler(IMG_HANDLER)
-dispatcher.add_handler(GPS_HANDLER)
 dispatcher.add_handler(STAFFLIST_HANDLER)
 dispatcher.add_handler(REDDIT_MEMES_HANDLER)
 dispatcher.add_handler(IMDB_HANDLER)

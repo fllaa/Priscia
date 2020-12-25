@@ -28,6 +28,4 @@ alphabet_detector
 jikanpy
 tswift
 nekos.py
-geopy
-bing_image_downloader
 html2text
