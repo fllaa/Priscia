@@ -262,8 +262,12 @@ An example of temporarily mute someone:
 
 __mod_name__ = "Muting"
 
-MUTE_HANDLER = CommandHandler("mute", mute, pass_args=True, filters=Filters.chat_type.groups)
-UNMUTE_HANDLER = CommandHandler("unmute", unmute, pass_args=True, filters=Filters.chat_type.groups)
+MUTE_HANDLER = CommandHandler(
+    "mute", mute, pass_args=True, filters=Filters.chat_type.groups
+)
+UNMUTE_HANDLER = CommandHandler(
+    "unmute", unmute, pass_args=True, filters=Filters.chat_type.groups
+)
 TEMPMUTE_HANDLER = CommandHandler(
     ["tmute", "tempmute"], temp_mute, pass_args=True, filters=Filters.chat_type.groups
 )

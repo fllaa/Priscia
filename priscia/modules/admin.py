@@ -637,7 +637,9 @@ An example of promoting someone to admins:
 
 __mod_name__ = "Admin"
 
-PIN_HANDLER = CommandHandler("pin", pin, pass_args=True, filters=Filters.chat_type.groups)
+PIN_HANDLER = CommandHandler(
+    "pin", pin, pass_args=True, filters=Filters.chat_type.groups
+)
 UNPIN_HANDLER = CommandHandler("unpin", unpin, filters=Filters.chat_type.groups)
 
 PERMANENT_PIN_SET_HANDLER = CommandHandler(
@@ -648,18 +650,28 @@ PERMANENT_PIN_HANDLER = MessageHandler(
 )
 
 INVITE_HANDLER = CommandHandler("invitelink", invite)
-CHAT_PIC_HANDLER = CommandHandler("setgpic", setchatpic, filters=Filters.chat_type.groups)
-DEL_CHAT_PIC_HANDLER = CommandHandler("delgpic", rmchatpic, filters=Filters.chat_type.groups)
+CHAT_PIC_HANDLER = CommandHandler(
+    "setgpic", setchatpic, filters=Filters.chat_type.groups
+)
+DEL_CHAT_PIC_HANDLER = CommandHandler(
+    "delgpic", rmchatpic, filters=Filters.chat_type.groups
+)
 SETCHAT_TITLE_HANDLER = CommandHandler(
     "setgtitle", setchat_title, filters=Filters.chat_type.groups
 )
-SETSTICKET_HANDLER = CommandHandler("setsticker", set_sticker, filters=Filters.chat_type.groups)
-SETDESC_HANDLER = CommandHandler("setdescription", set_desc, filters=Filters.chat_type.groups)
+SETSTICKET_HANDLER = CommandHandler(
+    "setsticker", set_sticker, filters=Filters.chat_type.groups
+)
+SETDESC_HANDLER = CommandHandler(
+    "setdescription", set_desc, filters=Filters.chat_type.groups
+)
 
 PROMOTE_HANDLER = CommandHandler(
     "promote", promote, pass_args=True, filters=Filters.chat_type.groups
 )
-DEMOTE_HANDLER = CommandHandler("demote", demote, pass_args=True, filters=Filters.chat_type.groups)
+DEMOTE_HANDLER = CommandHandler(
+    "demote", demote, pass_args=True, filters=Filters.chat_type.groups
+)
 
 SET_TITLE_HANDLER = DisableAbleCommandHandler("settitle", set_title, pass_args=True)
 ADMINLIST_HANDLER = DisableAbleCommandHandler(
