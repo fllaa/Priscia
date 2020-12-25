@@ -170,7 +170,7 @@ api_id = TELETHON_ID
 api_hash = TELETHON_HASH
 client = TelegramClient("priscia", api_id, api_hash)
 
-updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
+updater = tg.Updater(TOKEN, workers=WORKERS)
 
 dispatcher = updater.dispatcher
 
