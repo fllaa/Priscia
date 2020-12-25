@@ -137,8 +137,6 @@ def info(update, context):
         if sw:
             text += "\n\n<b>This person is banned in Spamwatch!</b>"
             text += f"\nResason: <pre>{sw.reason}</pre>"
-        else:
-            pass
     except BaseException:
         pass  # Don't break on exceptions like if api is down?
 
@@ -168,7 +166,7 @@ def info(update, context):
 
     try:
         memstatus = chat.get_member(user.id).status
-        if memstatus == "administrator" or memstatus == "creator":
+        if memstatus in ["administrator", "creator"]:
             result = context.bot.get_chat_member(chat.id, user.id)
             if result.custom_title:
                 text += f"\n\nThis user has custom title <b>{result.custom_title}</b> in this chat."
@@ -410,24 +408,18 @@ def imdb(update, context):
         else:
             mov_details = ""
         credits = soup.findAll("div", "credit_summary_item")
+        director = credits[0].a.text
         if len(credits) == 1:
-            director = credits[0].a.text
             writer = "Not available"
             stars = "Not available"
         elif len(credits) > 2:
-            director = credits[0].a.text
             writer = credits[1].a.text
-            actors = []
-            for x in credits[2].findAll("a"):
-                actors.append(x.text)
+            actors = [x.text for x in credits[2].findAll("a")]
             actors.pop()
             stars = actors[0] + "," + actors[1] + "," + actors[2]
         else:
-            director = credits[0].a.text
             writer = "Not available"
-            actors = []
-            for x in credits[1].findAll("a"):
-                actors.append(x.text)
+            actors = [x.text for x in credits[1].findAll("a")]
             actors.pop()
             stars = actors[0] + "," + actors[1] + "," + actors[2]
         if soup.find("div", "inline canwrap"):
@@ -681,7 +673,7 @@ def staff_ids(update, context):
 
 def stats(update, context):
     update.effective_message.reply_text(
-        "Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS])
+        "Current stats:\n" + "\n".join(mod.__stats__() for mod in STATS)
     )
 
 

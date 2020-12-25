@@ -313,10 +313,7 @@ def copypasta(update, context):
             elif c.lower() == b_char:
                 reply_text += "🅱️"
             else:
-                if bool(random.getrandbits(1)):
-                    reply_text += c.upper()
-                else:
-                    reply_text += c.lower()
+                reply_text += c.upper() if bool(random.getrandbits(1)) else c.lower()
         reply_text += random.choice(emojis)
         message.reply_to_message.reply_text(reply_text)
 
@@ -413,11 +410,11 @@ def iwi(update, context):
 
 @typing_action
 def mock(update, context):
-    reply_text = []
     message = update.effective_message
     if not message.reply_to_message:
         message.reply_text("i nEeD MeSsAgE To mOcK.")
     else:
+        reply_text = []
         for charac in message.reply_to_message.text:
             if charac.isalpha() and random.randint(0, 1):
                 to_app = charac.upper() if charac.islower() else charac.lower()

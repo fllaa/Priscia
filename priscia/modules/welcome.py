@@ -360,7 +360,7 @@ def left_member(update, context):
                 return
 
             # if media goodbye, use appropriate function for it
-            if goodbye_type != sql.Types.TEXT and goodbye_type != sql.Types.BUTTON_TEXT:
+            if goodbye_type not in [sql.Types.TEXT, sql.Types.BUTTON_TEXT]:
                 ENUM_FUNC_MAP[goodbye_type](chat.id, cust_goodbye)
                 return
 
@@ -374,11 +374,9 @@ def left_member(update, context):
                     fullname = first_name
                 count = chat.get_members_count()
                 mention = mention_html(left_mem.id, first_name)
-                if left_mem.username:
-                    username = "@" + escape(left_mem.username)
-                else:
-                    username = mention
-
+                username = (
+                    "@" + escape(left_mem.username) if left_mem.username else mention
+                )
                 valid_format = escape_invalid_curly_brackets(
                     cust_goodbye, VALID_WELCOME_FORMATTERS
                 )
@@ -717,12 +715,12 @@ def cleanservice(update, context):
     if chat.type != chat.PRIVATE:
         if len(args) >= 1:
             var = args[0]
-            if var == "no" or var == "off":
+            if var in ["no", "off"]:
                 sql.set_clean_service(chat.id, False)
                 update.effective_message.reply_text(
                     "Turned off service messages cleaning."
                 )
-            elif var == "yes" or var == "on":
+            elif var in ["yes", "on"]:
                 sql.set_clean_service(chat.id, True)
                 update.effective_message.reply_text(
                     "Turned on service messages cleaning!"
