@@ -191,7 +191,6 @@ def info(update, context):
             photo=profile,
             caption=(text),
             parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
         )
     except IndexError:
         context.bot.sendChatAction(chat.id, "typing")
