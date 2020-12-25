@@ -44,7 +44,7 @@ def last_fm(update, context):
     res = requests.get(
         f"{base_url}?method=user.getrecenttracks&limit=3&extended=1&user={username}&api_key={LASTFM_API_KEY}&format=json"
     )
-    if not res.status_code == 200:
+    if res.status_code != 200:
         msg.reply_text(
             "Hmm... something went wrong.\nPlease ensure that you've set the correct username!"
         )
