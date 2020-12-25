@@ -196,7 +196,7 @@ def gban(update, context):
 
     try:
         context.bot.kick_chat_member(chat.id, user_chat.id)
-    except BadRequest as excp:
+    except BadRequest:
         pass
     sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
 
@@ -334,9 +334,7 @@ def enforce_gban(update, context):
     # Not using @restrict handler to avoid spamming - just ignore if cant gban.
     if (
         not sql.does_chat_gban(update.effective_chat.id)
-        or not update.effective_chat.get_member(
-            context.bot.id
-        ).can_restrict_members
+        or not update.effective_chat.get_member(context.bot.id).can_restrict_members
     ):
         return
     user = update.effective_user

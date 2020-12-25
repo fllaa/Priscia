@@ -14,7 +14,7 @@ from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
 
 import priscia.modules.sql.locks_sql as sql
-from priscia import LOGGER, SUDO_USERS, dispatcher
+from priscia import LOGGER, dispatcher
 from priscia.modules.connection import connected
 from priscia.modules.disable import DisableAbleCommandHandler
 from priscia.modules.helper_funcs.alternate import send_message, typing_action

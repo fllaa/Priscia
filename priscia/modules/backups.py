@@ -224,9 +224,12 @@ def export_data(update, context):
             )
         else:
             isicat += "{}<###splitter###>".format(note.value)
-    notes = {"#{}".format(namacat.split("<###splitter###>")[x]): "{}".format(
+    notes = {
+        "#{}".format(namacat.split("<###splitter###>")[x]): "{}".format(
             isicat.split("<###splitter###>")[x]
-        ) for x in range(count)}
+        )
+        for x in range(count)
+    }
     # Rules
     rules = rulessql.get_rules(chat_id)
     # Blacklist

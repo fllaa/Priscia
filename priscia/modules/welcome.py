@@ -374,7 +374,9 @@ def left_member(update, context):
                     fullname = first_name
                 count = chat.get_members_count()
                 mention = mention_html(left_mem.id, first_name)
-                username = "@" + escape(left_mem.username) if left_mem.username else mention
+                username = (
+                    "@" + escape(left_mem.username) if left_mem.username else mention
+                )
                 valid_format = escape_invalid_curly_brackets(
                     cust_goodbye, VALID_WELCOME_FORMATTERS
                 )
