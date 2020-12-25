@@ -294,7 +294,6 @@ def banme(update, context):
             )
         )
 
-
     else:
         update.effective_message.reply_text("Huh? I can't :/")
 

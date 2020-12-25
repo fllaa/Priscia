@@ -86,11 +86,7 @@ def add_blacklist(update, context):
     if len(words) > 1:
         text = words[1]
         to_blacklist = list(
-            {
-                trigger.strip()
-                for trigger in text.split("\n")
-                if trigger.strip()
-            }
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
         )
 
         for trigger in to_blacklist:
@@ -143,11 +139,7 @@ def unblacklist(update, context):
     if len(words) > 1:
         text = words[1]
         to_unblacklist = list(
-            {
-                trigger.strip()
-                for trigger in text.split("\n")
-                if trigger.strip()
-            }
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
         )
 
         successful = 0

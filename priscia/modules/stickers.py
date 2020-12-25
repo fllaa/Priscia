@@ -109,10 +109,7 @@ def kang(update, context):
                     parse_mode=ParseMode.MARKDOWN,
                 )
             except TelegramError as e:
-                if (
-                    e.message
-                    == "Internal Server Error: sticker set not found (500)"
-                ):
+                if e.message == "Internal Server Error: sticker set not found (500)":
                     msg.reply_text(
                         "Sticker successfully added to [pack](t.me/addstickers/%s)"
                         % packname
@@ -176,10 +173,7 @@ def kang(update, context):
                 return
 
             except TelegramError as e:
-                if (
-                    e.message
-                    == "Internal Server Error: sticker set not found (500)"
-                ):
+                if e.message == "Internal Server Error: sticker set not found (500)":
                     msg.reply_text(
                         "Sticker successfully added to [pack](t.me/addstickers/%s)"
                         % packname
@@ -263,10 +257,7 @@ def kang(update, context):
             print(e)
             return
         except TelegramError as e:
-            if (
-                e.message
-                == "Internal Server Error: sticker set not found (500)"
-            ):
+            if e.message == "Internal Server Error: sticker set not found (500)":
                 msg.reply_text(
                     "Sticker successfully added to [pack](t.me/addstickers/%s)"
                     % packname
