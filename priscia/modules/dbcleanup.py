@@ -2,7 +2,7 @@ from time import sleep
 
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CallbackQueryHandler, CommandHandler, Filters, run_async
+from telegram.ext import CallbackQueryHandler, CommandHandler, Filters
 
 import priscia.modules.sql.global_bans_sql as gban_sql
 import priscia.modules.sql.users_sql as user_sql
@@ -80,7 +80,6 @@ def get_invalid_gban(bot: Bot, update: Update, remove: bool = False):
         return ungbanned_users
 
 
-@run_async
 def dbcleanup(update, context):
     msg = update.effective_message
 
@@ -151,7 +150,6 @@ def get_muted_chats(bot: Bot, update: Update, leave: bool = False):
         return muted_chats
 
 
-@run_async
 def leave_muted_chats(update, context):
     message = update.effective_message
     progress_message = message.reply_text("Getting chat count ...")
@@ -166,7 +164,6 @@ def leave_muted_chats(update, context):
     progress_message.delete()
 
 
-@run_async
 def callback_button(update, context):
     bot = context.bot
     query = update.callback_query

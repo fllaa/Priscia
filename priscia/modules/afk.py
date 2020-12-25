@@ -3,7 +3,7 @@ import time
 
 from telegram import MessageEntity
 from telegram.error import BadRequest
-from telegram.ext import Filters, MessageHandler, run_async
+from telegram.ext import Filters, MessageHandler
 
 import priscia.modules.helper_funcs.fun_strings as fun
 from priscia import dispatcher
@@ -15,7 +15,6 @@ AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
 
-@run_async
 def afk(update, context):
     args = update.effective_message.text.split(None, 1)
     notice = ""
@@ -35,7 +34,6 @@ def afk(update, context):
     afksend.delete()
 
 
-@run_async
 def no_longer_afk(update, context):
     user = update.effective_user
     message = update.effective_message
@@ -67,7 +65,6 @@ def no_longer_afk(update, context):
             return
 
 
-@run_async
 def reply_afk(update, context):
     bot = context.bot
     message = update.effective_message

@@ -6,7 +6,7 @@ import bs4
 import jikanpy
 import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
-from telegram.ext import CallbackQueryHandler, run_async
+from telegram.ext import CallbackQueryHandler
 
 from priscia import OWNER_ID, SUDO_USERS, dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
@@ -160,7 +160,6 @@ query ($id: Int,$search: String) {
 url = "https://graphql.anilist.co"
 
 
-@run_async
 def airing(update, context):
     message = update.effective_message
     search_str = message.text.split(" ", 1)
@@ -183,7 +182,6 @@ def airing(update, context):
     update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
 def anime(update, context):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -257,7 +255,6 @@ def anime(update, context):
             )
 
 
-@run_async
 def character(update, context):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -288,7 +285,6 @@ def character(update, context):
             update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
 def manga(update, context):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -355,7 +351,6 @@ def manga(update, context):
             )
 
 
-@run_async
 def user(update, context):
     message = update.effective_message
     args = message.text.strip().split(" ", 1)
@@ -444,7 +439,6 @@ def user(update, context):
     progress_message.delete()
 
 
-@run_async
 def upcoming(update, context):
     jikan = jikanpy.jikan.Jikan()
     upcoming = jikan.top("anime", page=1, subtype="upcoming")
@@ -647,37 +641,30 @@ def site_search(update, context, site: str):
         )
 
 
-@run_async
 def kaizoku(update, context):
     site_search(update, context, "kaizoku")
 
 
-@run_async
 def kayo(update, context):
     site_search(update, context, "kayo")
 
 
-@run_async
 def kuso(update, context):
     site_search(update, context, "kuso")
 
 
-@run_async
 def drive(update, context):
     site_search(update, context, "drive")
 
 
-@run_async
 def oploverz(update, context):
     site_search(update, context, "oploverz")
 
 
-@run_async
 def neo(update, context):
     site_search(update, context, "neo")
 
 
-@run_async
 def same(update, context):
     site_search(update, context, "same")
 

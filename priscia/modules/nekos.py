@@ -1,6 +1,5 @@
 import nekos
 from telegram import ParseMode
-from telegram.ext import run_async
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
@@ -25,115 +24,96 @@ def nekodoc(update, context, site: str):
     message.reply_document(document=img, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
 @typing_action
 def neko(update, context):
     nekodoc(update, context, "neko")
 
 
-@run_async
 @typing_action
 def erokemo(update, context):
     nekoimage(update, context, "erokemo")
 
 
-@run_async
 @typing_action
 def wallpaper(update, context):
     nekodoc(update, context, "wallpaper")
 
 
-@run_async
 @typing_action
 def ngif(update, context):
     nekovideo(update, context, "ngif")
 
 
-@run_async
 @typing_action
 def tickle(update, context):
     nekoimage(update, context, "tickle")
 
 
-@run_async
 @typing_action
 def feed(update, context):
     nekoimage(update, context, "feed")
 
 
-@run_async
 @typing_action
 def eroneko(update, context):
     nekoimage(update, context, "eron")
 
 
-@run_async
 @typing_action
 def kemonomimi(update, context):
     nekoimage(update, context, "kemonomimi")
 
 
-@run_async
 @typing_action
 def poke(update, context):
     nekovideo(update, context, "poke")
 
 
-@run_async
 @typing_action
 def avatar(update, context):
     nekoimage(update, context, "avatar")
 
 
-@run_async
 @typing_action
 def waifu(update, context):
     nekoimage(update, context, "waifu")
 
 
-@run_async
 @typing_action
 def pat(update, context):
     nekovideo(update, context, "pat")
 
 
-@run_async
 @typing_action
 def cuddle(update, context):
     nekovideo(update, context, "cuddle")
 
 
-@run_async
 @typing_action
 def foxgirl(update, context):
     nekoimage(update, context, "fox_girl")
 
 
-@run_async
 @typing_action
 def hug(update, context):
     nekovideo(update, context, "hug")
 
 
-@run_async
 @typing_action
 def smug(update, context):
     nekovideo(update, context, "smug")
 
 
-@run_async
 @typing_action
 def goose(update, context):
     nekoimage(update, context, "goose")
 
 
-@run_async
 @typing_action
 def baka(update, context):
     nekovideo(update, context, "baka")
 
 
-@run_async
 @typing_action
 def woof(update, context):
     nekoimage(update, context, "woof")

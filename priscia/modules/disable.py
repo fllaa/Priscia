@@ -15,8 +15,6 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 
 # If module is due to be loaded, then setup all the magical handlers
 if is_module_loaded(FILENAME):
-    from telegram.ext.dispatcher import run_async
-
     from priscia.modules.helper_funcs.chat_status import is_user_admin, user_admin
     from priscia.modules.sql import disable_sql as sql
 
@@ -88,7 +86,6 @@ if is_module_loaded(FILENAME):
                     chat.id, self.friendly
                 )
 
-    @run_async
     @user_admin
     @typing_action
     def disable(update, context):
@@ -132,7 +129,6 @@ if is_module_loaded(FILENAME):
         else:
             send_message(update.effective_message, "What should I disable?")
 
-    @run_async
     @user_admin
     @typing_action
     def enable(update, context):
@@ -176,7 +172,6 @@ if is_module_loaded(FILENAME):
         else:
             send_message(update.effective_message, "What should I enable?")
 
-    @run_async
     @user_admin
     # @typing_action
     def list_cmds(update, context):
@@ -202,7 +197,6 @@ if is_module_loaded(FILENAME):
             result += " - `{}`\n".format(escape_markdown(cmd))
         return "The following commands are currently restricted:\n{}".format(result)
 
-    @run_async
     @typing_action
     def commands(update, context):
         chat = update.effective_chat

@@ -3,7 +3,7 @@ import time
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CallbackQueryHandler, CommandHandler, run_async
+from telegram.ext import CallbackQueryHandler, CommandHandler
 
 import priscia.modules.sql.connection_sql as sql
 from priscia import SUDO_USERS, dispatcher
@@ -14,7 +14,6 @@ user_admin = chat_status.user_admin
 
 
 @user_admin
-@run_async
 @typing_action
 def allow_connections(update, context) -> str:
 
@@ -62,7 +61,6 @@ def allow_connections(update, context) -> str:
         )
 
 
-@run_async
 @typing_action
 def connection_chat(update, context):
 
@@ -87,7 +85,6 @@ def connection_chat(update, context):
     send_message(update.effective_message, message, parse_mode="markdown")
 
 
-@run_async
 @typing_action
 def connect_chat(update, context):
 
@@ -318,7 +315,6 @@ CONN_HELP = """
  • More in future!"""
 
 
-@run_async
 def help_connect_chat(update, context):
 
     context.args
@@ -330,7 +326,6 @@ def help_connect_chat(update, context):
         send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
 
 
-@run_async
 def connect_button(update, context):
 
     query = update.callback_query

@@ -5,7 +5,6 @@ import requests
 from pytz import country_names as cname
 from telegram import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import run_async
 
 from priscia import API_WEATHER as APPID
 from priscia import dispatcher
@@ -13,7 +12,6 @@ from priscia.modules.disable import DisableAbleCommandHandler
 from priscia.modules.helper_funcs.alternate import typing_action
 
 
-@run_async
 @typing_action
 def weather(update, context):
     args = context.args

@@ -8,7 +8,7 @@ from telegram import (
     User,
 )
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, run_async
+from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import escape_markdown
 
 import priscia.modules.sql.rules_sql as sql
@@ -18,7 +18,6 @@ from priscia.modules.helper_funcs.chat_status import user_admin
 from priscia.modules.helper_funcs.string_handling import markdown_parser
 
 
-@run_async
 @typing_action
 def get_rules(update, context):
     chat_id = update.effective_chat.id
@@ -74,7 +73,6 @@ def send_rules(update, chat_id, from_pm=False):
         )
 
 
-@run_async
 @user_admin
 @typing_action
 def set_rules(update, context):
@@ -95,7 +93,6 @@ def set_rules(update, context):
         update.effective_message.reply_text("Successfully set rules for this group.")
 
 
-@run_async
 @user_admin
 @typing_action
 def clear_rules(update, context):

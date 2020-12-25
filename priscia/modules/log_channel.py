@@ -7,7 +7,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 if is_module_loaded(FILENAME):
     from telegram import Bot, Message, ParseMode
     from telegram.error import BadRequest, Unauthorized
-    from telegram.ext import CommandHandler, run_async
+    from telegram.ext import CommandHandler
     from telegram.utils.helpers import escape_markdown
 
     from priscia import LOGGER, dispatcher
@@ -66,7 +66,6 @@ if is_module_loaded(FILENAME):
                     + "\n\nFormatting has been disabled due to an unexpected error.",
                 )
 
-    @run_async
     @user_admin
     def logging(update, context):
         message = update.effective_message  # type: Optional[Message]
@@ -85,7 +84,6 @@ if is_module_loaded(FILENAME):
         else:
             message.reply_text("No log channel has been set for this group!")
 
-    @run_async
     @user_admin
     def setlog(update, context):
         message = update.effective_message  # type: Optional[Message]
@@ -130,7 +128,6 @@ if is_module_loaded(FILENAME):
                 " - forward the /setlog to the group\n"
             )
 
-    @run_async
     @user_admin
     def unsetlog(update, context):
         message = update.effective_message  # type: Optional[Message]

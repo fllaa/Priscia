@@ -4,7 +4,7 @@ import re
 import requests as r
 from telegram import MAX_MESSAGE_LENGTH, ParseMode, TelegramError
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, run_async
+from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import escape_markdown
 
 import priscia.modules.helper_funcs.fun_strings as fun
@@ -15,13 +15,11 @@ from priscia.modules.helper_funcs.extraction import extract_user
 from priscia.modules.helper_funcs.filters import CustomFilters
 
 
-@run_async
 @typing_action
 def runs(update, context):
     update.effective_message.reply_text(random.choice(fun.RUN_STRINGS))
 
 
-@run_async
 @typing_action
 def slap(update, context):
     args = context.args
@@ -66,7 +64,6 @@ def slap(update, context):
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
 @typing_action
 def punch(update, context):
     args = context.args
@@ -110,7 +107,6 @@ def punch(update, context):
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
 @typing_action
 def hug(update, context):
     args = context.args
@@ -155,7 +151,6 @@ def hug(update, context):
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
 @typing_action
 def abuse(update, context):
     # reply to correct message
@@ -167,13 +162,11 @@ def abuse(update, context):
     reply_text(random.choice(fun.ABUSE_STRINGS))
 
 
-@run_async
 @typing_action
 def dice(update, context):
     context.bot.sendDice(update.effective_chat.id)
 
 
-@run_async
 @typing_action
 def shrug(update, context):
     # reply to correct message
@@ -185,7 +178,6 @@ def shrug(update, context):
     reply_text(random.choice(fun.SHGS))
 
 
-@run_async
 def decide(update, context):
     args = update.effective_message.text.split(None, 1)
     if len(args) >= 2:  # Don't reply if no args
@@ -197,7 +189,6 @@ def decide(update, context):
         reply_text(random.choice(fun.DECIDE))
 
 
-@run_async
 def yesnowtf(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -214,7 +205,6 @@ def yesnowtf(update, context):
         return
 
 
-@run_async
 @typing_action
 def table(update, context):
     reply_text = (
@@ -225,7 +215,6 @@ def table(update, context):
     reply_text(random.choice(fun.TABLE))
 
 
-@run_async
 @typing_action
 def cri(update, context):
     reply_text = (
@@ -236,7 +225,6 @@ def cri(update, context):
     reply_text(random.choice(fun.CRI))
 
 
-@run_async
 @typing_action
 def recite(update, context):
     reply_text = (
@@ -247,7 +235,6 @@ def recite(update, context):
     reply_text(random.choice(fun.BEING_LOGICAL))
 
 
-@run_async
 @typing_action
 def gbun(update, context):
     user = update.effective_user
@@ -259,7 +246,6 @@ def gbun(update, context):
         context.bot.sendMessage(chat.id, (random.choice(fun.GBUN)))
 
 
-@run_async
 @typing_action
 def snipe(update, context):
     args = context.args
@@ -279,7 +265,6 @@ def snipe(update, context):
             )
 
 
-@run_async
 @typing_action
 def copypasta(update, context):
     message = update.effective_message
@@ -336,7 +321,6 @@ def copypasta(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@run_async
 @typing_action
 def clapmoji(update, context):
     message = update.effective_message
@@ -349,7 +333,6 @@ def clapmoji(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@run_async
 @typing_action
 def owo(update, context):
     message = update.effective_message
@@ -390,7 +373,6 @@ def owo(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@run_async
 @typing_action
 def iwi(update, context):
     message = update.effective_message
@@ -429,7 +411,6 @@ def iwi(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@run_async
 @typing_action
 def mock(update, context):
     reply_text = []
@@ -447,7 +428,6 @@ def mock(update, context):
         message.reply_to_message.reply_text("".join(reply_text))
 
 
-@run_async
 @typing_action
 def stretch(update, context):
     message = update.effective_message
@@ -466,21 +446,18 @@ def stretch(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@run_async
 def me_too(update, context):
     message = update.effective_message
     reply = random.choice(["Me too thanks", "Haha yes, me too", "Same lol", "Me irl"])
     message.reply_text(reply)
 
 
-@run_async
 def goodnight(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDNIGHT)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
 def goodmorning(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDMORNING)

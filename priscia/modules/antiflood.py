@@ -3,7 +3,7 @@ from typing import Optional
 
 from telegram import Chat, ChatPermissions, Message, ParseMode, User
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
+from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
 
 from priscia import dispatcher
@@ -17,7 +17,6 @@ from priscia.modules.sql import antiflood_sql as sql
 FLOOD_GROUP = 3
 
 
-@run_async
 @loggable
 def check_flood(update, context) -> str:
     user = update.effective_user  # type: Optional[User]
@@ -97,7 +96,6 @@ def check_flood(update, context) -> str:
         )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -195,7 +193,6 @@ def set_flood(update, context) -> str:
     return ""
 
 
-@run_async
 @typing_action
 def flood(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -241,7 +238,6 @@ def flood(update, context):
         send_message(update.effective_message, text, parse_mode="markdown")
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action

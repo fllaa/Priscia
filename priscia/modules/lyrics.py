@@ -1,11 +1,9 @@
-from telegram.ext import run_async
 from tswift import Song
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
 
 
-@run_async
 def lyrics(update, context):
     msg = update.effective_message
     query = " ".join(context.args)
