@@ -892,10 +892,18 @@ WELC_PREF_HANDLER = CommandHandler(
 GOODBYE_PREF_HANDLER = CommandHandler(
     "goodbye", goodbye, pass_args=True, filters=Filters.chat_type.groups
 )
-SET_WELCOME = CommandHandler("setwelcome", set_welcome, filters=Filters.chat_type.groups)
-SET_GOODBYE = CommandHandler("setgoodbye", set_goodbye, filters=Filters.chat_type.groups)
-RESET_WELCOME = CommandHandler("resetwelcome", reset_welcome, filters=Filters.chat_type.groups)
-RESET_GOODBYE = CommandHandler("resetgoodbye", reset_goodbye, filters=Filters.chat_type.groups)
+SET_WELCOME = CommandHandler(
+    "setwelcome", set_welcome, filters=Filters.chat_type.groups
+)
+SET_GOODBYE = CommandHandler(
+    "setgoodbye", set_goodbye, filters=Filters.chat_type.groups
+)
+RESET_WELCOME = CommandHandler(
+    "resetwelcome", reset_welcome, filters=Filters.chat_type.groups
+)
+RESET_GOODBYE = CommandHandler(
+    "resetgoodbye", reset_goodbye, filters=Filters.chat_type.groups
+)
 CLEAN_WELCOME = CommandHandler(
     "cleanwelcome", clean_welcome, pass_args=True, filters=Filters.chat_type.groups
 )

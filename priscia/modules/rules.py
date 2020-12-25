@@ -132,8 +132,12 @@ Every chat works with different rules; this module will help make those rules cl
 __mod_name__ = "Rules"
 
 GET_RULES_HANDLER = CommandHandler("rules", get_rules, filters=Filters.chat_type.groups)
-SET_RULES_HANDLER = CommandHandler("setrules", set_rules, filters=Filters.chat_type.groups)
-RESET_RULES_HANDLER = CommandHandler("clearrules", clear_rules, filters=Filters.chat_type.groups)
+SET_RULES_HANDLER = CommandHandler(
+    "setrules", set_rules, filters=Filters.chat_type.groups
+)
+RESET_RULES_HANDLER = CommandHandler(
+    "clearrules", clear_rules, filters=Filters.chat_type.groups
+)
 
 dispatcher.add_handler(GET_RULES_HANDLER)
 dispatcher.add_handler(SET_RULES_HANDLER)

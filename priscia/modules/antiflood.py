@@ -392,7 +392,8 @@ SET_FLOOD_HANDLER = CommandHandler(
 SET_FLOOD_MODE_HANDLER = CommandHandler(
     "setfloodmode", set_flood_mode, pass_args=True
 )  # , filters=Filters.chat_type.groups)
-FLOOD_HANDLER = CommandHandler("flood", flood)  # , filters=Filters.chat_type.groups)
+# , filters=Filters.chat_type.groups)
+FLOOD_HANDLER = CommandHandler("flood", flood)
 
 dispatcher.add_handler(FLOOD_BAN_HANDLER, FLOOD_GROUP)
 dispatcher.add_handler(SET_FLOOD_HANDLER)
