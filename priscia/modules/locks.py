@@ -580,12 +580,12 @@ Note:
 __mod_name__ = "Locks"
 
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
-# , filters=Filters.group)
+# , filters=Filters.chat_type.groups)
 LOCK_HANDLER = CommandHandler("lock", lock, pass_args=True)
 UNLOCK_HANDLER = CommandHandler(
     "unlock", unlock, pass_args=True
-)  # , filters=Filters.group)
-# , filters=Filters.group)
+)  # , filters=Filters.chat_type.groups)
+# , filters=Filters.chat_type.groups)
 LOCKED_HANDLER = CommandHandler("locks", list_locks)
 
 dispatcher.add_handler(LOCK_HANDLER)
@@ -594,5 +594,5 @@ dispatcher.add_handler(LOCKTYPES_HANDLER)
 dispatcher.add_handler(LOCKED_HANDLER)
 
 dispatcher.add_handler(
-    MessageHandler(Filters.all & Filters.group, del_lockables), PERM_GROUP
+    MessageHandler(Filters.all & Filters.chat_type.groups, del_lockables), PERM_GROUP
 )

@@ -157,9 +157,9 @@ AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
     Filters.regex("(?i)brb"), afk, friendly="afk"
 )
-NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk)
+NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, no_longer_afk)
 AFK_REPLY_HANDLER = MessageHandler(
-    Filters.all & Filters.group & ~Filters.update.edited_message, reply_afk
+    Filters.all & Filters.chat_type.groups & ~Filters.update.edited_message, reply_afk
 )
 
 
