@@ -4,7 +4,6 @@ from typing import Optional
 from telegram import Chat, ChatPermissions, Message, User
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
-from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 from priscia import LOGGER, dispatcher
@@ -21,7 +20,6 @@ from priscia.modules.helper_funcs.string_handling import extract_time
 from priscia.modules.log_channel import loggable
 
 
-@run_async
 @bot_admin
 @user_admin
 @loggable
@@ -79,7 +77,6 @@ def mute(update, context):
     return ""
 
 
-@run_async
 @bot_admin
 @user_admin
 @loggable
@@ -146,7 +143,6 @@ def unmute(update, context):
     return ""
 
 
-@run_async
 @bot_admin
 @can_restrict
 @user_admin

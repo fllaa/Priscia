@@ -18,7 +18,6 @@ from telegram.ext import (
     DispatcherHandlerStop,
     Filters,
     MessageHandler,
-    run_async,
 )
 from telegram.utils.helpers import mention_html
 
@@ -146,7 +145,6 @@ def warn(
     return log_reason
 
 
-@run_async
 @user_admin_no_reply
 @bot_admin
 @loggable
@@ -185,7 +183,6 @@ def button(update, context):
     return ""
 
 
-@run_async
 @user_admin
 @can_restrict
 @loggable
@@ -216,7 +213,6 @@ def warn_user(update, context):
     return ""
 
 
-@run_async
 @user_admin
 @bot_admin
 @loggable
@@ -248,7 +244,6 @@ def reset_warns(update, context):
     return ""
 
 
-@run_async
 @user_admin
 @bot_admin
 @loggable
@@ -281,7 +276,6 @@ def remove_warns(update, context):
     return ""
 
 
-@run_async
 @typing_action
 def warns(update, context):
     message = update.effective_message  # type: Optional[Message]
@@ -386,7 +380,6 @@ def remove_warn_filter(update, context):
     )
 
 
-@run_async
 def list_warn_filters(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     all_handlers = sql.get_chat_warn_triggers(chat.id)
@@ -408,7 +401,6 @@ def list_warn_filters(update, context):
         update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML)
 
 
-@run_async
 @loggable
 def reply_filter(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -428,7 +420,6 @@ def reply_filter(update, context) -> str:
     return ""
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -463,7 +454,6 @@ def set_warn_limit(update, context) -> str:
     return ""
 
 
-@run_async
 @user_admin
 @typing_action
 def set_warn_strength(update, context):

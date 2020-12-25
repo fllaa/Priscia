@@ -5,7 +5,6 @@ from typing import Optional
 from telegram import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
-from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 from priscia import dispatcher
@@ -28,7 +27,6 @@ from priscia.modules.log_channel import loggable
 from priscia.modules.sql import admin_sql as sql
 
 
-@run_async
 @bot_admin
 @can_promote
 @user_admin
@@ -87,7 +85,6 @@ def promote(update, context):
     )
 
 
-@run_async
 @bot_admin
 @can_promote
 @user_admin
@@ -155,7 +152,6 @@ def demote(update, context):
         return ""
 
 
-@run_async
 @bot_admin
 @can_pin
 @user_admin
@@ -206,7 +202,6 @@ def pin(update, context):
 
 @can_pin
 @user_admin
-@run_async
 def permanent_pin_set(update, context) -> str:
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -288,7 +283,6 @@ def permanent_pin_set(update, context) -> str:
     return ""
 
 
-@run_async
 def permanent_pin(update, context):
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -322,7 +316,6 @@ def permanent_pin(update, context):
                 print("Permanent pin error: cannot delete pin msg")
 
 
-@run_async
 @bot_admin
 @can_pin
 @user_admin
@@ -354,7 +347,6 @@ def unpin(update, context):
     )
 
 
-@run_async
 @bot_admin
 @user_admin
 @typing_action
@@ -390,7 +382,6 @@ def invite(update, context):
         )
 
 
-@run_async
 @typing_action
 def adminlist(update, context):
     administrators = update.effective_chat.get_administrators()
@@ -411,7 +402,6 @@ def adminlist(update, context):
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
-@run_async
 @bot_admin
 @can_promote
 @user_admin
@@ -471,7 +461,6 @@ def set_title(update, context):
         message.reply_text("I can't set custom title for admins that I didn't promote!")
 
 
-@run_async
 @bot_admin
 @user_admin
 @typing_action
@@ -509,7 +498,6 @@ def setchatpic(update, context):
         msg.reply_text("Reply to some photo or file to set new chat pic!")
 
 
-@run_async
 @bot_admin
 @user_admin
 @typing_action
@@ -529,7 +517,6 @@ def rmchatpic(update, context):
         return
 
 
-@run_async
 @bot_admin
 @user_admin
 @typing_action
@@ -559,7 +546,6 @@ def setchat_title(update, context):
         return
 
 
-@run_async
 @bot_admin
 @user_admin
 @typing_action
@@ -590,7 +576,6 @@ def set_sticker(update, context):
         msg.reply_text("You need to reply to some sticker to set chat sticker set!")
 
 
-@run_async
 @bot_admin
 @user_admin
 @typing_action

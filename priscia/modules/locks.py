@@ -11,7 +11,6 @@ from telegram import (
 )
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
-from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 import priscia.modules.sql.locks_sql as sql
@@ -136,7 +135,6 @@ def unrestr_members(
             pass
 
 
-@run_async
 def locktypes(update, context):
     update.effective_message.reply_text(
         "\n × ".join(
@@ -146,7 +144,6 @@ def locktypes(update, context):
     )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -256,7 +253,6 @@ def lock(update, context) -> str:
     return ""
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -355,7 +351,6 @@ def unlock(update, context) -> str:
     return ""
 
 
-@run_async
 @user_not_admin
 def del_lockables(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -493,7 +488,6 @@ def build_lock_message(chat_id):
     return res
 
 
-@run_async
 @user_admin
 @typing_action
 def list_locks(update, context):

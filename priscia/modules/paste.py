@@ -1,12 +1,10 @@
 import requests
 from telegram import ParseMode
-from telegram.ext import run_async
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
 
 
-@run_async
 def paste(update, context):
     args = context.args
     message = update.effective_message

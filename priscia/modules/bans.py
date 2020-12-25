@@ -2,7 +2,7 @@ import html
 
 from telegram import Chat, ParseMode, User
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, run_async
+from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import mention_html
 
 from priscia import LOGGER, dispatcher
@@ -22,7 +22,6 @@ from priscia.modules.helper_funcs.string_handling import extract_time
 from priscia.modules.log_channel import loggable
 
 
-@run_async
 @bot_admin
 @can_restrict
 @user_admin
@@ -107,7 +106,6 @@ def ban(update, context):
     return ""
 
 
-@run_async
 @bot_admin
 @can_restrict
 @user_admin
@@ -207,7 +205,6 @@ def temp_ban(update, context):
     return ""
 
 
-@run_async
 @bot_admin
 @can_restrict
 @user_admin
@@ -278,7 +275,6 @@ def kick(update, context):
     return ""
 
 
-@run_async
 @bot_admin
 @can_restrict
 @loggable
@@ -308,7 +304,6 @@ def banme(update, context):
         update.effective_message.reply_text("Huh? I can't :/")
 
 
-@run_async
 @bot_admin
 @can_restrict
 @typing_action
@@ -325,7 +320,6 @@ def kickme(update, context):
         update.effective_message.reply_text("Huh? I can't :/")
 
 
-@run_async
 @bot_admin
 @can_restrict
 @user_admin

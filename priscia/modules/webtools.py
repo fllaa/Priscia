@@ -14,7 +14,7 @@ from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
 from spamwatch import __version__ as __sw__
 from telegram import ParseMode, __version__
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, run_async
+from telegram.ext import CommandHandler, Filters
 
 from priscia import MESSAGE_DUMP, OWNER_ID, dispatcher
 from priscia.modules.helper_funcs.alternate import typing_action
@@ -22,7 +22,6 @@ from priscia.modules.helper_funcs.filters import CustomFilters
 
 
 @typing_action
-@run_async
 def ping(update, context):
     msg = update.effective_message
     start_time = time.time()
@@ -48,7 +47,6 @@ def speed_convert(size):
     return f"{round(size, 2)} {units[zero]}"
 
 
-@run_async
 @typing_action
 def get_bot_ip(update, context):
     """Sends the bot's IP address, so as to be able to ssh in if necessary.
@@ -58,7 +56,6 @@ def get_bot_ip(update, context):
     update.message.reply_text(res.text)
 
 
-@run_async
 @typing_action
 def speedtst(update, context):
     message = update.effective_message
@@ -83,7 +80,6 @@ def speedtst(update, context):
     )
 
 
-@run_async
 @typing_action
 def system_status(update, context):
     uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y-%m-%d %H:%M:%S")
@@ -110,7 +106,6 @@ def system_status(update, context):
     context.bot.sendMessage(update.effective_chat.id, status, parse_mode=ParseMode.HTML)
 
 
-@run_async
 @typing_action
 def leavechat(update, context):
     args = context.args
@@ -139,7 +134,6 @@ def leavechat(update, context):
             return
 
 
-@run_async
 @typing_action
 def gitpull(update, context):
     sent_msg = update.effective_message.reply_text("Pulling all changes from remote...")
@@ -152,7 +146,6 @@ def gitpull(update, context):
     sent_msg.edit_text(sent_msg_text)
 
 
-@run_async
 @typing_action
 def restart(update, context):
     user = update.effective_message.from_user
@@ -179,7 +172,6 @@ def restart(update, context):
     os.system("bash start")
 
 
-@run_async
 def executor(update, context):
     msg = update.effective_message
     if msg.text:

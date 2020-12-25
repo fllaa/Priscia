@@ -5,7 +5,7 @@ from io import BytesIO
 
 from telegram import Message, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, run_async
+from telegram.ext import CommandHandler
 
 # from priscia.modules.sql import warns_sql as warnssql
 import priscia.modules.sql.blacklist_sql as blacklistsql
@@ -25,7 +25,6 @@ from priscia.modules.helper_funcs.chat_status import user_admin
 from priscia.modules.sql import disable_sql as disabledsql
 
 
-@run_async
 @user_admin
 @typing_action
 def import_data(update, context):
@@ -121,7 +120,6 @@ def import_data(update, context):
         msg.reply_text(text, parse_mode="markdown")
 
 
-@run_async
 @user_admin
 def export_data(update, context):
     chat_data = context.chat_data

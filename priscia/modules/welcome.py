@@ -10,13 +10,7 @@ from telegram import (
     ParseMode,
 )
 from telegram.error import BadRequest
-from telegram.ext import (
-    CallbackQueryHandler,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-    run_async,
-)
+from telegram.ext import CallbackQueryHandler, CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
 
 import priscia.modules.sql.welcome_sql as sql
@@ -142,7 +136,6 @@ def send(update, message, keyboard, backup_message):
     return msg
 
 
-@run_async
 def new_member(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -325,7 +318,6 @@ def new_member(update, context):
                 sql.set_clean_welcome(chat.id, sent.message_id)
 
 
-@run_async
 def left_member(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     should_goodbye, cust_goodbye, goodbye_type = sql.get_gdbye_pref(chat.id)
@@ -412,7 +404,6 @@ def left_member(update, context):
             send(update, res, keyboard, sql.DEFAULT_GOODBYE)
 
 
-@run_async
 @user_admin
 @typing_action
 def welcome(update, context):
@@ -465,7 +456,6 @@ def welcome(update, context):
             )
 
 
-@run_async
 @user_admin
 @typing_action
 def goodbye(update, context):
@@ -518,7 +508,6 @@ def goodbye(update, context):
             )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -546,7 +535,6 @@ def set_welcome(update, context) -> str:
     )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -567,7 +555,6 @@ def reset_welcome(update, context) -> str:
     )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -593,7 +580,6 @@ def set_goodbye(update, context) -> str:
     )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -614,7 +600,6 @@ def reset_goodbye(update, context) -> str:
     )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -676,7 +661,6 @@ def welcomemute(update, context) -> str:
         return ""
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -725,7 +709,6 @@ def clean_welcome(update, context) -> str:
         return ""
 
 
-@run_async
 @user_admin
 @typing_action
 def cleanservice(update, context):
@@ -764,7 +747,6 @@ def cleanservice(update, context):
             )
 
 
-@run_async
 def user_button(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -825,7 +807,6 @@ WELC_HELP_TXT = (
 )
 
 
-@run_async
 @user_admin
 @typing_action
 def welcome_help(update, context):

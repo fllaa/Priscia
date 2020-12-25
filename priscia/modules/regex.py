@@ -2,7 +2,7 @@ import re
 import sre_constants
 
 import telegram
-from telegram.ext import Filters, run_async
+from telegram.ext import Filters
 
 from priscia import LOGGER, dispatcher
 from priscia.modules.disable import DisableAbleMessageHandler
@@ -70,7 +70,6 @@ def separate_sed(sed_string):
         return replace, replace_with, flags.lower()
 
 
-@run_async
 def sed(update, context):
     sed_result = separate_sed(update.effective_message.text)
     if sed_result and update.effective_message.reply_to_message:

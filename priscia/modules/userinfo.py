@@ -2,7 +2,6 @@ import html
 from typing import Optional
 
 from telegram import MAX_MESSAGE_LENGTH, Message, ParseMode, User
-from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
 
 import priscia.modules.sql.userinfo_sql as sql
@@ -12,7 +11,6 @@ from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.extraction import extract_user
 
 
-@run_async
 @typing_action
 def about_me(update, context):
     message = update.effective_message  # type: Optional[Message]
@@ -42,7 +40,6 @@ def about_me(update, context):
         )
 
 
-@run_async
 @typing_action
 def set_about_me(update, context):
     message = update.effective_message  # type: Optional[Message]
@@ -63,7 +60,6 @@ def set_about_me(update, context):
             )
 
 
-@run_async
 @typing_action
 def about_bio(update, context):
     message = update.effective_message  # type: Optional[Message]
@@ -91,7 +87,6 @@ def about_bio(update, context):
         update.effective_message.reply_text(" Your bio  about you has been saved !")
 
 
-@run_async
 @typing_action
 def set_about_bio(update, context):
     message = update.effective_message  # type: Optional[Message]

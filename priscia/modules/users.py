@@ -4,7 +4,6 @@ from time import sleep
 from telegram import TelegramError
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
-from telegram.ext.dispatcher import run_async
 
 import priscia.modules.sql.users_sql as sql
 from priscia import LOGGER, OWNER_ID, dispatcher
@@ -46,7 +45,6 @@ def get_user_id(username):
     return None
 
 
-@run_async
 def broadcast(update, context):
     to_send = update.effective_message.text.split(None, 1)
     if len(to_send) >= 2:
@@ -70,7 +68,6 @@ def broadcast(update, context):
         )
 
 
-@run_async
 def log_user(update, context):
     chat = update.effective_chat
     msg = update.effective_message
@@ -89,7 +86,6 @@ def log_user(update, context):
         sql.update_user(msg.forward_from.id, msg.forward_from.username)
 
 
-@run_async
 def chats(update, context):
     all_chats = sql.get_all_chats() or []
     chatfile = "List of chats.\n"
@@ -105,7 +101,6 @@ def chats(update, context):
         )
 
 
-@run_async
 def chat_checker(update, context):
     if (
         update.effective_message.chat.get_member(context.bot.id).can_send_messages

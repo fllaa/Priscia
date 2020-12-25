@@ -10,13 +10,7 @@ from telegram import (
     User,
 )
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import (
-    CallbackQueryHandler,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-    run_async,
-)
+from telegram.ext import CallbackQueryHandler, CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
 
 from priscia import LOGGER, dispatcher
@@ -28,7 +22,6 @@ from priscia.modules.sql import reporting_sql as sql
 REPORT_GROUP = 5
 
 
-@run_async
 @user_admin
 @typing_action
 def report_setting(update, context):
@@ -78,7 +71,6 @@ def report_setting(update, context):
             )
 
 
-@run_async
 @user_not_admin
 @loggable
 @typing_action

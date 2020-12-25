@@ -1,5 +1,4 @@
 from telegram import ParseMode
-from telegram.ext import run_async
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
@@ -259,7 +258,6 @@ linedfont = [
 ]
 
 
-@run_async
 @typing_action
 def weebify(update, context):
     args = context.args
@@ -287,7 +285,6 @@ def weebify(update, context):
         message.reply_text(string)
 
 
-@run_async
 @typing_action
 def bubble(update, context):
     args = context.args
@@ -315,7 +312,6 @@ def bubble(update, context):
         message.reply_text(string)
 
 
-@run_async
 @typing_action
 def fbubble(update, context):
     args = context.args
@@ -343,7 +339,6 @@ def fbubble(update, context):
         message.reply_text(string)
 
 
-@run_async
 @typing_action
 def square(update, context):
     args = context.args
@@ -371,7 +366,6 @@ def square(update, context):
         message.reply_text(string)
 
 
-@run_async
 @typing_action
 def fsquare(update, context):
     args = context.args
@@ -399,7 +393,6 @@ def fsquare(update, context):
         message.reply_text(string)
 
 
-@run_async
 @typing_action
 def blue(update, context):
     args = context.args
@@ -427,7 +420,6 @@ def blue(update, context):
         message.reply_text(string)
 
 
-@run_async
 @typing_action
 def latin(update, context):
     args = context.args
@@ -455,7 +447,6 @@ def latin(update, context):
         message.reply_text(string)
 
 
-@run_async
 @typing_action
 def lined(update, context):
     args = context.args
