@@ -1,10 +1,9 @@
 import html
 import os
-from typing import Optional
 
 from telegram import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler
+from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import mention_html
 
 from priscia import dispatcher
@@ -24,7 +23,6 @@ from priscia.modules.helper_funcs.chat_status import (
 )
 from priscia.modules.helper_funcs.extraction import extract_user, extract_user_and_text
 from priscia.modules.log_channel import loggable
-from priscia.modules.sql import admin_sql as sql
 
 
 @bot_admin
