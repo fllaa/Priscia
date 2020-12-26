@@ -7,8 +7,10 @@ from telegram.ext import CommandHandler
 import priscia.modules.sql.last_fm_sql as sql
 from priscia import LASTFM_API_KEY, dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
+from priscia.modules.helper_funcs.alternate import typing_action
 
 
+@typing_action
 def set_user(update, context):
     msg = update.effective_message
     args = context.args
@@ -23,6 +25,7 @@ def set_user(update, context):
         )
 
 
+@typing_action
 def clear_user(update, context):
     user = update.effective_user.id
     sql.set_user(user, "")
@@ -31,6 +34,7 @@ def clear_user(update, context):
     )
 
 
+@typing_action
 def last_fm(update, context):
     msg = update.effective_message
     user = update.effective_user.first_name

@@ -8,6 +8,7 @@ from telegram.ext import Filters, MessageHandler
 import priscia.modules.helper_funcs.fun_strings as fun
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.sql import afk_sql as sql
 from priscia.modules.users import get_user_id
 
@@ -15,6 +16,7 @@ AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
 
+@typing_action
 def afk(update, context):
     args = update.effective_message.text.split(None, 1)
     notice = ""
@@ -34,6 +36,7 @@ def afk(update, context):
     afksend.delete()
 
 
+@typing_action
 def no_longer_afk(update, context):
     user = update.effective_user
     message = update.effective_message

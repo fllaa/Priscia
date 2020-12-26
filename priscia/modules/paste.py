@@ -3,8 +3,10 @@ from telegram import ParseMode
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
+from priscia.modules.helper_funcs.alternate import typing_action
 
 
+@typing_action
 def paste(update, context):
     args = context.args
     message = update.effective_message

@@ -10,6 +10,7 @@ from telegram.ext import CallbackQueryHandler
 
 from priscia import OWNER_ID, SUDO_USERS, dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
+from priscia.modules.helper_funcs.alternate import typing_action
 
 info_btn = "More Information"
 kaizoku_btn = "Kaizoku ☠️"
@@ -160,6 +161,7 @@ query ($id: Int,$search: String) {
 url = "https://graphql.anilist.co"
 
 
+@typing_action
 def airing(update, context):
     message = update.effective_message
     search_str = message.text.split(" ", 1)
@@ -182,6 +184,7 @@ def airing(update, context):
     update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
+@typing_action
 def anime(update, context):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -255,6 +258,7 @@ def anime(update, context):
             )
 
 
+@typing_action
 def character(update, context):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -285,6 +289,7 @@ def character(update, context):
             update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
+@typing_action
 def manga(update, context):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -351,6 +356,7 @@ def manga(update, context):
             )
 
 
+@typing_action
 def user(update, context):
     message = update.effective_message
     args = message.text.strip().split(" ", 1)
@@ -439,6 +445,7 @@ def user(update, context):
     progress_message.delete()
 
 
+@typing_action
 def upcoming(update, context):
     jikan = jikanpy.jikan.Jikan()
     upcoming = jikan.top("anime", page=1, subtype="upcoming")
@@ -491,6 +498,7 @@ def button(update, context):
             query.answer("You are not allowed to use this.")
 
 
+@typing_action
 def site_search(update, context, site: str):
     message = update.effective_message
     args = message.text.strip().split(" ", 1)
