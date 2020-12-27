@@ -4,6 +4,7 @@ requests
 telethon
 sqlalchemy
 python-telegram-bot
+pyrogram==1.0.7
 psycopg2-binary
 pythonping
 feedparser
