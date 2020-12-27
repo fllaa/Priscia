@@ -11,10 +11,12 @@ from platform import python_version
 import requests
 import speedtest
 from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
+from pyrogram import __version__ as __pyro__
 from spamwatch import __version__ as __sw__
 from telegram import ParseMode, __version__
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
+from telethon import __version__ as __tltn__
 
 from priscia import MESSAGE_DUMP, OWNER_ID, dispatcher
 from priscia.modules.helper_funcs.alternate import send_message
@@ -97,7 +99,9 @@ def system_status(update, context):
     status += "<b>Ram usage:</b> <code>" + str(mem[2]) + " %</code>\n"
     status += "<b>Storage used:</b> <code>" + str(disk[3]) + " %</code>\n\n"
     status += "<b>Python version:</b> <code>" + python_version() + "</code>\n"
-    status += "<b>Library version:</b> <code>" + str(__version__) + "</code>\n"
+    status += "<b>PTB version:</b> <code>" + str(__version__) + "</code>\n"
+    status += "<b>Telethon version:</b> <code>" + str(__tltn__) + "</code>\n"
+    status += "<b>Pyrogram version:</b> <code>" + str(__pyro__) + "</code>\n"
     status += "<b>Spamwatch API:</b> <code>" + str(__sw__) + "</code>\n"
     context.bot.sendMessage(update.effective_chat.id, status, parse_mode=ParseMode.HTML)
 
