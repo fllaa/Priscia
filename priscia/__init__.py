@@ -170,7 +170,11 @@ else:
 # Telethon
 client = TelegramClient("priscia", api_id=API_ID, api_hash=API_HASH)
 # Pyrogram
-pciabot = Client("PrisciaPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+pciabot = Client(
+    "PrisciaPyro",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=TOKEN)
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 
