@@ -682,6 +682,7 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  • `/kaizoku <anime>`*:* search an anime on animekaizoku.com
  • `/kayo <anime>`*:* search an anime on animekayo.com
  • `/airing <anime>`*:* returns anime airing info.
+ • '/whatanime' *:* find what anime is from by replying a media
  *Only for* 🇮🇩
  • `/kuso <anime>`*:* Cari anime di kusonime.com
  • `/drive <anime>`*:* Cari anime di drivenime.com
