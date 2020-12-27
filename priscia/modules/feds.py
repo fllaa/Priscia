@@ -1188,7 +1188,6 @@ def set_frules(update, context):
         update.effective_message.reply_text("Please write rules to set it up!")
 
 
-
 def get_frules(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     context.args
