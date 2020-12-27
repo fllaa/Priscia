@@ -3,6 +3,7 @@ import os
 import sys
 import spamwatch
 from telethon import TelegramClient
+from pyrogram import Client
 import telegram.ext as tg
 
 # enable logging
@@ -90,8 +91,8 @@ if ENV:
     CUSTOM_CMD = os.environ.get("CUSTOM_CMD", False)
     API_WEATHER = os.environ.get("API_OPENWEATHER", None)
     WALL_API = os.environ.get("WALL_API", None)
-    TELETHON_ID = int(os.environ.get("TL_APP_ID", None))
-    TELETHON_HASH = os.environ.get("TL_HASH", None)
+    API_ID = int(os.environ.get("API_ID", None))
+    API_HASH = os.environ.get("API_HASH", None)
     SPAMWATCH = os.environ.get("SPAMWATCH_API", None)
     LASTFM_API_KEY = os.environ.get("LASTFM_API_KEY", None)
 
@@ -152,8 +153,8 @@ else:
     CUSTOM_CMD = Config.CUSTOM_CMD
     API_WEATHER = Config.API_OPENWEATHER
     WALL_API = Config.WALL_API
-    TELETHON_HASH = Config.TELETHON_HASH
-    TELETHON_ID = Config.TELETHON_ID
+    API_HASH = Config.API_HASH
+    API_ID = Config.API_ID
     SPAMWATCH = Config.SPAMWATCH_API
     LASTFM_API_KEY = Config.LASTFM_API_KEY
 
@@ -166,10 +167,13 @@ if SPAMWATCH is None:
 else:
     spamwtc = spamwatch.Client(SPAMWATCH)
 
+api_id = API_ID
+api_hash = API_HASH
+bot_token = TOKEN
 # Telethon
-api_id = TELETHON_ID
-api_hash = TELETHON_HASH
 client = TelegramClient("priscia", api_id, api_hash)
+# Pyrogram
+pbot = Client("PrisciaPyro", api_id, api_hash, bot_token)
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 
