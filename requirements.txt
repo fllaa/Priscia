@@ -5,6 +5,7 @@ telethon
 sqlalchemy
 python-telegram-bot
 pyrogram==1.0.7
+aiohttp
 psycopg2-binary
 pythonping
 feedparser
