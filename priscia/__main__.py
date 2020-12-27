@@ -13,6 +13,7 @@ from telegram.utils.helpers import escape_markdown
 
 from priscia import (
     dispatcher,
+    pciabot,
     updater,
     TOKEN,
     OWNER_ID,
@@ -584,6 +585,8 @@ def main():
 
 
 if __name__ == "__main__":
+    pciabot.start()
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     client.start(bot_token=TOKEN)
     main()
+    idle()
