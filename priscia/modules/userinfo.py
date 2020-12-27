@@ -15,7 +15,7 @@ def about_me(update, context):
     args = context.args
     user_id = extract_user(message, args)
 
-    user = bot.get_chat(user_id) if user_id else message.from_user
+    user = context.bot.get_chat(user_id) if user_id else message.from_user
     info = sql.get_user_me_info(user.id)
 
     if info:
@@ -48,7 +48,7 @@ def set_about_me(update, context):
         else:
             message.reply_text(
                 " About You{} To be confined to letters ".format(
-                    MAX_MESSAGE_LENGTH // 4, len(info[1])
+                    len(info[1])
                 )
             )
 
@@ -117,9 +117,9 @@ def __user_info__(user_id):
             me=me, bio=bio
         )
     elif bio:
-        return "<b>What others say:</b>\n{bio}\n".format(me=me, bio=bio)
+        return "<b>What others say:</b>\n{}\n".format(bio)
     elif me:
-        return "<b>About user:</b>\n{me}" "".format(me=me, bio=bio)
+        return "<b>About user:</b>\n{}" "".format(me)
     else:
         return ""
 
