@@ -173,7 +173,7 @@ bot_token = TOKEN
 # Telethon
 client = TelegramClient("priscia", api_id, api_hash)
 # Pyrogram
-pbot = Client("PrisciaPyro", api_id, api_hash, bot_token)
+pciabot = Client("PrisciaPyro", api_id, api_hash, bot_token)
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 

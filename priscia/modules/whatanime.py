@@ -12,7 +12,7 @@ import aiohttp
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from priscia import pbot
+from priscia import pciabot
 
 session = aiohttp.ClientSession()
 progress_callback_data = {}
@@ -46,7 +46,7 @@ def calculate_eta(current, total, start_time):
     return ", ".join(thing)
 
 
-@pbot.on_message(filters.command("whatanime"))
+@pciabot.on_message(~filters.me & filters.command('whatanime', prefixes='/'), group=8)
 async def whatanime(c: Client, m: Message):
     media = m.photo or m.animation or m.video or m.document
     if not media:
