@@ -167,13 +167,10 @@ if SPAMWATCH is None:
 else:
     spamwtc = spamwatch.Client(SPAMWATCH)
 
-api_id = API_ID
-api_hash = API_HASH
-bot_token = TOKEN
 # Telethon
-client = TelegramClient("priscia", api_id, api_hash)
+client = TelegramClient("priscia", api_id=API_ID, api_hash=API_HASH)
 # Pyrogram
-pciabot = Client("PrisciaPyro", api_id, api_hash, bot_token)
+pciabot = Client("PrisciaPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 
