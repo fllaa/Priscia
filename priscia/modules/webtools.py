@@ -17,6 +17,7 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 
 from priscia import MESSAGE_DUMP, OWNER_ID, dispatcher
+from priscia.modules.helper_funcs.alternate import send_message
 from priscia.modules.helper_funcs.filters import CustomFilters
 
 
