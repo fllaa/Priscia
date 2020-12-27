@@ -10,7 +10,7 @@ from telegram.utils.helpers import escape_markdown, mention_html
 from priscia import LOGGER, dispatcher
 from priscia.modules.connection import connected
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import send_message, typing_action
+from priscia.modules.helper_funcs.alternate import send_message
 from priscia.modules.helper_funcs.chat_status import user_admin
 from priscia.modules.helper_funcs.extraction import extract_text
 from priscia.modules.helper_funcs.filters import CustomFilters
@@ -39,7 +39,6 @@ ENUM_FUNC_MAP = {
 }
 
 
-@typing_action
 def list_handlers(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -87,7 +86,6 @@ def list_handlers(update, context):
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
 @user_admin
-@typing_action
 def filters(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -211,7 +209,6 @@ def filters(update, context):
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
 @user_admin
-@typing_action
 def stop_filter(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -437,7 +434,6 @@ def reply_filter(update, context):
 
 
 @user_admin
-@typing_action
 def rmall_filters(update, context):
     chat = update.effective_chat
     user = update.effective_user

@@ -8,7 +8,7 @@ from telegram.utils.helpers import mention_html
 
 from priscia import dispatcher
 from priscia.modules.connection import connected
-from priscia.modules.helper_funcs.alternate import send_message, typing_action
+from priscia.modules.helper_funcs.alternate import send_message
 from priscia.modules.helper_funcs.chat_status import is_user_admin, user_admin
 from priscia.modules.helper_funcs.string_handling import extract_time
 from priscia.modules.log_channel import loggable
@@ -98,7 +98,6 @@ def check_flood(update, context) -> str:
 
 @user_admin
 @loggable
-@typing_action
 def set_flood(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -193,7 +192,6 @@ def set_flood(update, context) -> str:
     return ""
 
 
-@typing_action
 def flood(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -240,7 +238,6 @@ def flood(update, context):
 
 @user_admin
 @loggable
-@typing_action
 def set_flood_mode(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]

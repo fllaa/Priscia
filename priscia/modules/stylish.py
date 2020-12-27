@@ -2,7 +2,6 @@ from telegram import ParseMode
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 
 normiefont = [
     "a",
@@ -258,7 +257,6 @@ linedfont = [
 ]
 
 
-@typing_action
 def weebify(update, context):
     args = context.args
     message = update.effective_message
@@ -285,7 +283,6 @@ def weebify(update, context):
         message.reply_text(string)
 
 
-@typing_action
 def bubble(update, context):
     args = context.args
     message = update.effective_message
@@ -312,7 +309,6 @@ def bubble(update, context):
         message.reply_text(string)
 
 
-@typing_action
 def fbubble(update, context):
     args = context.args
     message = update.effective_message
@@ -339,7 +335,6 @@ def fbubble(update, context):
         message.reply_text(string)
 
 
-@typing_action
 def square(update, context):
     args = context.args
     message = update.effective_message
@@ -366,7 +361,6 @@ def square(update, context):
         message.reply_text(string)
 
 
-@typing_action
 def fsquare(update, context):
     args = context.args
     message = update.effective_message
@@ -393,7 +387,6 @@ def fsquare(update, context):
         message.reply_text(string)
 
 
-@typing_action
 def blue(update, context):
     args = context.args
     message = update.effective_message
@@ -420,7 +413,6 @@ def blue(update, context):
         message.reply_text(string)
 
 
-@typing_action
 def latin(update, context):
     args = context.args
     message = update.effective_message
@@ -447,7 +439,6 @@ def latin(update, context):
         message.reply_text(string)
 
 
-@typing_action
 def lined(update, context):
     args = context.args
     message = update.effective_message

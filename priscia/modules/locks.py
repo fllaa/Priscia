@@ -17,7 +17,7 @@ import priscia.modules.sql.locks_sql as sql
 from priscia import LOGGER, dispatcher
 from priscia.modules.connection import connected
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import send_message, typing_action
+from priscia.modules.helper_funcs.alternate import send_message
 from priscia.modules.helper_funcs.chat_status import (
     can_delete,
     is_bot_admin,
@@ -144,7 +144,6 @@ def locktypes(update, context):
 
 @user_admin
 @loggable
-@typing_action
 def lock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
@@ -253,7 +252,6 @@ def lock(update, context) -> str:
 
 @user_admin
 @loggable
-@typing_action
 def unlock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
@@ -484,7 +482,6 @@ def build_lock_message(chat_id):
 
 
 @user_admin
-@typing_action
 def list_locks(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user

@@ -7,13 +7,11 @@ from telegram.error import BadRequest
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 
 GITHUB = "https://github.com"
 DEVICES_DATA = "https://raw.githubusercontent.com/androidtrackers/certified-android-devices/master/by_device.json"
 
 
-@typing_action
 def magisk(update, context):
     url = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
     releases = ""
@@ -48,7 +46,6 @@ def magisk(update, context):
             return
 
 
-@typing_action
 def device(update, context):
     args = context.args
     if len(args) == 0:
@@ -104,7 +101,6 @@ def device(update, context):
     )
 
 
-@typing_action
 def twrp(update, context):
     args = context.args
     if len(args) == 0:

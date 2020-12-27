@@ -3,7 +3,6 @@ from telegram import ParseMode
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 
 
 def nekoimage(update, context, site: str):
@@ -24,97 +23,78 @@ def nekodoc(update, context, site: str):
     message.reply_document(document=img, parse_mode=ParseMode.MARKDOWN)
 
 
-@typing_action
 def neko(update, context):
     nekodoc(update, context, "neko")
 
 
-@typing_action
 def erokemo(update, context):
     nekoimage(update, context, "erokemo")
 
 
-@typing_action
 def wallpaper(update, context):
     nekodoc(update, context, "wallpaper")
 
 
-@typing_action
 def ngif(update, context):
     nekovideo(update, context, "ngif")
 
 
-@typing_action
 def tickle(update, context):
     nekoimage(update, context, "tickle")
 
 
-@typing_action
 def feed(update, context):
     nekoimage(update, context, "feed")
 
 
-@typing_action
 def eroneko(update, context):
     nekoimage(update, context, "eron")
 
 
-@typing_action
 def kemonomimi(update, context):
     nekoimage(update, context, "kemonomimi")
 
 
-@typing_action
 def poke(update, context):
     nekovideo(update, context, "poke")
 
 
-@typing_action
 def avatar(update, context):
     nekoimage(update, context, "avatar")
 
 
-@typing_action
 def waifu(update, context):
     nekoimage(update, context, "waifu")
 
 
-@typing_action
 def pat(update, context):
     nekovideo(update, context, "pat")
 
 
-@typing_action
 def cuddle(update, context):
     nekovideo(update, context, "cuddle")
 
 
-@typing_action
 def foxgirl(update, context):
     nekoimage(update, context, "fox_girl")
 
 
-@typing_action
 def hug(update, context):
     nekovideo(update, context, "hug")
 
 
-@typing_action
 def smug(update, context):
     nekovideo(update, context, "smug")
 
 
-@typing_action
 def goose(update, context):
     nekoimage(update, context, "goose")
 
 
-@typing_action
 def baka(update, context):
     nekovideo(update, context, "baka")
 
 
-@typing_action
 def woof(update, context):
     nekoimage(update, context, "woof")
 

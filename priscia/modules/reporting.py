@@ -14,7 +14,6 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, Filters, MessageH
 from telegram.utils.helpers import mention_html
 
 from priscia import LOGGER, dispatcher
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.chat_status import user_admin, user_not_admin
 from priscia.modules.log_channel import loggable
 from priscia.modules.sql import reporting_sql as sql
@@ -23,7 +22,6 @@ REPORT_GROUP = 5
 
 
 @user_admin
-@typing_action
 def report_setting(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     msg = update.effective_message  # type: Optional[Message]
@@ -73,7 +71,6 @@ def report_setting(update, context):
 
 @user_not_admin
 @loggable
-@typing_action
 def report(update, context) -> str:
     message = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]

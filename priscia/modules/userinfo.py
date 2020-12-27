@@ -7,11 +7,9 @@ from telegram.utils.helpers import escape_markdown
 import priscia.modules.sql.userinfo_sql as sql
 from priscia import SUDO_USERS, dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.extraction import extract_user
 
 
-@typing_action
 def about_me(update, context):
     message = update.effective_message  # type: Optional[Message]
     args = context.args
@@ -36,7 +34,6 @@ def about_me(update, context):
         )
 
 
-@typing_action
 def set_about_me(update, context):
     message = update.effective_message  # type: Optional[Message]
     user_id = message.from_user.id
@@ -56,7 +53,6 @@ def set_about_me(update, context):
             )
 
 
-@typing_action
 def about_bio(update, context):
     message = update.effective_message  # type: Optional[Message]
     args = context.args
@@ -79,7 +75,6 @@ def about_bio(update, context):
         update.effective_message.reply_text(" Your bio  about you has been saved !")
 
 
-@typing_action
 def set_about_bio(update, context):
     message = update.effective_message  # type: Optional[Message]
     sender = update.effective_user  # type: Optional[User]

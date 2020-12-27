@@ -30,11 +30,7 @@ from priscia import (
     dispatcher,
 )
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import (
-    send_action,
-    send_message,
-    typing_action,
-)
+from priscia.modules.helper_funcs.alternate import send_action, send_message
 from priscia.modules.helper_funcs.chat_status import is_user_admin
 from priscia.modules.helper_funcs.extraction import (
     extract_unt_fedban,
@@ -86,7 +82,6 @@ UNFBAN_ERRORS = {
 }
 
 
-@typing_action
 def new_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -138,7 +133,6 @@ def new_fed(update, context):
         )
 
 
-@typing_action
 def del_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -185,7 +179,6 @@ def del_fed(update, context):
     )
 
 
-@typing_action
 def fed_chat(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     fed_id = sql.get_fed_id(chat.id)
@@ -210,7 +203,6 @@ def fed_chat(update, context):
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
-@typing_action
 def join_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -265,7 +257,6 @@ def join_fed(update, context):
         )
 
 
-@typing_action
 def leave_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -305,7 +296,6 @@ def leave_fed(update, context):
         update.effective_message.reply_text("Only group creators can use this command!")
 
 
-@typing_action
 def user_join_fed(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -369,7 +359,6 @@ def user_join_fed(update, context):
         update.effective_message.reply_text("Only federation owners can do this!")
 
 
-@typing_action
 def user_demote_fed(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -429,7 +418,6 @@ def user_demote_fed(update, context):
         return
 
 
-@typing_action
 def fed_info(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -476,7 +464,6 @@ def fed_info(update, context):
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
-@typing_action
 def fed_admin(update, context):
 
     chat = update.effective_chat  # type: Optional[Chat]
@@ -525,7 +512,6 @@ def fed_admin(update, context):
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
-@typing_action
 def fed_ban(update, context):
 
     chat = update.effective_chat  # type: Optional[Chat]
@@ -928,7 +914,6 @@ def fed_ban(update, context):
         )
 
 
-@typing_action
 def unfban(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1145,7 +1130,6 @@ def unfban(update, context):
 	"""
 
 
-@typing_action
 def set_frules(update, context):
 
     chat = update.effective_chat  # type: Optional[Chat]
@@ -1204,7 +1188,7 @@ def set_frules(update, context):
         update.effective_message.reply_text("Please write rules to set it up!")
 
 
-@typing_action
+
 def get_frules(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     context.args
@@ -1227,7 +1211,6 @@ def get_frules(update, context):
     update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 
 
-@typing_action
 def fed_broadcast(update, context):
     msg = update.effective_message  # type: Optional[Message]
     user = update.effective_user  # type: Optional[User]
@@ -1470,7 +1453,6 @@ def fed_ban_list(update, context):
             )
 
 
-@typing_action
 def fed_notif(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1505,7 +1487,6 @@ def fed_notif(update, context):
         )
 
 
-@typing_action
 def fed_chats(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1569,7 +1550,6 @@ def fed_chats(update, context):
             )
 
 
-@typing_action
 def fed_import_bans(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1809,7 +1789,6 @@ def del_fed_button(update, context):
             )
 
 
-@typing_action
 def fed_stat_user(update, context):
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
@@ -1913,7 +1892,6 @@ def fed_stat_user(update, context):
         )
 
 
-@typing_action
 def set_fed_log(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1953,7 +1931,6 @@ def set_fed_log(update, context):
         )
 
 
-@typing_action
 def unset_fed_log(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -1994,7 +1971,6 @@ def unset_fed_log(update, context):
         )
 
 
-@typing_action
 def subs_feds(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2058,7 +2034,6 @@ def subs_feds(update, context):
         )
 
 
-@typing_action
 def unsubs_feds(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2122,7 +2097,6 @@ def unsubs_feds(update, context):
         )
 
 
-@typing_action
 def get_myfedsubs(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2170,7 +2144,6 @@ def get_myfedsubs(update, context):
         send_message(update.effective_message, listfed, parse_mode="markdown")
 
 
-@typing_action
 def get_myfeds_list(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]

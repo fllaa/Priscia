@@ -9,10 +9,9 @@ from telegram import ChatAction
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import send_action, typing_action
+from priscia.modules.helper_funcs.alternate import send_action
 
 
-@typing_action
 def gtrans(update, context):
     msg = update.effective_message
     args = context.args
@@ -68,7 +67,6 @@ API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
 URL = "http://services.gingersoftware.com/Ginger/correct/json/GingerTheText"
 
 
-@typing_action
 def spellcheck(update, context):
     if update.effective_message.reply_to_message:
         msg = update.effective_message.reply_to_message

@@ -37,12 +37,11 @@ from priscia import (
 )
 from priscia.__main__ import GDPR, STATS, USER_INFO
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import send_action, typing_action
+from priscia.modules.helper_funcs.alternate import send_action
 from priscia.modules.helper_funcs.extraction import extract_user
 from priscia.modules.helper_funcs.filters import CustomFilters
 
 
-@typing_action
 def get_id(update, context):
     args = context.args
     user_id = extract_user(update.effective_message, args)
@@ -197,7 +196,6 @@ def info(update, context):
         del_msg.delete()
 
 
-@typing_action
 def echo(update, context):
     args = update.effective_message.text.split(None, 1)
     message = update.effective_message
@@ -208,7 +206,6 @@ def echo(update, context):
     message.delete()
 
 
-@typing_action
 def gdpr(update, context):
     update.effective_message.reply_text("Deleting identifiable data...")
     for mod in GDPR:
@@ -255,7 +252,6 @@ Keep in mind that your message <b>MUST</b> contain some text other than just a b
 )
 
 
-@typing_action
 def markdown_help(update, context):
     update.effective_message.reply_text(MARKDOWN_HELP, parse_mode=ParseMode.HTML)
     update.effective_message.reply_text(
@@ -268,7 +264,6 @@ def markdown_help(update, context):
     )
 
 
-@typing_action
 def wiki(update, context):
     kueri = re.split(pattern="wiki", string=update.effective_message.text)
     wikipedia.set_lang("en")
@@ -302,7 +297,6 @@ def wiki(update, context):
             )
 
 
-@typing_action
 def ud(update, context):
     msg = update.effective_message
     args = context.args
@@ -379,7 +373,6 @@ def wall(update, context):
                 )
 
 
-@typing_action
 def imdb(update, context):
     try:
         args = context.args
@@ -450,7 +443,6 @@ def imdb(update, context):
         update.effective_message.reply_text("Plox enter **Valid movie name** kthx")
 
 
-@typing_action
 def getlink(update, context):
     args = context.args
     message = update.effective_message
@@ -529,7 +521,6 @@ def rmemes(update, context):
         return msg.reply_text(f"Error! {excp.message}")
 
 
-@typing_action
 def covid(update, context):
     message = update.effective_message
     args = context.args
@@ -567,7 +558,6 @@ def covid(update, context):
         message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 
 
-@typing_action
 def app(update, context):
     try:
         args = context.args
@@ -636,7 +626,6 @@ def app(update, context):
         update.effective_message.reply_text("Exception Occured:- " + str(err))
 
 
-@typing_action
 def google(update, context):
     args = context.args
     query = " ".join(args)

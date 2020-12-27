@@ -10,17 +10,14 @@ from telegram.utils.helpers import escape_markdown
 import priscia.modules.helper_funcs.fun_strings as fun
 from priscia import LOGGER, SUDO_USERS, SUPPORT_USERS, dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.extraction import extract_user
 from priscia.modules.helper_funcs.filters import CustomFilters
 
 
-@typing_action
 def runs(update, context):
     update.effective_message.reply_text(random.choice(fun.RUN_STRINGS))
 
 
-@typing_action
 def slap(update, context):
     args = context.args
     msg = update.effective_message
@@ -64,7 +61,6 @@ def slap(update, context):
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
 
-@typing_action
 def punch(update, context):
     args = context.args
     msg = update.effective_message  # type: Optional[Message]
@@ -107,7 +103,6 @@ def punch(update, context):
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
 
-@typing_action
 def hug(update, context):
     args = context.args
     msg = update.effective_message  # type: Optional[Message]
@@ -151,7 +146,6 @@ def hug(update, context):
     reply_text(repl, parse_mode=ParseMode.MARKDOWN)
 
 
-@typing_action
 def abuse(update, context):
     # reply to correct message
     reply_text = (
@@ -162,12 +156,10 @@ def abuse(update, context):
     reply_text(random.choice(fun.ABUSE_STRINGS))
 
 
-@typing_action
 def dice(update, context):
     context.bot.sendDice(update.effective_chat.id)
 
 
-@typing_action
 def shrug(update, context):
     # reply to correct message
     reply_text = (
@@ -205,7 +197,6 @@ def yesnowtf(update, context):
         return
 
 
-@typing_action
 def table(update, context):
     reply_text = (
         update.effective_message.reply_to_message.reply_text
@@ -215,7 +206,6 @@ def table(update, context):
     reply_text(random.choice(fun.TABLE))
 
 
-@typing_action
 def cri(update, context):
     reply_text = (
         update.effective_message.reply_to_message.reply_text
@@ -225,7 +215,6 @@ def cri(update, context):
     reply_text(random.choice(fun.CRI))
 
 
-@typing_action
 def recite(update, context):
     reply_text = (
         update.effective_message.reply_to_message.reply_text
@@ -235,7 +224,6 @@ def recite(update, context):
     reply_text(random.choice(fun.BEING_LOGICAL))
 
 
-@typing_action
 def gbun(update, context):
     user = update.effective_user
     chat = update.effective_chat
@@ -246,7 +234,6 @@ def gbun(update, context):
         context.bot.sendMessage(chat.id, (random.choice(fun.GBUN)))
 
 
-@typing_action
 def snipe(update, context):
     args = context.args
     try:
@@ -265,7 +252,6 @@ def snipe(update, context):
             )
 
 
-@typing_action
 def copypasta(update, context):
     message = update.effective_message
     if not message.reply_to_message:
@@ -318,7 +304,6 @@ def copypasta(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@typing_action
 def clapmoji(update, context):
     message = update.effective_message
     if not message.reply_to_message:
@@ -330,7 +315,6 @@ def clapmoji(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@typing_action
 def owo(update, context):
     message = update.effective_message
     if not message.reply_to_message:
@@ -370,7 +354,6 @@ def owo(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@typing_action
 def iwi(update, context):
     message = update.effective_message
     if not message.reply_to_message:
@@ -408,7 +391,6 @@ def iwi(update, context):
         message.reply_to_message.reply_text(reply_text)
 
 
-@typing_action
 def mock(update, context):
     message = update.effective_message
     if not message.reply_to_message:
@@ -425,7 +407,6 @@ def mock(update, context):
         message.reply_to_message.reply_text("".join(reply_text))
 
 
-@typing_action
 def stretch(update, context):
     message = update.effective_message
     if not message.reply_to_message:

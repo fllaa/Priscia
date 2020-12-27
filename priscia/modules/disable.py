@@ -7,7 +7,7 @@ from telegram.utils.helpers import escape_markdown
 
 from priscia import dispatcher
 from priscia.modules.connection import connected
-from priscia.modules.helper_funcs.alternate import send_message, typing_action
+from priscia.modules.helper_funcs.alternate import send_message
 from priscia.modules.helper_funcs.handlers import CMD_STARTERS
 from priscia.modules.helper_funcs.misc import is_module_loaded
 
@@ -88,7 +88,6 @@ if is_module_loaded(FILENAME):
                 )
 
     @user_admin
-    @typing_action
     def disable(update, context):
         chat = update.effective_chat  # type: Optional[Chat]
         user = update.effective_user
@@ -131,7 +130,6 @@ if is_module_loaded(FILENAME):
             send_message(update.effective_message, "What should I disable?")
 
     @user_admin
-    @typing_action
     def enable(update, context):
         chat = update.effective_chat  # type: Optional[Chat]
         user = update.effective_user
@@ -174,7 +172,6 @@ if is_module_loaded(FILENAME):
             send_message(update.effective_message, "What should I enable?")
 
     @user_admin
-    # @typing_action
     def list_cmds(update, context):
         if DISABLE_CMDS + DISABLE_OTHER:
             result = ""
@@ -196,7 +193,6 @@ if is_module_loaded(FILENAME):
         result = "".join(" - `{}`\n".format(escape_markdown(cmd)) for cmd in disabled)
         return "The following commands are currently restricted:\n{}".format(result)
 
-    @typing_action
     def commands(update, context):
         chat = update.effective_chat
         user = update.effective_user

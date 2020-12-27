@@ -17,11 +17,9 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 
 from priscia import MESSAGE_DUMP, OWNER_ID, dispatcher
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.filters import CustomFilters
 
 
-@typing_action
 def ping(update, context):
     msg = update.effective_message
     start_time = time.time()
@@ -47,7 +45,6 @@ def speed_convert(size):
     return f"{round(size, 2)} {units[zero]}"
 
 
-@typing_action
 def get_bot_ip(update, context):
     """Sends the bot's IP address, so as to be able to ssh in if necessary.
     OWNER ONLY.
@@ -56,7 +53,6 @@ def get_bot_ip(update, context):
     update.message.reply_text(res.text)
 
 
-@typing_action
 def speedtst(update, context):
     message = update.effective_message
     ed_msg = message.reply_text("Running high speed test . . .")
@@ -80,7 +76,6 @@ def speedtst(update, context):
     )
 
 
-@typing_action
 def system_status(update, context):
     uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y-%m-%d %H:%M:%S")
     status = "<b>======[ SYSTEM INFO ]======</b>\n\n"
@@ -106,7 +101,6 @@ def system_status(update, context):
     context.bot.sendMessage(update.effective_chat.id, status, parse_mode=ParseMode.HTML)
 
 
-@typing_action
 def leavechat(update, context):
     args = context.args
     msg = update.effective_message
@@ -134,7 +128,6 @@ def leavechat(update, context):
             return
 
 
-@typing_action
 def gitpull(update, context):
     sent_msg = update.effective_message.reply_text("Pulling all changes from remote...")
     subprocess.Popen("git pull", stdout=subprocess.PIPE, shell=True)
@@ -146,7 +139,6 @@ def gitpull(update, context):
     sent_msg.edit_text(sent_msg_text)
 
 
-@typing_action
 def restart(update, context):
     user = update.effective_message.from_user
 

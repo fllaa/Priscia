@@ -8,7 +8,6 @@ from telegram.utils.helpers import mention_html
 
 from priscia import LOGGER, dispatcher
 from priscia.modules.helper_funcs.admin_rights import user_can_ban
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.chat_status import (
     bot_admin,
     can_restrict,
@@ -23,7 +22,6 @@ from priscia.modules.log_channel import loggable
 @bot_admin
 @user_admin
 @loggable
-@typing_action
 def mute(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -80,7 +78,6 @@ def mute(update, context):
 @bot_admin
 @user_admin
 @loggable
-@typing_action
 def unmute(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -147,7 +144,6 @@ def unmute(update, context):
 @can_restrict
 @user_admin
 @loggable
-@typing_action
 def temp_mute(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]

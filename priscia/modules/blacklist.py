@@ -10,7 +10,7 @@ import priscia.modules.sql.blacklist_sql as sql
 from priscia import LOGGER, dispatcher
 from priscia.modules.connection import connected
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import send_message, typing_action
+from priscia.modules.helper_funcs.alternate import send_message
 from priscia.modules.helper_funcs.chat_status import user_admin, user_not_admin
 from priscia.modules.helper_funcs.extraction import extract_text
 from priscia.modules.helper_funcs.misc import split_message
@@ -22,7 +22,6 @@ BLACKLIST_GROUP = 11
 
 
 @user_admin
-@typing_action
 def blacklist(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -65,7 +64,6 @@ def blacklist(update, context):
 
 
 @user_admin
-@typing_action
 def add_blacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -118,7 +116,6 @@ def add_blacklist(update, context):
 
 
 @user_admin
-@typing_action
 def unblacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -198,7 +195,6 @@ def unblacklist(update, context):
 
 @loggable
 @user_admin
-@typing_action
 def blacklist_mode(update, context):
     chat = update.effective_chat
     user = update.effective_user

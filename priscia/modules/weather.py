@@ -9,10 +9,8 @@ from telegram.error import BadRequest
 from priscia import API_WEATHER as APPID
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 
 
-@typing_action
 def weather(update, context):
     args = context.args
     if len(args) == 0:

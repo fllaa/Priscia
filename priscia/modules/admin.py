@@ -14,7 +14,6 @@ from priscia.modules.helper_funcs.admin_rights import (
     user_can_pin,
     user_can_promote,
 )
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.chat_status import (
     bot_admin,
     can_pin,
@@ -29,7 +28,6 @@ from priscia.modules.log_channel import loggable
 @can_promote
 @user_admin
 @loggable
-@typing_action
 def promote(update, context):
     chat_id = update.effective_chat.id
     message = update.effective_message
@@ -87,7 +85,6 @@ def promote(update, context):
 @can_promote
 @user_admin
 @loggable
-@typing_action
 def demote(update, context):
     chat = update.effective_chat
     message = update.effective_message
@@ -154,7 +151,6 @@ def demote(update, context):
 @can_pin
 @user_admin
 @loggable
-@typing_action
 def pin(update, context):
     args = context.args
     user = update.effective_user
@@ -196,7 +192,6 @@ def pin(update, context):
 @can_pin
 @user_admin
 @loggable
-@typing_action
 def unpin(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -223,7 +218,6 @@ def unpin(update, context):
 
 @bot_admin
 @user_admin
-@typing_action
 def invite(update, context):
     user = update.effective_user
     msg = update.effective_message
@@ -256,7 +250,6 @@ def invite(update, context):
         )
 
 
-@typing_action
 def adminlist(update, context):
     administrators = update.effective_chat.get_administrators()
     text = "Admins in <b>{}</b>:".format(update.effective_chat.title or "this chat")
@@ -279,7 +272,6 @@ def adminlist(update, context):
 @bot_admin
 @can_promote
 @user_admin
-@typing_action
 def set_title(update, context):
     args = context.args
     chat = update.effective_chat
@@ -337,7 +329,6 @@ def set_title(update, context):
 
 @bot_admin
 @user_admin
-@typing_action
 def setchatpic(update, context):
     chat = update.effective_chat
     msg = update.effective_message
@@ -374,7 +365,6 @@ def setchatpic(update, context):
 
 @bot_admin
 @user_admin
-@typing_action
 def rmchatpic(update, context):
     chat = update.effective_chat
     msg = update.effective_message
@@ -393,7 +383,6 @@ def rmchatpic(update, context):
 
 @bot_admin
 @user_admin
-@typing_action
 def setchat_title(update, context):
     chat = update.effective_chat
     msg = update.effective_message
@@ -422,7 +411,6 @@ def setchat_title(update, context):
 
 @bot_admin
 @user_admin
-@typing_action
 def set_sticker(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -452,7 +440,6 @@ def set_sticker(update, context):
 
 @bot_admin
 @user_admin
-@typing_action
 def set_desc(update, context):
     msg = update.effective_message
     chat = update.effective_chat

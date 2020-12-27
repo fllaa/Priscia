@@ -2,10 +2,8 @@ from tswift import Song
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 
 
-@typing_action
 def lyrics(update, context):
     msg = update.effective_message
     query = " ".join(context.args)

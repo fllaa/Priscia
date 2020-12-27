@@ -9,7 +9,6 @@ from telegram import InputMediaPhoto, TelegramError
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 
 opener = urllib.request.build_opener()
 useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.38 Safari/537.36"
@@ -17,7 +16,6 @@ useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML
 opener.addheaders = [("User-agent", useragent)]
 
 
-@typing_action
 def reverse(update, context):
     if os.path.isfile("okgoogle.png"):
         os.remove("okgoogle.png")

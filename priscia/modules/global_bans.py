@@ -16,7 +16,7 @@ from priscia import (
     dispatcher,
     spamwtc,
 )
-from priscia.modules.helper_funcs.alternate import send_action, typing_action
+from priscia.modules.helper_funcs.alternate import send_action
 from priscia.modules.helper_funcs.chat_status import is_user_admin, user_admin
 from priscia.modules.helper_funcs.extraction import extract_user, extract_user_and_text
 from priscia.modules.helper_funcs.filters import CustomFilters
@@ -65,7 +65,6 @@ UNGBAN_ERRORS = {
 }
 
 
-@typing_action
 def gban(update, context):
     message = update.effective_message
     chat = update.effective_chat
@@ -201,7 +200,6 @@ def gban(update, context):
     sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
 
 
-@typing_action
 def ungban(update, context):
     message = update.effective_message
     args = context.args
@@ -356,7 +354,6 @@ def enforce_gban(update, context):
 
 
 @user_admin
-@typing_action
 def gbanstat(update, context):
     args = context.args
     if len(args) > 0:

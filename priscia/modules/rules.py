@@ -13,12 +13,10 @@ from telegram.utils.helpers import escape_markdown
 
 import priscia.modules.sql.rules_sql as sql
 from priscia import dispatcher
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.chat_status import user_admin
 from priscia.modules.helper_funcs.string_handling import markdown_parser
 
 
-@typing_action
 def get_rules(update, context):
     chat_id = update.effective_chat.id
     send_rules(update, chat_id)
@@ -73,7 +71,6 @@ def send_rules(update, chat_id, from_pm=False):
 
 
 @user_admin
-@typing_action
 def set_rules(update, context):
     chat_id = update.effective_chat.id
     msg = update.effective_message  # type: Optional[Message]
@@ -93,7 +90,6 @@ def set_rules(update, context):
 
 
 @user_admin
-@typing_action
 def clear_rules(update, context):
     chat_id = update.effective_chat.id
     sql.set_rules(chat_id, "")

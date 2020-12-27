@@ -14,10 +14,8 @@ from telegram.utils.helpers import mention_html
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 
 
-@typing_action
 def kang(update, context):
     msg = update.effective_message
     user = update.effective_user
@@ -412,7 +410,6 @@ def getsticker(update, context):
         )
 
 
-@typing_action
 def stickerid(update, context):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.sticker:

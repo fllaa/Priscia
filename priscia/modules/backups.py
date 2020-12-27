@@ -20,13 +20,11 @@ import priscia.modules.sql.rules_sql as rulessql
 from priscia import LOGGER, MESSAGE_DUMP, OWNER_ID, dispatcher
 from priscia.__main__ import DATA_IMPORT
 from priscia.modules.connection import connected
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.chat_status import user_admin
 from priscia.modules.sql import disable_sql as disabledsql
 
 
 @user_admin
-@typing_action
 def import_data(update, context):
     msg = update.effective_message
     chat = update.effective_chat

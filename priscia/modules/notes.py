@@ -19,7 +19,6 @@ import priscia.modules.sql.notes_sql as sql
 from priscia import LOGGER, MESSAGE_DUMP, dispatcher
 from priscia.modules.connection import connected
 from priscia.modules.disable import DisableAbleCommandHandler
-from priscia.modules.helper_funcs.alternate import typing_action
 from priscia.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
 from priscia.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from priscia.modules.helper_funcs.msg_types import get_note_type
@@ -210,7 +209,6 @@ def get(bot, update, notename, show_none=True, no_format=False):
         message.reply_text("This note doesn't exist")
 
 
-@typing_action
 def cmd_get(update, context):
     args = context.args
     if len(args) >= 2 and args[1].lower() == "noformat":
@@ -229,7 +227,6 @@ def hash_get(update, context):
 
 
 @user_admin
-@typing_action
 def save(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -265,7 +262,6 @@ def save(update, context):
 
 
 @user_admin
-@typing_action
 def clear(update, context):
     args = context.args
     chat = update.effective_chat  # type: Optional[Chat]
@@ -298,7 +294,6 @@ def clear(update, context):
             )
 
 
-@typing_action
 def list_notes(update, context):
     chat_id = update.effective_chat.id
     chat = update.effective_chat  # type: Optional[Chat]

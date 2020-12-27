@@ -8,13 +8,12 @@ from telegram.ext import CallbackQueryHandler, CommandHandler
 import priscia.modules.sql.connection_sql as sql
 from priscia import SUDO_USERS, dispatcher
 from priscia.modules.helper_funcs import chat_status
-from priscia.modules.helper_funcs.alternate import send_message, typing_action
+from priscia.modules.helper_funcs.alternate import send_message
 
 user_admin = chat_status.user_admin
 
 
 @user_admin
-@typing_action
 def allow_connections(update, context) -> str:
 
     chat = update.effective_chat
@@ -61,7 +60,6 @@ def allow_connections(update, context) -> str:
         )
 
 
-@typing_action
 def connection_chat(update, context):
 
     chat = update.effective_chat
@@ -85,7 +83,6 @@ def connection_chat(update, context):
     send_message(update.effective_message, message, parse_mode="markdown")
 
 
-@typing_action
 def connect_chat(update, context):
 
     chat = update.effective_chat
