@@ -171,7 +171,7 @@ def unblacklist(update, context):
         elif not successful:
             send_message(
                 update.effective_message,
-                "None of these triggers exist so it can't be removed.", 
+                "None of these triggers exist so it can't be removed.",
                 parse_mode=ParseMode.HTML,
             )
 

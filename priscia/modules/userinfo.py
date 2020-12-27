@@ -47,9 +47,7 @@ def set_about_me(update, context):
             message.reply_text("Your bio has been saved successfully")
         else:
             message.reply_text(
-                " About You{} To be confined to letters ".format(
-                    len(info[1])
-                )
+                " About You{} To be confined to letters ".format(len(info[1]))
             )
 
 
