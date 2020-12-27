@@ -46,7 +46,7 @@ def calculate_eta(current, total, start_time):
     return ", ".join(thing)
 
 
-@pciabot.on_message(~filters.me & filters.command('whatanime', prefixes='/'), group=8)
+@pciabot.on_message(~filters.me & filters.command("whatanime", prefixes="/"), group=8)
 async def whatanime(c: Client, m: Message):
     media = m.photo or m.animation or m.video or m.document
     if not media:
