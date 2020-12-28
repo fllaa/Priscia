@@ -616,7 +616,7 @@ def app(update, context):
             + "'>View in Play Store</a>"
         )
         update.effective_message.reply_text(
-            app_details, link_preview=True, parse_mode="HTML"
+            app_details, parse_mode="HTML"
         )
     except IndexError:
         update.effective_message.reply_text(
@@ -643,7 +643,7 @@ def google(update, context):
         last = html2text.html2text(description)
         output_str += "[{}]({})\n{}\n".format(text, url, last)
     update.effective_message.reply_text(
-        "{}".format(output_str), link_preview=False, parse_mode="MARKDOWN"
+        "{}".format(output_str), parse_mode="MARKDOWN"
     )
 
 
