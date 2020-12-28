@@ -615,9 +615,7 @@ def app(update, context):
             + app_link
             + "'>View in Play Store</a>"
         )
-        update.effective_message.reply_text(
-            app_details, parse_mode="HTML"
-        )
+        update.effective_message.reply_text(app_details, parse_mode="HTML")
     except IndexError:
         update.effective_message.reply_text(
             "No result found in search. Please enter **Valid app name**"
@@ -642,9 +640,7 @@ def google(update, context):
         description = result.get("description")
         last = html2text.html2text(description)
         output_str += "[{}]({})\n{}\n".format(text, url, last)
-    update.effective_message.reply_text(
-        "{}".format(output_str), parse_mode="MARKDOWN"
-    )
+    update.effective_message.reply_text("{}".format(output_str), parse_mode="MARKDOWN")
 
 
 def staff_ids(update, context):
