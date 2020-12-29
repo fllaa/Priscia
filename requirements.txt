@@ -1,5 +1,5 @@
 # Library
-pyrogram==1.1.7
+pyrogram
 python-telegram-bot
 telethon
 # Other
