@@ -545,7 +545,7 @@ def site_search(update, context, site: str):
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Kusonime</code>: \n"
         for entry in search_result:
 
-            if entry.text.strip() == "Nothing Found":
+            if not entry.text.strip():
                 result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Kusonime</code>"
                 more_results = False
                 break
@@ -563,7 +563,7 @@ def site_search(update, context, site: str):
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>: \n"
         for entry in search_result:
 
-            if entry.text.strip() == "Nothing Found":
+            if not entry.text.strip():
                 result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Drivenime</code>"
                 more_results = False
                 break
@@ -581,7 +581,7 @@ def site_search(update, context, site: str):
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Oploverz</code>: \n"
         for entry in search_result:
 
-            if entry.text.strip() == "Nothing Found":
+            if not entry.text.strip():
                 result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Oploverz</code>"
                 more_results = False
                 break
@@ -599,7 +599,7 @@ def site_search(update, context, site: str):
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>: \n"
         for entry in search_result:
 
-            if entry.text.strip() == "Nothing Found":
+            if not entry.text.strip():
                 result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Neonime</code>"
                 more_results = False
                 break
@@ -617,13 +617,31 @@ def site_search(update, context, site: str):
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Samehadaku</code>: \n"
         for entry in search_result:
 
-            if entry.text.strip() == "Nothing Found":
+            if not entry.text.strip():
                 result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Samehadaku</code>"
                 more_results = False
                 break
 
             post_link = entry.a["href"]
             post_name = entry.a["title"]
+            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+
+    elif site == "otaku":
+        search_url = f"https://otakudesu.tv/?s={search_query}&post_type=anime"
+        html_text = requests.get(search_url, headers={"User-Agent": "Mozilla/5.0"}).text
+        soup = bs4.BeautifulSoup(html_text, "html.parser")
+        search_result = soup.find_all("ul", {"class": "clivsrc"})
+
+        result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Otakudesu</code>: \n"
+        for entry in search_result:
+
+            if not entry.text.strip():
+                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Samehadaku</code>"
+                more_results = False
+                break
+
+            post_link = entry.a["href"]
+            post_name = entry.a.string
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     buttons = [[InlineKeyboardButton("See all results", url=search_url)]]
@@ -669,6 +687,10 @@ def same(update, context):
     site_search(update, context, "same")
 
 
+def otaku(update, context):
+    site_search(update, context, "otaku")
+
+
 __help__ = """
 Get information about anime, manga or characters from [AniList](anilist.co).
 
@@ -689,6 +711,7 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  • `/oploverz <anime>`*:* Cari anime di oploverz.in
  • `/neo <anime>`*:* Cari anime di neonime.vip
  • `/same <anime>`*:* Cari anime di samehadaku.vip
+ • `/otaku <anime>`*:* Cari anime di otakudesu.tv
 
  """
 
@@ -707,6 +730,7 @@ DRIVE_SEARCH_HANDLER = DisableAbleCommandHandler("drive", drive)
 OPLOVERZ_SEARCH_HANDLER = DisableAbleCommandHandler("oploverz", oploverz)
 NEO_SEARCH_HANDLER = DisableAbleCommandHandler("neo", neo)
 SAME_SEARCH_HANDLER = DisableAbleCommandHandler("same", same)
+OTAKU_SEARCH_HANDLER = DisableAbleCommandHandler("otaku", otaku)
 BUTTON_HANDLER = CallbackQueryHandler(button, pattern="anime_.*")
 
 dispatcher.add_handler(BUTTON_HANDLER)
@@ -722,4 +746,5 @@ dispatcher.add_handler(DRIVE_SEARCH_HANDLER)
 dispatcher.add_handler(OPLOVERZ_SEARCH_HANDLER)
 dispatcher.add_handler(NEO_SEARCH_HANDLER)
 dispatcher.add_handler(SAME_SEARCH_HANDLER)
+dispatcher.add_handler(OTAKU_SEARCH_HANDLER)
 dispatcher.add_handler(UPCOMING_HANDLER)
