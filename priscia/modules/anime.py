@@ -498,7 +498,12 @@ def anilist(update, context):
         for x in stats["genres"]:
             msg += f"{x['genre']}, "
         msg = msg[:-2] + "`\n"
-        msg += f"<b>About :</b> {response['about']}"
+        about = (
+        response["about"]
+        .replace("<p>", "")
+        .replace("</p>", "")
+        )
+        msg += f"<b>About :</b> {about}"
         image = response["avatar"]["large"]
         update.effective_message.reply_photo(
             photo=image, caption=msg, parse_mode=ParseMode.HTML
