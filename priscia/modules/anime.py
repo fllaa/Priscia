@@ -115,6 +115,7 @@ anime_query = """
       }
     }
 """
+
 character_query = """
     query ($query: String) {
         Character (search: $query) {
@@ -155,6 +156,29 @@ query ($id: Int,$search: String) {
           bannerImage
       }
     }
+"""
+
+user_query = """
+query ($id: Int $name: String) {
+      User (id: $id, name: $name) {
+        id
+        name
+        about (asHtml: true)
+        avatar {
+            large
+        }
+        statistics {
+            anime {
+                count
+                minutesWatched
+                episodesWatched
+                genres {
+                    genre
+                }
+            }
+        }
+    }
+}
 """
 
 url = "https://graphql.anilist.co"
@@ -351,7 +375,7 @@ def manga(update, context):
             )
 
 
-def user(update, context):
+def mal(update, context):
     message = update.effective_message
     args = message.text.strip().split(" ", 1)
 
@@ -452,6 +476,37 @@ def upcoming(update, context):
         upcoming_message += f"{entry_num + 1}. {upcoming_list[entry_num]}\n"
 
     update.effective_message.reply_text(upcoming_message)
+
+
+def anilist(update, context):
+    message = update.effective_message
+    search_str = message.text.split(" ", 1)
+    if len(search_str) == 1:
+        update.effective_message.reply_text(
+            "Tell Your Username :) ( /anilist <user>)"
+        )
+        return
+    variables = {"name": search_str[1]}
+    response = requests.post(
+        url, json={"query": user_query, "variables": variables}
+    ).json()["data"]["User"]
+    if not response:
+        update.effective_message.reply_text("User not found")
+        return
+    else:
+        stats = response["statistics"]["anime"]
+        time_watched = round(stats["minutesWatched"] / 1440, 2)
+        msg = f"<b>Name :</b> {response['name']}\n<b>Anime Stats: {stats['count']} Watched\n<b>Time Watched :</b> {time_watched} Days\n<b>Episodes :</b> {stats['episodesWatched']} Watched\n<b>Top Genres :</b>"
+        for x in stats["genres"]:
+            msg += f"{x['genre']}, "
+        msg = msg[:-2] + "`\n"
+        msg += f"<b>About :</b> {response['about']}"
+        image = response["avatar"]["large"]
+        update.effective_message.reply_photo(
+            photo=image,
+            caption=msg,
+            parse_mode=ParseMode.HTML
+        )
 
 
 def button(update, context):
@@ -699,12 +754,13 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  • `/anime <anime>`*:* returns information about the anime.
  • `/character <character>`*:* returns information about the character.
  • `/manga <manga>`*:* returns information about the manga.
- • `/user <user>`*:* returns information about a MyAnimeList user.
+ • `/mal <user>`*:* returns information about a MyAnimeList user.
+ × `/anilist <user>`*:* returns information about a Anilist user.
  • `/upcoming`*:* returns a list of new anime in the upcoming seasons.
  • `/kaizoku <anime>`*:* search an anime on animekaizoku.com
  • `/kayo <anime>`*:* search an anime on animekayo.com
  • `/airing <anime>`*:* returns anime airing info.
- • '/whatanime' *:* find what anime is from by replying a media
+ • `/whatanime` *:* find what anime is from by replying a media
  *Only for* 🇮🇩
  • `/kuso <anime>`*:* Cari anime di kusonime.com
  • `/drive <anime>`*:* Cari anime di drivenime.com
@@ -721,7 +777,8 @@ ANIME_HANDLER = DisableAbleCommandHandler("anime", anime)
 AIRING_HANDLER = DisableAbleCommandHandler("airing", airing)
 CHARACTER_HANDLER = DisableAbleCommandHandler("character", character)
 MANGA_HANDLER = DisableAbleCommandHandler("manga", manga)
-USER_HANDLER = DisableAbleCommandHandler("user", user)
+MAL_HANDLER = DisableAbleCommandHandler("mal", mal)
+ANILIST_HANDLER = DisableAbleCommandHandler("anilist", anilist)
 UPCOMING_HANDLER = DisableAbleCommandHandler("upcoming", upcoming)
 KAIZOKU_SEARCH_HANDLER = DisableAbleCommandHandler("kaizoku", kaizoku)
 KAYO_SEARCH_HANDLER = DisableAbleCommandHandler("kayo", kayo)
@@ -738,7 +795,8 @@ dispatcher.add_handler(ANIME_HANDLER)
 dispatcher.add_handler(CHARACTER_HANDLER)
 dispatcher.add_handler(MANGA_HANDLER)
 dispatcher.add_handler(AIRING_HANDLER)
-dispatcher.add_handler(USER_HANDLER)
+dispatcher.add_handler(MAL_HANDLER)
+dispatcher.add_handler(ANILIST_HANDLER)
 dispatcher.add_handler(KAIZOKU_SEARCH_HANDLER)
 dispatcher.add_handler(KAYO_SEARCH_HANDLER)
 dispatcher.add_handler(KUSO_SEARCH_HANDLER)
