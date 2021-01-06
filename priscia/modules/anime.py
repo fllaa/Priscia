@@ -7,9 +7,8 @@ import bs4
 import jikanpy
 import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
-from telegram.ext import CallbackQueryHandler
 
-from priscia import OWNER_ID, SUDO_USERS, dispatcher
+from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
 
 info_btn = "More Information"
@@ -459,7 +458,6 @@ def mal(update, context):
         caption=caption,
         parse_mode=ParseMode.MARKDOWN,
         reply_markup=InlineKeyboardMarkup(buttons),
-        disable_web_page_preview=False,
     )
     progress_message.delete()
 
@@ -496,7 +494,7 @@ def anilist(update, context):
         stats = response["statistics"]["anime"]
         time_watched = round(stats["minutesWatched"] / 1440, 2)
         msg = f"<b>Name :</b> {response['name']}\n<b>Anime Stats:</b> {stats['count']} Watched\n<b>Time Watched :</b> {time_watched} Days\n<b>Episodes :</b> {stats['episodesWatched']} Watched\n<b>Top Genres :</b>"
-        for x in stats["genres"]:
+        for x in stats["genres"][:3]:
             msg += f"{x['genre']}, "
         msg = msg[:-2] + "`\n"
         abouto = response["about"].replace("<p>", "").replace("</p>", "")
@@ -506,43 +504,6 @@ def anilist(update, context):
         update.effective_message.reply_photo(
             photo=image, caption=msg, parse_mode=ParseMode.HTML
         )
-
-
-def button(update, context):
-    bot = context.bot
-    query = update.callback_query
-    message = query.message
-    data = query.data.split(", ")
-    query_type = data[0]
-    original_user_id = int(data[1])
-
-    bot.answer_callback_query(query.id)
-    if query_type == "anime_close":
-        user_and_admin_list = [original_user_id, OWNER_ID] + SUDO_USERS
-
-        if query.from_user.id in user_and_admin_list:
-            message.delete()
-        else:
-            query.answer("You are not allowed to use this.")
-    elif query_type in ("anime_anime", "anime_manga"):
-        mal_id = data[2]
-        if query.from_user.id == original_user_id:
-            message.delete()
-            progress_message = bot.sendMessage(message.chat.id, "Searching.... ")
-            caption, buttons, image = get_anime_manga(
-                mal_id, query_type, original_user_id
-            )
-            bot.sendPhoto(
-                message.chat.id,
-                photo=image,
-                caption=caption,
-                parse_mode=ParseMode.HTML,
-                reply_markup=InlineKeyboardMarkup(buttons),
-                disable_web_page_preview=False,
-            )
-            progress_message.delete()
-        else:
-            query.answer("You are not allowed to use this.")
 
 
 def site_search(update, context, site: str):
@@ -787,9 +748,7 @@ OPLOVERZ_SEARCH_HANDLER = DisableAbleCommandHandler("oploverz", oploverz)
 NEO_SEARCH_HANDLER = DisableAbleCommandHandler("neo", neo)
 SAME_SEARCH_HANDLER = DisableAbleCommandHandler("same", same)
 OTAKU_SEARCH_HANDLER = DisableAbleCommandHandler("otaku", otaku)
-BUTTON_HANDLER = CallbackQueryHandler(button, pattern="anime_.*")
 
-dispatcher.add_handler(BUTTON_HANDLER)
 dispatcher.add_handler(ANIME_HANDLER)
 dispatcher.add_handler(CHARACTER_HANDLER)
 dispatcher.add_handler(MANGA_HANDLER)
