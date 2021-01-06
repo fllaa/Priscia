@@ -482,9 +482,7 @@ def anilist(update, context):
     message = update.effective_message
     search_str = message.text.split(" ", 1)
     if len(search_str) == 1:
-        update.effective_message.reply_text(
-            "Tell Your Username :) ( /anilist <user>)"
-        )
+        update.effective_message.reply_text("Tell Your Username :) ( /anilist <user>)")
         return
     variables = {"name": search_str[1]}
     response = requests.post(
@@ -503,9 +501,7 @@ def anilist(update, context):
         msg += f"<b>About :</b> {response['about']}"
         image = response["avatar"]["large"]
         update.effective_message.reply_photo(
-            photo=image,
-            caption=msg,
-            parse_mode=ParseMode.HTML
+            photo=image, caption=msg, parse_mode=ParseMode.HTML
         )
 
 
