@@ -495,7 +495,7 @@ def anilist(update, context):
     else:
         stats = response["statistics"]["anime"]
         time_watched = round(stats["minutesWatched"] / 1440, 2)
-        msg = f"<b>Name :</b> {response['name']}\n<b>Anime Stats: {stats['count']} Watched\n<b>Time Watched :</b> {time_watched} Days\n<b>Episodes :</b> {stats['episodesWatched']} Watched\n<b>Top Genres :</b>"
+        msg = f"<b>Name :</b> {response['name']}\n<b>Anime Stats:</b> {stats['count']} Watched\n<b>Time Watched :</b> {time_watched} Days\n<b>Episodes :</b> {stats['episodesWatched']} Watched\n<b>Top Genres :</b>"
         for x in stats["genres"]:
             msg += f"{x['genre']}, "
         msg = msg[:-2] + "`\n"
