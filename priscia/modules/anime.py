@@ -1,5 +1,6 @@
 import datetime
 import html
+import re
 import textwrap
 
 import bs4
@@ -498,7 +499,8 @@ def anilist(update, context):
         for x in stats["genres"]:
             msg += f"{x['genre']}, "
         msg = msg[:-2] + "`\n"
-        about = response["about"].replace("<p>", "").replace("</p>", "")
+        abouto = response["about"].replace("<p>", "").replace("</p>", "")
+        about = re.compile("<img.*?>").sub("", abouto)
         msg += f"<b>About :</b> {about}"
         image = response["avatar"]["large"]
         update.effective_message.reply_photo(
