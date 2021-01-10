@@ -1,42 +1,58 @@
+import codecs
+import os
+
 import requests
-from telegram import ParseMode
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 
 from priscia import dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
 
 
 def paste(update, context):
-    args = context.args
-    message = update.effective_message
+    msg = update.effective_message
 
-    if message.reply_to_message:
-        data = message.reply_to_message.text
-
-    elif len(args) >= 1:
-        data = message.text.split(None, 1)[1]
-
+    if msg.reply_to_message.document:
+        file = context.bot.get_file(msg.reply_to_message.document)
+        file.download("file.txt")
+        text = codecs.open("file.txt", "r+", encoding="utf-8")
+        paste_text = text.read()
     else:
-        message.reply_text("What am I supposed to do with this?")
+        paste_text = msg.reply_to_message.text
+
+    try:
+        link = (
+            requests.post(
+                "https://nekobin.com/api/documents",
+                json={"content": paste_text},
+            )
+            .json()
+            .get("result")
+            .get("key")
+        )
+        text = "**Pasted to Nekobin!!!**"
+        buttons = [
+            [
+                InlineKeyboardButton(
+                    text="View Link", url=f"https://nekobin.com/{link}"
+                ),
+                InlineKeyboardButton(
+                    text="View Raw",
+                    url=f"https://nekobin.com/raw/{link}",
+                ),
+            ]
+        ]
+        msg.reply_text(
+            text,
+            reply_markup=InlineKeyboardMarkup(buttons),
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+        )
+        os.remove("file.txt")
+    except Exception:
+        msg.reply_text("What am I supposed to do with this?")
         return
-
-    key = (
-        requests.post("https://nekobin.com/api/documents", json={"content": data})
-        .json()
-        .get("result")
-        .get("key")
-    )
-
-    url = f"https://nekobin.com/{key}"
-
-    reply_text = f"Nekofied to *Nekobin* : {url}"
-
-    message.reply_text(
-        reply_text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
-    )
 
 
 PASTE_HANDLER = DisableAbleCommandHandler("paste", paste)
-dispatcher.add_handler(PASTE_HANDLER)
 
-__command_list__ = ["paste"]
-__handlers__ = [PASTE_HANDLER]
+dispatcher.add_handler(PASTE_HANDLER)
