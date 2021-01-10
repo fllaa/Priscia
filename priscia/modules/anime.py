@@ -111,7 +111,6 @@ anime_query = """
           }
           averageScore
           genres
-          bannerImage
       }
     }
 """
@@ -246,7 +245,7 @@ def anime(update, context):
             .replace("<br>", "")
         )
         msg += shorten(description, info)
-        image = json.get("bannerImage", None)
+        image = f"https://img.anili.st/media/{json['id']}"
         if trailer:
             buttons = [
                 [
