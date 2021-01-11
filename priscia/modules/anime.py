@@ -4,6 +4,7 @@ import re
 import textwrap
 
 import bs4
+import cloudscraper
 import jikanpy
 import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
@@ -17,6 +18,7 @@ kayo_btn = "Kayo 🏴‍☠️"
 prequel_btn = "⬅️ Prequel"
 sequel_btn = "Sequel ➡️"
 close_btn = "Close ❌"
+scraper = cloudscraper.create_scraper()
 
 
 def shorten(description, info="anilist.co"):
@@ -642,9 +644,9 @@ def site_search(update, context, site: str):
 
     elif site == "otaku":
         search_url = f"https://otakudesu.tv/?s={search_query}&post_type=anime"
-        html_text = requests.get(search_url, headers={"User-Agent": "Mozilla/5.0"}).text
+        html_text = scraper.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("ul", {"class": "clivsrc"})
+        search_result = soup.find_all("ul", {"class": "chivsrc"})
 
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Otakudesu</code>: \n"
         for entry in search_result:
