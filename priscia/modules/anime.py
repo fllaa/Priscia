@@ -1,10 +1,10 @@
 import datetime
 import html
+import json
 import re
 import textwrap
 
 import bs4
-import cloudscraper
 import jikanpy
 import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
@@ -18,7 +18,6 @@ kayo_btn = "Kayo 🏴‍☠️"
 prequel_btn = "⬅️ Prequel"
 sequel_btn = "Sequel ➡️"
 close_btn = "Close ❌"
-scraper = cloudscraper.create_scraper()
 
 
 def shorten(description, info="anilist.co"):
@@ -644,20 +643,20 @@ def site_search(update, context, site: str):
 
     elif site == "otaku":
         search_url = f"https://otakudesu.tv/?s={search_query}&post_type=anime"
-        html_text = scraper.get(search_url).text
-        soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("ul", {"class": "chivsrc"})
+        api_url = f"https://anime.kaedenoki.net/api/search/{search_query}"
+        requests_text = requests.get(api_url).text
+        json_text = json.loads(requests_text)
+        try:
+            search_result = json_text["search_results"]
+        except KeyError:
+            result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Samehadaku</code>"
+            more_results = False
+            return
 
         result = f"<b>Hasil pencarian untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Otakudesu</code>: \n"
         for entry in search_result:
-
-            if not entry.text.strip():
-                result = f"<b>Tidak ditemukan hasil untuk</b> <code>{html.escape(search_query)}</code> <b>di</b> <code>Samehadaku</code>"
-                more_results = False
-                break
-
-            post_link = entry.a["href"]
-            post_name = entry.a.string
+            post_link = entry["link"]
+            post_name = entry["title"]
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     buttons = [[InlineKeyboardButton("See all results", url=search_url)]]

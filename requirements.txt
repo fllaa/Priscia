@@ -7,7 +7,6 @@ aiohttp
 alphabet_detector
 bleach
 bs4
-cloudscraper
 demjson
 emoji
 feedparser
