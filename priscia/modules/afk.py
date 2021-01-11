@@ -1,5 +1,4 @@
 import random
-import time
 
 from telegram import MessageEntity
 from telegram.error import BadRequest
@@ -29,9 +28,7 @@ def afk(update, context):
     sql.set_afk(update.effective_user.id, reason)
     afkstr = random.choice(fun.AFK)
     msg = update.effective_message
-    afksend = msg.reply_text(afkstr.format(update.effective_user.first_name, notice))
-    time.sleep(5)
-    afksend.delete()
+    msg.reply_text(afkstr.format(update.effective_user.first_name, notice))
 
 
 def no_longer_afk(update, context):
@@ -58,9 +55,7 @@ def no_longer_afk(update, context):
                 "Where is {}?\nIn the chat!",
             ]
             chosen_option = random.choice(options)
-            unafk = update.effective_message.reply_text(chosen_option.format(firstname))
-            time.sleep(5)
-            unafk.delete
+            update.effective_message.reply_text(chosen_option.format(firstname))
         except BaseException:
             return
 
@@ -127,9 +122,7 @@ def check_afk(update, context, user_id, fst_name, userc_id):
             res = "<b>{}</b> is away from keyboard! says it's because of <b>Reason:</b> <code>{}</code>".format(
                 fst_name, user.reason
             )
-            reply_afk = update.effective_message.reply_text(res, parse_mode="html")
-            time.sleep(5)
-            replyafk.delete
+            update.effective_message.reply_text(res, parse_mode="html")
 
 
 def __gdpr__(user_id):
