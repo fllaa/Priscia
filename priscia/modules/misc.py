@@ -541,17 +541,7 @@ def covid(update, context):
         flag = case["countryInfo"]["flag"]
     except KeyError:
         pass
-    text = f"""
-    *COVID-19 Statistics in {country} :*
-    📅 Last Updated on {date}\n
-    🔼 Confirmed Cases : `{case['cases']}` `+{case['todayCases']}` on today
-    🔺 Active Cases : `{case['active']}`
-    ⚰️ Deaths : `{case['deaths']}` `+{case['todayDeaths']}` on today
-    💹 Recovered Cases: `{case['recovered']}` `+{case['todayRecovered']}` on today
-    💉 Total Tests : `{case['tests']}`
-    👥 Populations : `{case['population']}`
-    🌐 Source : [worldometers]({url})
-    """
+    text = f"*COVID-19 Statistics in {country} :*\n📅 Last Updated on {date}\n\n🔼 Confirmed Cases : `{case['cases']}` `+{case['todayCases']}` on today\n🔺 Active Cases : `{case['active']}`\n⚰️ Deaths : `{case['deaths']}` `+{case['todayDeaths']}` on today\n💹 Recovered Cases: `{case['recovered']}` `+{case['todayRecovered']}` on today\n💉 Total Tests : `{case['tests']}`\n👥 Populations : `{case['population']}`\n🌐 Source : [worldometers]({url})"
     try:
         message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
     except BaseException:
