@@ -8,6 +8,7 @@ from typing import Optional
 from pyrogram import idle
 from telegram import Message, Chat, User
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
 from telegram.ext.dispatcher import DispatcherHandlerStop
 from telegram.utils.helpers import escape_markdown
@@ -281,7 +282,7 @@ def help_button(update, context):
         elif prev_match:
             curr_page = int(prev_match.group(1))
             query.message.edit_text(
-                HELP_STRINGS,
+                text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(curr_page - 1, HELPABLE, "help")
@@ -291,7 +292,7 @@ def help_button(update, context):
         elif next_match:
             next_page = int(next_match.group(1))
             query.message.edit_text(
-                HELP_STRINGS,
+                text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(next_page + 1, HELPABLE, "help")
@@ -310,14 +311,8 @@ def help_button(update, context):
         # ensure no spinny white circle
         # query.message.delete()
         context.bot.answer_callback_query(query.id)
-    except Exception as excp:
-        if excp.message not in [
-            "Message is not modified",
-            "Query_id_invalid",
-            "Message can't be deleted",
-        ]:
-            query.message.edit_text(excp.message)
-            LOGGER.exception("Exception in help buttons. %s", str(query.data))
+    except BadRequest:
+        pass
 
 
 @typing_action
