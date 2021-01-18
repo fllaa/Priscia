@@ -59,7 +59,7 @@ buttons = [
     ]]
 
 buttons += [[InlineKeyboardButton(text="Help & Commands ❔",
-                                  callback_data="help_back")]]
+                                  url=f"t.me/{dispatcher.bot.username}?start=help",)]]
 
 
 HELP_STRINGS = f"""
