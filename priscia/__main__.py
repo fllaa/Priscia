@@ -238,7 +238,7 @@ def help_button(update, context):
                 )
                 + HELPABLE[module].__help__
             )
-            query.message.reply_text(
+            query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -248,7 +248,7 @@ def help_button(update, context):
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
-            query.message.reply_text(
+            query.message.edit_text(
                 HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -258,7 +258,7 @@ def help_button(update, context):
 
         elif next_match:
             next_page = int(next_match.group(1))
-            query.message.reply_text(
+            query.message.edit_text(
                 HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -267,7 +267,7 @@ def help_button(update, context):
             )
 
         elif back_match:
-            query.message.reply_text(
+            query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -276,7 +276,7 @@ def help_button(update, context):
             )
 
         # ensure no spinny white circle
-        query.message.delete()
+        # query.message.delete()
         context.bot.answer_callback_query(query.id)
     except Exception as excp:
         if excp.message not in [
@@ -539,6 +539,7 @@ def main():
     # test_handler = CommandHandler("test", test)
     start_handler = CommandHandler(
         "start", start, pass_args=True, run_async=True)
+    start_callback_handler = CallbackQueryHandler(start, pattern=r"bot_start")
 
     help_handler = CommandHandler("help", get_help)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_")
@@ -558,6 +559,7 @@ def main():
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
+    dispatcher.add_handler(start_callback_handler)
     dispatcher.add_handler(migrate_handler)
     dispatcher.add_handler(is_chat_allowed_handler)
 
