@@ -300,13 +300,21 @@ def character(update, context):
         site_url = json.get("siteUrl")
         msg += shorten(description, site_url)
         image = json.get("image", None)
+        button = [[InlineKeyboardButton("More Info", url=site_url)]]
         if image:
             image = image.get("large")
             update.effective_message.reply_photo(
-                photo=image, caption=msg, parse_mode=ParseMode.MARKDOWN
+                photo=image,
+                caption=msg,
+                parse_mode=ParseMode.MARKDOWN,
+                reply_markup=InlineKeyboardMarkup(button),
             )
         else:
-            update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
+            update.effective_message.reply_text(
+                msg,
+                parse_mode=ParseMode.MARKDOWN,
+                reply_markup=InlineKeyboardMarkup(button),
+            )
 
 
 def manga(update, context):
