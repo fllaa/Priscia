@@ -1,13 +1,10 @@
-import datetime
 import html
-import json
 import random
 import re
 from io import BytesIO
 from random import randint
 from typing import Optional
 
-import html2text
 import requests
 import wikipedia
 from bs4 import BeautifulSoup
@@ -521,118 +518,6 @@ def rmemes(update, context):
         return msg.reply_text(f"Error! {excp.message}")
 
 
-def covid(update, context):
-    message = update.effective_message
-    args = context.args
-    query = " ".join(args)
-    remove_space = query.split(" ")
-    country = "%20".join(remove_space)
-    if not country:
-        url = "https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=true"
-        country = "World"
-    else:
-        url = f"https://disease.sh/v3/covid-19/countries/{country}?yesterday=false&twoDaysAgo=false&strict=true&allowNull=true"
-    request = requests.get(url).text
-    case = json.loads(request)
-    json_date = case["updated"]
-    float_date = float(json_date) / 1000.0
-    date = datetime.datetime.fromtimestamp(float_date).strftime("%d %b %Y %I:%M:%S %p")
-    try:
-        flag = case["countryInfo"]["flag"]
-    except KeyError:
-        pass
-    text = f"*COVID-19 Statistics in {country} :*\n📅 Last Updated on {date}\n\n🔼 Confirmed Cases : `{case['cases']}` `+{case['todayCases']}` on today\n🔺 Active Cases : `{case['active']}`\n⚰️ Deaths : `{case['deaths']}` `+{case['todayDeaths']}` on today\n💹 Recovered Cases: `{case['recovered']}` `+{case['todayRecovered']}` on today\n💉 Total Tests : `{case['tests']}`\n👥 Populations : `{case['population']}`\n🌐 Source : [worldometers]({url})"
-    try:
-        message.reply_photo(photo=flag, caption=text, parse_mode=ParseMode.MARKDOWN)
-    except BaseException:
-        message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
-
-
-def app(update, context):
-    try:
-        args = context.args
-        app_name = " ".join(args)
-        remove_space = app_name.split(" ")
-        final_name = "+".join(remove_space)
-        page = get("https://play.google.com/store/search?q=" + final_name + "&c=apps")
-        soup = BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
-        results = soup.findAll("div", "ZmHEEd")
-        app_name = (
-            results[0].findNext("div", "Vpfmgd").findNext("div", "WsMG1c nnK0zc").text
-        )
-        app_dev = results[0].findNext("div", "Vpfmgd").findNext("div", "KoLSrc").text
-        app_dev_link = (
-            "https://play.google.com"
-            + results[0].findNext("div", "Vpfmgd").findNext("a", "mnKHRc")["href"]
-        )
-        app_rating = (
-            results[0]
-            .findNext("div", "Vpfmgd")
-            .findNext("div", "pf5lIe")
-            .find("div")["aria-label"]
-        )
-        app_link = (
-            "https://play.google.com"
-            + results[0]
-            .findNext("div", "Vpfmgd")
-            .findNext("div", "vU6FJ p63iDd")
-            .a["href"]
-        )
-        app_icon = (
-            results[0]
-            .findNext("div", "Vpfmgd")
-            .findNext("div", "uzcko")
-            .img["data-src"]
-        )
-        app_details = "<a href='" + app_icon + "'>📲&#8203;</a>"
-        app_details += " <b>" + app_name + "</b>"
-        app_details += (
-            "\n\n<code>Developer :</code> <a href='"
-            + app_dev_link
-            + "'>"
-            + app_dev
-            + "</a>"
-        )
-        app_details += "\n<code>Rating :</code> " + app_rating.replace(
-            "Rated ", "⭐ "
-        ).replace(" out of ", "/").replace(" stars", "", 1).replace(
-            " stars", "⭐ "
-        ).replace(
-            "five", "5"
-        )
-        app_details += (
-            "\n<code>Features :</code> <a href='"
-            + app_link
-            + "'>View in Play Store</a>"
-        )
-        update.effective_message.reply_text(app_details, parse_mode="HTML")
-    except IndexError:
-        update.effective_message.reply_text(
-            "No result found in search. Please enter **Valid app name**"
-        )
-    except Exception as err:
-        update.effective_message.reply_text("Exception Occured:- " + str(err))
-
-
-def google(update, context):
-    args = context.args
-    query = " ".join(args)
-    remove_space = query.split(" ")
-    # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
-    input_str = "%20".join(remove_space)
-    input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
-    headers = {"USER-AGENT": "UniBorg"}
-    response = requests.get(input_url, headers=headers).json()
-    output_str = " "
-    for result in response["results"]:
-        text = result.get("title")
-        url = result.get("url")
-        description = result.get("description")
-        last = html2text.html2text(description)
-        output_str += "[{}]({})\n{}\n".format(text, url, last)
-    update.effective_message.reply_text("{}".format(output_str), parse_mode="MARKDOWN")
-
-
 def staff_ids(update, context):
     sfile = "List of SUDO & SUPPORT users:\n"
     sfile += f"× SUDO USER IDs; {SUDO_USERS}\n"
@@ -663,17 +548,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /ud <query> : Search stuffs in urban dictionary.
  × /wall <query> : Get random wallpapers directly from bot!
  × /gdpr: Deletes your information from the bot's database. Private chats only.
- *Last.FM*
- × /setuser <username>: sets your last.fm username.
- × /clearuser: removes your last.fm username from the bot's database.
- × /lastfm: returns what you're scrobbling on last.fm.
- *Google*
- × /google <query> : Search query on google
- × /reverse : Reverse searches image or stickers on google.
  × /paste: Saves replied content to nekobin.com and replies with a url
- × /lyrics <query>: search lyrics can be song name or artist name
- × /covid <country>: Get information about COVID-19 Stats, empty query = world
- × /app <query>: search an app on Play Store
  × /imdb <movie>: search movie info and other stuff
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
 """
@@ -693,9 +568,6 @@ UD_HANDLER = DisableAbleCommandHandler("ud", ud)
 GETLINK_HANDLER = CommandHandler(
     "getlink", getlink, pass_args=True, filters=Filters.user(OWNER_ID)
 )
-COVID_HANDLER = DisableAbleCommandHandler("covid", covid)
-APP_HANDLER = DisableAbleCommandHandler("app", app)
-GOOGLE_HANDLER = DisableAbleCommandHandler("google", google)
 
 STAFFLIST_HANDLER = CommandHandler(
     "staffids", staff_ids, filters=Filters.user(OWNER_ID)
@@ -712,9 +584,6 @@ dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(WIKI_HANDLER)
 dispatcher.add_handler(GETLINK_HANDLER)
-dispatcher.add_handler(COVID_HANDLER)
-dispatcher.add_handler(APP_HANDLER)
-dispatcher.add_handler(GOOGLE_HANDLER)
 dispatcher.add_handler(STAFFLIST_HANDLER)
 dispatcher.add_handler(REDDIT_MEMES_HANDLER)
 dispatcher.add_handler(IMDB_HANDLER)

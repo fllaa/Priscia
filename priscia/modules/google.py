@@ -3,6 +3,7 @@ import re
 import urllib
 from urllib.error import HTTPError, URLError
 
+import html2text
 import requests
 from bs4 import BeautifulSoup
 from telegram import InputMediaPhoto, TelegramError
@@ -200,8 +201,107 @@ def scam(imgspage, lim):
     return imglinks
 
 
+def app(update, context):
+    try:
+        args = context.args
+        app_name = " ".join(args)
+        remove_space = app_name.split(" ")
+        final_name = "+".join(remove_space)
+        page = requests.get("https://play.google.com/store/search?q=" + final_name + "&c=apps")
+        soup = BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
+        results = soup.findAll("div", "ZmHEEd")
+        app_name = (
+            results[0].findNext("div", "Vpfmgd").findNext("div", "WsMG1c nnK0zc").text
+        )
+        app_dev = results[0].findNext("div", "Vpfmgd").findNext("div", "KoLSrc").text
+        app_dev_link = (
+            "https://play.google.com"
+            + results[0].findNext("div", "Vpfmgd").findNext("a", "mnKHRc")["href"]
+        )
+        app_rating = (
+            results[0]
+            .findNext("div", "Vpfmgd")
+            .findNext("div", "pf5lIe")
+            .find("div")["aria-label"]
+        )
+        app_link = (
+            "https://play.google.com"
+            + results[0]
+            .findNext("div", "Vpfmgd")
+            .findNext("div", "vU6FJ p63iDd")
+            .a["href"]
+        )
+        app_icon = (
+            results[0]
+            .findNext("div", "Vpfmgd")
+            .findNext("div", "uzcko")
+            .img["data-src"]
+        )
+        app_details = "<a href='" + app_icon + "'>📲&#8203;</a>"
+        app_details += " <b>" + app_name + "</b>"
+        app_details += (
+            "\n\n<code>Developer :</code> <a href='"
+            + app_dev_link
+            + "'>"
+            + app_dev
+            + "</a>"
+        )
+        app_details += "\n<code>Rating :</code> " + app_rating.replace(
+            "Rated ", "⭐ "
+        ).replace(" out of ", "/").replace(" stars", "", 1).replace(
+            " stars", "⭐ "
+        ).replace(
+            "five", "5"
+        )
+        app_details += (
+            "\n<code>Features :</code> <a href='"
+            + app_link
+            + "'>View in Play Store</a>"
+        )
+        update.effective_message.reply_text(app_details, parse_mode="HTML")
+    except IndexError:
+        update.effective_message.reply_text(
+            "No result found in search. Please enter **Valid app name**"
+        )
+    except Exception as err:
+        update.effective_message.reply_text("Exception Occured:- " + str(err))
+
+
+def google(update, context):
+    args = context.args
+    query = " ".join(args)
+    remove_space = query.split(" ")
+    # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
+    input_str = "%20".join(remove_space)
+    input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
+    headers = {"USER-AGENT": "UniBorg"}
+    response = requests.get(input_url, headers=headers).json()
+    output_str = " "
+    for result in response["results"]:
+        text = result.get("title")
+        url = result.get("url")
+        description = result.get("description")
+        last = html2text.html2text(description)
+        output_str += "[{}]({})\n{}\n".format(text, url, last)
+    update.effective_message.reply_text("{}".format(output_str), parse_mode="MARKDOWN")
+
+
+__help__ = """
+Searching, Reversing image. It's Google Stuff!!!
+
+ × /google <query> : Search anything to google.
+ × /app <query>: search an Application on Play Store
+ × /reverse : Reverse searches image or stickers on google.
+"""
+
+__mod_name__ = "Google"
+
 REVERSE_HANDLER = DisableAbleCommandHandler(
     "reverse", reverse, pass_args=True, admin_ok=True
 )
+APP_HANDLER = DisableAbleCommandHandler("app", app)
+GOOGLE_HANDLER = DisableAbleCommandHandler("google", google)
 
 dispatcher.add_handler(REVERSE_HANDLER)
+dispatcher.add_handler(APP_HANDLER)
+dispatcher.add_handler(GOOGLE_HANDLER)
