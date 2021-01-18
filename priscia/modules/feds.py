@@ -498,7 +498,7 @@ def fed_admin(update, context):
         owner_name = owner.first_name + " " + owner.last_name
     except BaseException:
         owner_name = owner.first_name
-    text += " • {}\n".format(mention_html(owner.id, owner_name))
+    text += " × {}\n".format(mention_html(owner.id, owner_name))
 
     members = sql.all_fed_members(fed_id)
     if len(members) == 0:
@@ -507,7 +507,7 @@ def fed_admin(update, context):
         text += "\n🔱 Admin:\n"
         for x in members:
             user = context.bot.get_chat(x)
-            text += " • {}\n".format(mention_html(user.id, user.first_name))
+            text += " × {}\n".format(mention_html(user.id, user.first_name))
 
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
@@ -1411,7 +1411,7 @@ def fed_ban_list(update, context):
         user_name = getuserinfo["first_name"]
         if getuserinfo["last_name"]:
             user_name += " " + getuserinfo["last_name"]
-        text += " • {} (<code>{}</code>)\n".format(
+        text += " × {} (<code>{}</code>)\n".format(
             mention_html(users, user_name), users
         )
 
@@ -1531,7 +1531,7 @@ def fed_chats(update, context):
                 )
             )
             continue
-        text += " • {} (<code>{}</code>)\n".format(chat_name, chats)
+        text += " × {} (<code>{}</code>)\n".format(chat_name, chats)
 
     try:
         update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)

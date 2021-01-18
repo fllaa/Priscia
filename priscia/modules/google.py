@@ -207,7 +207,9 @@ def app(update, context):
         app_name = " ".join(args)
         remove_space = app_name.split(" ")
         final_name = "+".join(remove_space)
-        page = requests.get("https://play.google.com/store/search?q=" + final_name + "&c=apps")
+        page = requests.get(
+            "https://play.google.com/store/search?q=" + final_name + "&c=apps"
+        )
         soup = BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
         results = soup.findAll("div", "ZmHEEd")
         app_name = (

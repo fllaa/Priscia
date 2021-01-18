@@ -258,9 +258,9 @@ def remove_warns(update, context):
         return (
             "<b>{}:</b>"
             "\n#UNWARN"
-            "\n<b>• Admin:</b> {}"
-            "\n<b>• User:</b> {}"
-            "\n<b>• ID:</b> <code>{}</code>".format(
+            "\n<b>× Admin:</b> {}"
+            "\n<b>× User:</b> {}"
+            "\n<b>× ID:</b> <code>{}</code>".format(
                 html.escape(chat.title),
                 mention_html(user.id, user.first_name),
                 mention_html(warned.id, warned.first_name),

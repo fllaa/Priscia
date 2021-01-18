@@ -259,13 +259,13 @@ def adminlist(update, context):
         name = f"{(mention_html(user.id, user.first_name))}"
         if status == "creator":
             text += "\n 🦁 Creator:"
-            text += "\n • {} \n\n 🦊 Admin:".format(name)
+            text += "\n × {} \n\n 🦊 Admin:".format(name)
     for admin in administrators:
         user = admin.user
         status = admin.status
         name = f"{(mention_html(user.id, user.first_name))}"
         if status == "administrator":
-            text += "\n • {}".format(name)
+            text += "\n × {}".format(name)
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 

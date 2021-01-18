@@ -301,15 +301,15 @@ def connected(bot, update, chat, user_id, need_admin=True):
 
 CONN_HELP = """
  Actions are available with connected groups:
- • View and edit Notes.
- • View and edit Filters.
- • Get invite link of chat.
- • Set and control AntiFlood settings.
- • Set and control Blacklist settings.
- • Set Locks and Unlocks in chat.
- • Enable and Disable commands in chat.
- • Export and Imports of chat backup.
- • More in future!"""
+ × View and edit Notes.
+ × View and edit Filters.
+ × Get invite link of chat.
+ × Set and control AntiFlood settings.
+ × Set and control Blacklist settings.
+ × Set Locks and Unlocks in chat.
+ × Enable and Disable commands in chat.
+ × Export and Imports of chat backup.
+ × More in future!"""
 
 
 def help_connect_chat(update, context):

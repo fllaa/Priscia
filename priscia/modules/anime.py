@@ -536,7 +536,7 @@ def site_search(update, context, site: str):
             for entry in search_result:
                 post_link = entry.a["href"]
                 post_name = html.escape(entry.text)
-                result += f"• <a href='https://animekaizoku.com/{post_link}'>{post_name}</a>\n"
+                result += f"× <a href='https://animekaizoku.com/{post_link}'>{post_name}</a>\n"
         else:
             more_results = False
             result = f"<b>No result found for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>"
@@ -557,7 +557,7 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = html.escape(entry.text.strip())
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            result += f"× <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "kuso":
         search_url = f"https://kusonime.com/?s={search_query}"
@@ -575,7 +575,7 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = html.escape(entry.text.strip())
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            result += f"× <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "drive":
         search_url = f"https://drivenime.com/?s={search_query}"
@@ -593,7 +593,7 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = html.escape(entry.text.strip())
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            result += f"× <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "oploverz":
         search_url = f"https://oploverz.in/?s={search_query}"
@@ -611,7 +611,7 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = entry.a["title"]
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            result += f"× <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "neo":
         search_url = f"https://neonime.vip/?s={search_query}"
@@ -629,7 +629,7 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = entry.img["alt"]
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            result += f"× <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "same":
         search_url = f"https://samehadaku.vip/?s={search_query}"
@@ -647,7 +647,7 @@ def site_search(update, context, site: str):
 
             post_link = entry.a["href"]
             post_name = entry.a["title"]
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            result += f"× <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "otaku":
         search_url = f"https://otakudesu.tv/?s={search_query}&post_type=anime"
@@ -665,7 +665,7 @@ def site_search(update, context, site: str):
         for entry in search_result:
             post_link = entry["link"]
             post_name = entry["title"]
-            result += f"• <a href='{post_link}'>{post_name}</a>\n"
+            result += f"× <a href='{post_link}'>{post_name}</a>\n"
 
     buttons = [[InlineKeyboardButton("See all results", url=search_url)]]
 
@@ -719,23 +719,23 @@ Get information about anime, manga or characters from [AniList](anilist.co).
 
 *Available commands:*
 
- • `/anime <anime>`*:* returns information about the anime.
- • `/character <character>`*:* returns information about the character.
- • `/manga <manga>`*:* returns information about the manga.
- • `/mal <user>`*:* returns information about a MyAnimeList user.
+ × `/anime <anime>`*:* returns information about the anime.
+ × `/character <character>`*:* returns information about the character.
+ × `/manga <manga>`*:* returns information about the manga.
+ × `/mal <user>`*:* returns information about a MyAnimeList user.
  × `/anilist <user>`*:* returns information about a Anilist user.
- • `/upcoming`*:* returns a list of new anime in the upcoming seasons.
- • `/kaizoku <anime>`*:* search an anime on animekaizoku.com
- • `/kayo <anime>`*:* search an anime on animekayo.com
- • `/airing <anime>`*:* returns anime airing info.
- • `/whatanime` *:* find what anime is from by replying a media
+ × `/upcoming`*:* returns a list of new anime in the upcoming seasons.
+ × `/kaizoku <anime>`*:* search an anime on animekaizoku.com
+ × `/kayo <anime>`*:* search an anime on animekayo.com
+ × `/airing <anime>`*:* returns anime airing info.
+ × `/whatanime` *:* find what anime is from by replying a media
  *Only for* 🇮🇩
- • `/kuso <anime>`*:* Cari anime di kusonime.com
- • `/drive <anime>`*:* Cari anime di drivenime.com
- • `/oploverz <anime>`*:* Cari anime di oploverz.in
- • `/neo <anime>`*:* Cari anime di neonime.vip
- • `/same <anime>`*:* Cari anime di samehadaku.vip
- • `/otaku <anime>`*:* Cari anime di otakudesu.tv
+ × `/kuso <anime>`*:* Cari anime di kusonime.com
+ × `/drive <anime>`*:* Cari anime di drivenime.com
+ × `/oploverz <anime>`*:* Cari anime di oploverz.in
+ × `/neo <anime>`*:* Cari anime di neonime.vip
+ × `/same <anime>`*:* Cari anime di samehadaku.vip
+ × `/otaku <anime>`*:* Cari anime di otakudesu.tv
 
  """
 

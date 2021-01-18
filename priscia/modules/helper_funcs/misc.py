@@ -4,7 +4,7 @@ from typing import List, Dict
 from telegram import MAX_MESSAGE_LENGTH, InlineKeyboardButton, Bot, ParseMode
 from telegram.error import TelegramError
 
-from priscia import dispatcher, LOAD, NO_LOAD
+from priscia import LOAD, NO_LOAD
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
@@ -83,8 +83,6 @@ def paginate_modules(
         pairs = pairs[modulo_page * 7:7 * (modulo_page + 1)] + [
             (EqInlineKeyboardButton(
                 "<<", callback_data="{}_prev({})".format(prefix, modulo_page)),
-             EqInlineKeyboardButton("⬅️ Back",
-                                    url=f"t.me/{dispatcher.bot.username}?start",),
              EqInlineKeyboardButton(">>",
                                     callback_data="{}_next({})".format(
                                         prefix, modulo_page)))

@@ -606,7 +606,7 @@ def welcomemute(update, context) -> str:
             return (
                 "<b>{}:</b>"
                 "\n#WELCOME_MUTE"
-                "\n<b>• Admin:</b> {}"
+                "\n<b>× Admin:</b> {}"
                 "\nHas toggled welcome mute to <b>OFF</b>.".format(
                     escape(chat.title), mention_html(user.id, user.first_name)
                 )
@@ -619,7 +619,7 @@ def welcomemute(update, context) -> str:
             return (
                 "<b>{}:</b>"
                 "\n#WELCOME_MUTE"
-                "\n<b>• Admin:</b> {}"
+                "\n<b>× Admin:</b> {}"
                 "\nHas toggled welcome mute to <b>SOFT</b>.".format(
                     escape(chat.title), mention_html(user.id, user.first_name)
                 )
@@ -633,7 +633,7 @@ def welcomemute(update, context) -> str:
             return (
                 "<b>{}:</b>"
                 "\n#WELCOME_MUTE"
-                "\n<b>• Admin:</b> {}"
+                "\n<b>× Admin:</b> {}"
                 "\nHas toggled welcome mute to <b>STRONG</b>.".format(
                     escape(chat.title), mention_html(user.id, user.first_name)
                 )
