@@ -83,7 +83,7 @@ def paginate_modules(
         pairs = pairs[modulo_page * 7:7 * (modulo_page + 1)] + [
             (EqInlineKeyboardButton(
                 "<<", callback_data="{}_prev({})".format(prefix, modulo_page)),
-             EqInlineKeyboardButton("Back",
+             EqInlineKeyboardButton("⬅️ Back",
                                     callback_data="bot_start"),
              EqInlineKeyboardButton(">>",
                                     callback_data="{}_next({})".format(
@@ -91,7 +91,7 @@ def paginate_modules(
         ]
     else:
         pairs += [[
-            EqInlineKeyboardButton("Back",
+            EqInlineKeyboardButton("⬅️ Back",
                                    callback_data="bot_start")
         ]]
 

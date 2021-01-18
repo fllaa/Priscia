@@ -174,17 +174,48 @@ def start(update, context):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            update.effective_message.reply_video(
+            send_start(update, context)
+    else:
+        update.effective_message.reply_text(
+            "Sending you a warm hi & wishing your day is a happy one!"
+        )
+
+def send_start(update, context):
+    try:
+        query = update.callback_query
+        update.effective_message.edit_media(
+                chat_id=query.message.chat_id,
+                message_id=query.message.message_id
+                media="https://telegra.ph/file/47343fdcd34ccdccd4867.mp4",
+                caption=PM_START_TEXT,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+            )
+    except Exception:
+            pass
+
+    if query:
+        try:
+            update.effective_message.edit_media(
+                chat_id=query.message.chat_id,
+                message_id=query.message.message_id
+                media="https://telegra.ph/file/47343fdcd34ccdccd4867.mp4",
+                caption=PM_START_TEXT,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+            )
+        except Exception:
+            return
+    else:
+        update.effective_message.reply_video(
                 "https://telegra.ph/file/47343fdcd34ccdccd4867.mp4",
                 caption=PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
             )
-    else:
-        update.effective_message.reply_text(
-            "Sending you a warm hi & wishing your day is a happy one!"
-        )
 
 
 def error_handler(update, context):
@@ -539,7 +570,7 @@ def main():
     # test_handler = CommandHandler("test", test)
     start_handler = CommandHandler(
         "start", start, pass_args=True, run_async=True)
-    start_callback_handler = CallbackQueryHandler(start, pattern=r"bot_start")
+    start_callback_handler = CallbackQueryHandler(send_start, pattern=r"bot_start")
 
     help_handler = CommandHandler("help", get_help)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_")
