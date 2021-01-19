@@ -1,4 +1,7 @@
+import os
+
 import nekos
+import requests
 from telegram import ParseMode
 
 from priscia import dispatcher
@@ -8,18 +11,24 @@ from priscia.modules.disable import DisableAbleCommandHandler
 def neko(update, context):
     message = update.effective_message
     args = context.args
-    type = args[0]
+    flag = args[0]
     query = args[1]
     img = nekos.img(query)
     try:
-        if type == "-i":
+        if flag == "-i":
             message.reply_photo(photo=img, parse_mode=ParseMode.MARKDOWN)
-        elif type == "-d":
+        elif flag == "-d":
             message.reply_document(document=img, parse_mode=ParseMode.MARKDOWN)
-        elif type == "-s":
-            message.reply_sticker(sticker=img)
-        elif type == "-v":
+        elif flag == "-s":
+            stkr = "sticker.webp"
+            x = open(stkr, "wb")
+            x.write(requests.get(img).content)
+            message.reply_sticker(sticker=open(stkr, "rb"))
+            os.remove("sticker.webp")
+        elif flag == "-v":
             message.reply_video(video=img, parse_mode=ParseMode.MARKDOWN)
+        else:
+            message.reply_text("Put flags correctly!!!")
     except Exception as excp:
         message.reply_text(f"Failed to find image. Error: {excp}")
 
