@@ -53,7 +53,7 @@ def covid(update, context):
     except KeyError:
         flag = []
     if flag:
-        text = f"*COVID-19 Statistics in* [{country}]({flag})\n"
+        text = f"*COVID-19 Statistics in* [{query}]({flag})\n"
     else:
         text = f"*COVID-19 Statistics in {country} :*\n"
     text += f"Last Updated on `{date} GMT`\n\n🔼 Confirmed Cases : `{dot(case['cases'])}` | `+{dot(case['todayCases'])}`\n🔺 Active Cases : `{dot(case['active'])}`\n⚰️ Deaths : `{dot(case['deaths'])}` | `+{dot(case['todayDeaths'])}`\n💹 Recovered Cases: `{dot(case['recovered'])}` | `+{dot(case['todayRecovered'])}`\n💉 Total Tests : `{dot(case['tests'])}`\n👥 Populations : `{dot(case['population'])}`\n🌐 Source : worldometers"
