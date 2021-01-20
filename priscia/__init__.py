@@ -95,6 +95,7 @@ if ENV:
     API_HASH = os.environ.get("API_HASH", None)
     SPAMWATCH = os.environ.get("SPAMWATCH_API", None)
     LASTFM_API_KEY = os.environ.get("LASTFM_API_KEY", None)
+    ARL = os.environ.get("ARL", None)
 
 else:
     from priscia.config import Development as Config
@@ -157,6 +158,7 @@ else:
     API_ID = Config.API_ID
     SPAMWATCH = Config.SPAMWATCH_API
     LASTFM_API_KEY = Config.LASTFM_API_KEY
+    ARL = Config.ARL
 
 SUDO_USERS.add(OWNER_ID)
 

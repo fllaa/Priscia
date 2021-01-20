@@ -1,11 +1,82 @@
+import os
+from pathlib import Path
+
+import deezloader
 import requests
+from deezloader.exceptions import NoDataApi
 from telegram import ParseMode
 from telegram.ext import CommandHandler
 from tswift import Song
 
 import priscia.modules.sql.last_fm_sql as sql
-from priscia import LASTFM_API_KEY, dispatcher
+from priscia import ARL, LASTFM_API_KEY, dispatcher
 from priscia.modules.disable import DisableAbleCommandHandler
+
+TEMP_PATH = "deez_temp/"
+
+
+def music(update, context):
+    if not os.path.exists(TEMP_PATH):
+        os.makedirs(TEMP_PATH)
+    msg = update.effective_message
+    args = context.args
+    track = []
+    try:
+        loader = deezloader.Login(ARL)
+    except Exception as excp:
+        msg.reply_text(f"Failed to load token. Error: {excp}")
+        return
+    try:
+        flag = args[0]
+        query = args[1]
+    except IndexError:
+        msg.reply_text("use format: /music <flag> <link/song name> <quality>")
+        return
+    quality = "MP3_320"
+    if len(args) == 3:
+        quality = args[2]
+    try:
+        if flag == "-link":
+            if "deezer" in query:
+                track = loader.download_trackdee(
+	                  query,
+    	              output=TEMP_PATH,
+    	              quality=quality,
+                    recursive_quality=True,
+                    recursive_download=True,
+                    not_interface=True,
+                )
+            if "spotify" in query:
+                track = loader.download_trackspo(
+	                  query,
+    	              output=TEMP_PATH,
+    	              quality=quality,
+                    recursive_quality=True,
+                    recursive_download=True,
+                    not_interface=True,
+                )
+        if flag == "-song":
+            if len(query.split("-")) == 2:
+                artist, song = query.split("-")
+            else:
+                msg.reply_text("read /help music plox on me")
+                return
+            track = loader.download_name(
+                artist=artist,
+                song=song,
+                output=TEMP_PATH,
+                recursive_quality=True,
+                recursive_download=True,
+                not_interface=True,
+            )
+    except NoDataApi:
+        msg.reply_text("Song Not Found *sad")
+        return
+    except Exception as excp:
+        msg.reply_text(f"Failed. Error: {excp}")
+        return
+    msg.reply_audio(audio=Path(track))
+    os.rmdir(TEMP_PATH)
 
 
 def set_user(update, context):
@@ -117,8 +188,18 @@ def lyrics(update, context):
 
 
 __help__ = """
-Scrobble your music from Last.fm and find Lyrics
+Like name this module, you can search anything about music
 
+ × /music <flag> <query> <quality> : Download music from supported platforms
+   list flag:
+   -link : <query> are link from spotify or deezer
+   -song : <query> are artist-song_name
+   ~ list quality (optional):
+   `FLAC` `MP3_320` `MP3_256` `MP3_128`
+   example:
+   `/music -link https://open.spotify.com/track/1Vjd... FLAC`
+   `/music -song LiSA-Gurenge MP3_320`
+   `/music -song ArianaGrande-positions` (dont put space)
  × /lyrics <query>: search lyrics can be song name or artist name
  *Last.FM*
  × /setuser <username>: sets your last.fm username.
@@ -128,11 +209,13 @@ Scrobble your music from Last.fm and find Lyrics
 
 __mod_name__ = "Music"
 
+MUSIC_HANDLER = CommandHandler("music", music, pass_args=True)
 SET_USER_HANDLER = CommandHandler("setuser", set_user, pass_args=True)
 CLEAR_USER_HANDLER = CommandHandler("clearuser", clear_user)
 LASTFM_HANDLER = DisableAbleCommandHandler("lastfm", last_fm)
 LYRICS_HANDLER = DisableAbleCommandHandler("lyrics", lyrics, pass_args=True)
 
+dispatcher.add_handler(MUSIC_HANDLER)
 dispatcher.add_handler(SET_USER_HANDLER)
 dispatcher.add_handler(CLEAR_USER_HANDLER)
 dispatcher.add_handler(LASTFM_HANDLER)
