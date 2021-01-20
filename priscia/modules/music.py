@@ -1,5 +1,5 @@
 import os
-from pathlib import Path
+import shutil
 
 import deezloader
 import requests
@@ -20,7 +20,7 @@ def music(update, context):
         os.makedirs(TEMP_PATH)
     msg = update.effective_message
     args = context.args
-    track = []
+    track = ""
     try:
         loader = deezloader.Login(ARL)
     except Exception as excp:
@@ -75,8 +75,8 @@ def music(update, context):
     except Exception as excp:
         msg.reply_text(f"Failed. Error: {excp}")
         return
-    msg.reply_audio(audio=Path(track))
-    os.rmdir(TEMP_PATH)
+    msg.reply_audio(audio=open(track, "rb"))
+    shutil.rmtree(TEMP_PATH)
 
 
 def set_user(update, context):
@@ -190,16 +190,7 @@ def lyrics(update, context):
 __help__ = """
 Like name this module, you can search anything about music
 
- × /music <flag> <query> <quality> : Download music from supported platforms
-   list flag:
-   -link : <query> are link from spotify or deezer
-   -song : <query> are artist-song_name
-   ~ list quality (optional):
-   `FLAC` `MP3_320` `MP3_256` `MP3_128`
-   example:
-   `/music -link https://open.spotify.com/track/1Vjd... FLAC`
-   `/music -song LiSA-Gurenge MP3_320`
-   `/music -song ArianaGrande-positions` (dont put space)
+ × /music <flag> <query> <quality> : Download music [more info](https://telegra.ph/Music-Downloader-Info-01-20)
  × /lyrics <query>: search lyrics can be song name or artist name
  *Last.FM*
  × /setuser <username>: sets your last.fm username.
@@ -209,14 +200,14 @@ Like name this module, you can search anything about music
 
 __mod_name__ = "Music"
 
-MUSIC_HANDLER = CommandHandler("music", music, pass_args=True)
 SET_USER_HANDLER = CommandHandler("setuser", set_user, pass_args=True)
 CLEAR_USER_HANDLER = CommandHandler("clearuser", clear_user)
+MUSIC_HANDLER = DisableAbleCommandHandler("music", music, pass_args=True)
 LASTFM_HANDLER = DisableAbleCommandHandler("lastfm", last_fm)
 LYRICS_HANDLER = DisableAbleCommandHandler("lyrics", lyrics, pass_args=True)
 
-dispatcher.add_handler(MUSIC_HANDLER)
 dispatcher.add_handler(SET_USER_HANDLER)
 dispatcher.add_handler(CLEAR_USER_HANDLER)
+dispatcher.add_handler(MUSIC_HANDLER)
 dispatcher.add_handler(LASTFM_HANDLER)
 dispatcher.add_handler(LYRICS_HANDLER)
