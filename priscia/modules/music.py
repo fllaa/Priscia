@@ -39,18 +39,18 @@ def music(update, context):
         if flag == "-link":
             if "deezer" in query:
                 track = loader.download_trackdee(
-	                  query,
-    	              output=TEMP_PATH,
-    	              quality=quality,
+                    query,
+                    output=TEMP_PATH,
+                    quality=quality,
                     recursive_quality=True,
                     recursive_download=True,
                     not_interface=True,
                 )
             if "spotify" in query:
                 track = loader.download_trackspo(
-	                  query,
-    	              output=TEMP_PATH,
-    	              quality=quality,
+                    query,
+                    output=TEMP_PATH,
+                    quality=quality,
                     recursive_quality=True,
                     recursive_download=True,
                     not_interface=True,
