@@ -5,7 +5,7 @@ from priscia.modules.helper_funcs.misc import is_module_loaded
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 if is_module_loaded(FILENAME):
-    from telegram import Bot, Message, ParseMode
+    from telegram import Bot, ParseMode
     from telegram.error import BadRequest, Unauthorized
     from telegram.ext import CommandHandler
     from telegram.utils.helpers import escape_markdown
@@ -18,8 +18,8 @@ if is_module_loaded(FILENAME):
         @wraps(func)
         def log_action(update, context, *args, **kwargs):
             result = func(update, context, *args, **kwargs)
-            chat = update.effective_chat  # type: Optional[Chat]
-            message = update.effective_message  # type: Optional[Message]
+            chat = update.effective_chat
+            message = update.effective_message
             if result:
                 if chat.type == chat.SUPERGROUP and chat.username:
                     result += (
@@ -66,8 +66,8 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     def logging(update, context):
-        message = update.effective_message  # type: Optional[Message]
-        chat = update.effective_chat  # type: Optional[Chat]
+        message = update.effective_message
+        chat = update.effective_chat
 
         log_channel = sql.get_chat_log_channel(chat.id)
         if log_channel:
@@ -84,8 +84,8 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     def setlog(update, context):
-        message = update.effective_message  # type: Optional[Message]
-        chat = update.effective_chat  # type: Optional[Chat]
+        message = update.effective_message
+        chat = update.effective_chat
         if chat.type == chat.CHANNEL:
             message.reply_text(
                 "Now, forward the /setlog to the group you want to tie this channel to!"
@@ -126,8 +126,8 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     def unsetlog(update, context):
-        message = update.effective_message  # type: Optional[Message]
-        chat = update.effective_chat  # type: Optional[Chat]
+        message = update.effective_message
+        chat = update.effective_chat
 
         log_channel = sql.stop_chat_logging(chat.id)
         if log_channel:

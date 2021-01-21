@@ -1,7 +1,6 @@
 import html
-from typing import Optional
 
-from telegram import MAX_MESSAGE_LENGTH, Message, ParseMode, User
+from telegram import MAX_MESSAGE_LENGTH, ParseMode
 from telegram.utils.helpers import escape_markdown
 
 import priscia.modules.sql.userinfo_sql as sql
@@ -11,7 +10,7 @@ from priscia.modules.helper_funcs.extraction import extract_user
 
 
 def about_me(update, context):
-    message = update.effective_message  # type: Optional[Message]
+    message = update.effective_message
     args = context.args
     user_id = extract_user(message, args)
 
@@ -35,7 +34,7 @@ def about_me(update, context):
 
 
 def set_about_me(update, context):
-    message = update.effective_message  # type: Optional[Message]
+    message = update.effective_message
     user_id = message.from_user.id
     text = message.text
     info = text.split(
@@ -52,7 +51,7 @@ def set_about_me(update, context):
 
 
 def about_bio(update, context):
-    message = update.effective_message  # type: Optional[Message]
+    message = update.effective_message
     args = context.args
 
     user_id = extract_user(message, args)
@@ -74,8 +73,8 @@ def about_bio(update, context):
 
 
 def set_about_bio(update, context):
-    message = update.effective_message  # type: Optional[Message]
-    sender = update.effective_user  # type: Optional[User]
+    message = update.effective_message
+    sender = update.effective_user
     if message.reply_to_message:
         repl_message = message.reply_to_message
         user_id = repl_message.from_user.id

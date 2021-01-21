@@ -3,7 +3,6 @@ import time
 from html import escape
 
 from telegram import (
-    CallbackQuery,
     ChatPermissions,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
@@ -40,7 +39,7 @@ VALID_WELCOME_FORMATTERS = [
 ENUM_FUNC_MAP = {
     sql.Types.TEXT.value: dispatcher.bot.send_message,
     sql.Types.BUTTON_TEXT.value: dispatcher.bot.send_message,
-    # sql.Types.STICKER.value: dispatcher.bot.send_sticker,
+    sql.Types.STICKER.value: dispatcher.bot.send_sticker,
     sql.Types.DOCUMENT.value: dispatcher.bot.send_document,
     sql.Types.PHOTO.value: dispatcher.bot.send_photo,
     sql.Types.AUDIO.value: dispatcher.bot.send_audio,
@@ -50,7 +49,7 @@ ENUM_FUNC_MAP = {
 
 
 # do not async
-def send(update, message, keyboard, backup_message):
+def send(update, content, message, keyboard, types, backup_message):
     chat = update.effective_chat
     cleanserv = sql.clean_service(chat.id)
     reply = update.message.message_id
@@ -62,13 +61,32 @@ def send(update, message, keyboard, backup_message):
             pass
         reply = False
     try:
-        msg = update.effective_message.reply_text(
-            message,
-            parse_mode=ParseMode.HTML,
-            reply_markup=keyboard,
-            reply_to_message_id=reply,
-            disable_web_page_preview=True,
-        )
+        if content:
+            ENUM_FUNC_REPLY = {
+                sql.Types.TEXT.value: update.effective_message.reply_text,
+                sql.Types.BUTTON_TEXT.value: update.effective_message.reply_text,
+                sql.Types.STICKER.value: update.effective_message.reply_sticker,
+                sql.Types.DOCUMENT.value: update.effective_message.reply_document,
+                sql.Types.PHOTO.value: update.effective_message.reply_photo,
+                sql.Types.AUDIO.value: update.effective_message.reply_audio,
+                sql.Types.VOICE.value: update.effective_message.reply_voice,
+                sql.Types.VIDEO.value: update.effective_message.reply_video,
+            }
+            msg = ENUM_FUNC_REPLY[types](
+                content,
+                caption=message,
+                parse_mode=ParseMode.HTML,
+                reply_markup=keyboard,
+                reply_to_message_id=reply,
+            )
+        else:
+            msg = update.effective_message.reply_text(
+                message,
+                parse_mode=ParseMode.HTML,
+                reply_markup=keyboard,
+                reply_to_message_id=reply,
+                disable_web_page_preview=True,
+            )
     except IndexError:
         msg = update.effective_message.reply_text(
             markdown_parser(
@@ -140,13 +158,16 @@ def new_member(update, context):
     user = update.effective_user
     msg = update.effective_message
     chat_name = chat.title or chat.first or chat.username
-    should_welc, cust_welcome, welc_type = sql.get_welc_pref(chat.id)
-    cust_welcome = markdown_to_html(cust_welcome)
+    should_welc, cust_welcome, cust_content, welc_type = sql.get_welc_pref(chat.id)
+    if cust_welcome:
+        cust_welcome = markdown_to_html(cust_welcome)
     welc_mutes = sql.welcome_mutes(chat.id)
     user_id = user.id
     human_checks = sql.get_human_checks(user_id, chat.id)
     if should_welc:
+        content = None
         sent = None
+        res = None
         new_members = update.effective_message.new_chat_members
         for new_mem in new_members:
 
@@ -198,12 +219,6 @@ def new_member(update, context):
                     parse_mode=ParseMode.HTML,
                 )
             else:
-                # If welcome message is media, send with appropriate function
-                if welc_type != sql.Types.TEXT and welc_type != sql.Types.BUTTON_TEXT:
-                    sent = ENUM_FUNC_MAP[welc_type](chat.id, cust_welcome)
-                    # print(bool(sent))
-                    continue
-                # else, move on
                 first_name = (
                     new_mem.first_name or "PersonWithNoName"
                 )  # edge case of empty name - occurs for some bugs.
@@ -235,15 +250,24 @@ def new_member(update, context):
                     )
                     buttons = sql.get_welc_buttons(chat.id)
                     keyb = build_keyboard(buttons)
+                    if cust_content:
+                        content = cust_content
                 else:
+                    if cust_content:
+                        content = cust_content
                     res = sql.DEFAULT_WELCOME.format(first=first_name)
                     keyb = []
 
                 keyboard = InlineKeyboardMarkup(keyb)
 
                 sent = send(
-                    update, res, keyboard, sql.DEFAULT_WELCOME.format(first=first_name)
-                )  # type: Optional[Message]
+                    update,
+                    content,
+                    res,
+                    keyboard,
+                    welc_type,
+                    sql.DEFAULT_WELCOME.format(first=first_name),
+                )
 
                 # User exception from mutes:
                 if (
@@ -318,7 +342,7 @@ def new_member(update, context):
 
 
 def left_member(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     should_goodbye, cust_goodbye, goodbye_type = sql.get_gdbye_pref(chat.id)
     cust_goodbye = markdown_to_html(cust_goodbye)
     if should_goodbye:
@@ -398,17 +422,17 @@ def left_member(update, context):
 
             keyboard = InlineKeyboardMarkup(keyb)
 
-            send(update, res, keyboard, sql.DEFAULT_GOODBYE)
+            send(update, None, res, keyboard, None, sql.DEFAULT_GOODBYE)
 
 
 @user_admin
 def welcome(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     args = context.args
     # if no args, show current replies.
     if len(args) == 0 or args[0].lower() == "noformat":
         noformat = args and args[0].lower() == "noformat"
-        pref, welcome_m, welcome_type = sql.get_welc_pref(chat.id)
+        pref, welcome_m, welcome_c, welcome_type = sql.get_welc_pref(chat.id)
         update.effective_message.reply_text(
             "This chat has it's welcome setting set to: `{}`.\n*The welcome message "
             "(not filling the {{}}) is:*".format(pref),
@@ -425,15 +449,15 @@ def welcome(update, context):
                 keyb = build_keyboard(buttons)
                 keyboard = InlineKeyboardMarkup(keyb)
 
-                send(update, welcome_m, keyboard, sql.DEFAULT_WELCOME)
+                send(update, welcome_c, welcome_m, keyboard, welcome_type, sql.DEFAULT_WELCOME)
 
         else:
             if noformat:
-                ENUM_FUNC_MAP[welcome_type](chat.id, welcome_m)
+                ENUM_FUNC_MAP[welcome_type](chat.id, welcome_c, caption=welcome_m)
 
             else:
                 ENUM_FUNC_MAP[welcome_type](
-                    chat.id, welcome_m, parse_mode=ParseMode.MARKDOWN
+                    chat.id, welcome_c, caption=welcome_m, parse_mode=ParseMode.MARKDOWN
                 )
 
     elif len(args) >= 1:
@@ -454,7 +478,7 @@ def welcome(update, context):
 
 @user_admin
 def goodbye(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     args = context.args
 
     if len(args) == 0 or args[0] == "noformat":
@@ -476,7 +500,7 @@ def goodbye(update, context):
                 keyb = build_keyboard(buttons)
                 keyboard = InlineKeyboardMarkup(keyb)
 
-                send(update, goodbye_m, keyboard, sql.DEFAULT_GOODBYE)
+                send(update, None, goodbye_m, keyboard, None, sql.DEFAULT_GOODBYE)
 
         else:
             if noformat:
@@ -506,9 +530,9 @@ def goodbye(update, context):
 @user_admin
 @loggable
 def set_welcome(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
 
     text, data_type, content, buttons = get_welcome_type(msg)
 
@@ -516,7 +540,7 @@ def set_welcome(update, context) -> str:
         msg.reply_text("You didn't specify what to reply with!")
         return ""
 
-    sql.set_custom_welcome(chat.id, content or text, data_type, buttons)
+    sql.set_custom_welcome(chat.id, content, text, data_type, buttons)
     msg.reply_text("Successfully set custom welcome message!")
 
     return (
@@ -532,8 +556,8 @@ def set_welcome(update, context) -> str:
 @user_admin
 @loggable
 def reset_welcome(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
+    chat = update.effective_chat
+    user = update.effective_user
     sql.set_custom_welcome(chat.id, sql.DEFAULT_WELCOME, sql.Types.TEXT)
     update.effective_message.reply_text(
         "Successfully reset welcome message to default!"
@@ -551,9 +575,9 @@ def reset_welcome(update, context) -> str:
 @user_admin
 @loggable
 def set_goodbye(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
     text, data_type, content, buttons = get_welcome_type(msg)
 
     if data_type is None:
@@ -575,8 +599,8 @@ def set_goodbye(update, context) -> str:
 @user_admin
 @loggable
 def reset_goodbye(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
+    chat = update.effective_chat
+    user = update.effective_user
     sql.set_custom_gdbye(chat.id, sql.DEFAULT_GOODBYE, sql.Types.TEXT)
     update.effective_message.reply_text(
         "Successfully reset goodbye message to default!"
@@ -594,9 +618,9 @@ def reset_goodbye(update, context) -> str:
 @user_admin
 @loggable
 def welcomemute(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
     args = context.args
 
     if len(args) >= 1:
@@ -654,8 +678,8 @@ def welcomemute(update, context) -> str:
 @user_admin
 @loggable
 def clean_welcome(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
+    chat = update.effective_chat
+    user = update.effective_user
     args = context.args
 
     if not args:
@@ -700,7 +724,7 @@ def clean_welcome(update, context) -> str:
 
 @user_admin
 def cleanservice(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     args = context.args
     if chat.type != chat.PRIVATE:
         if len(args) >= 1:
@@ -736,11 +760,11 @@ def cleanservice(update, context):
 
 
 def user_button(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    query = update.callback_query  # type: Optional[CallbackQuery]
+    chat = update.effective_chat
+    user = update.effective_user
+    query = update.callback_query
     match = re.match(r"user_join_\((.+?)\)", query.data)
-    message = update.effective_message  # type: Optional[Message]
+    message = update.effective_message
     db_checks = sql.set_human_checks(user.id, chat.id)
     join_user = int(match.group(1))
 

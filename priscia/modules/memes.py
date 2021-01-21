@@ -63,7 +63,7 @@ def slap(update, context):
 
 def punch(update, context):
     args = context.args
-    msg = update.effective_message  # type: Optional[Message]
+    msg = update.effective_message
 
     # reply to correct message
     reply_text = (
@@ -105,7 +105,7 @@ def punch(update, context):
 
 def hug(update, context):
     args = context.args
-    msg = update.effective_message  # type: Optional[Message]
+    msg = update.effective_message
 
     # reply to correct message
     reply_text = (

@@ -1,6 +1,6 @@
 import html
 
-from telegram import Chat, ParseMode, User
+from telegram import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import mention_html
@@ -26,9 +26,9 @@ from priscia.modules.log_channel import loggable
 @user_admin
 @loggable
 def ban(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
     args = context.args
 
     if user_can_ban(chat, user, context.bot.id) is False:
@@ -108,9 +108,9 @@ def ban(update, context):
 @user_admin
 @loggable
 def temp_ban(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
     args = context.args
 
     if user_can_ban(chat, user, context.bot.id) is False:
@@ -201,9 +201,9 @@ def temp_ban(update, context):
 @user_admin
 @loggable
 def kick(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
     args = context.args
 
     if user_can_ban(chat, user, context.bot.id) is False:
@@ -313,9 +313,9 @@ def kickme(update, context):
 @user_admin
 @loggable
 def unban(update, context):
-    message = update.effective_message  # type: Optional[Message]
-    user = update.effective_user  # type: Optional[User]
-    chat = update.effective_chat  # type: Optional[Chat]
+    message = update.effective_message
+    user = update.effective_user
+    chat = update.effective_chat
     args = context.args
 
     if user_can_ban(chat, user, context.bot.id) is False:

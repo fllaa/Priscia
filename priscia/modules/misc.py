@@ -3,18 +3,15 @@ import random
 import re
 from io import BytesIO
 from random import randint
-from typing import Optional
 
 import requests
 import wikipedia
 from bs4 import BeautifulSoup
 from requests import get
 from telegram import (
-    Chat,
     ChatAction,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    Message,
     MessageEntity,
     ParseMode,
     TelegramError,
@@ -65,7 +62,7 @@ def get_id(update, context):
                 parse_mode=ParseMode.MARKDOWN,
             )
     else:
-        chat = update.effective_chat  # type: Optional[Chat]
+        chat = update.effective_chat
         if chat.type == "private":
             update.effective_message.reply_text(
                 "Your id is `{}`.".format(chat.id), parse_mode=ParseMode.MARKDOWN
@@ -80,7 +77,7 @@ def get_id(update, context):
 
 def info(update, context):
     args = context.args
-    msg = update.effective_message  # type: Optional[Message]
+    msg = update.effective_message
     user_id = extract_user(update.effective_message, args)
     chat = update.effective_chat
 

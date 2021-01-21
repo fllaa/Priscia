@@ -1,6 +1,5 @@
 import html
 import re
-from typing import Optional
 
 import telegram
 from telegram import (
@@ -148,12 +147,12 @@ def warn(
 @bot_admin
 @loggable
 def button(update, context):
-    query = update.callback_query  # type: Optional[CallbackQuery]
-    user = update.effective_user  # type: Optional[User]
+    query = update.callback_query
+    user = update.effective_user
     match = re.match(r"rm_warn\((.+?)\)", query.data)
     if match:
         user_id = match.group(1)
-        chat = update.effective_chat  # type: Optional[Chat]
+        chat = update.effective_chat
         res = sql.remove_warn(user_id, chat.id)
         if res:
             update.effective_message.edit_text(
@@ -186,9 +185,9 @@ def button(update, context):
 @can_restrict
 @loggable
 def warn_user(update, context):
-    message = update.effective_message  # type: Optional[Message]
-    chat = update.effective_chat  # type: Optional[Chat]
-    warner = update.effective_user  # type: Optional[User]
+    message = update.effective_message
+    chat = update.effective_chat
+    warner = update.effective_user
     args = context.args
     user_id, reason = extract_user_and_text(message, args)
 
@@ -215,9 +214,9 @@ def warn_user(update, context):
 @bot_admin
 @loggable
 def reset_warns(update, context):
-    message = update.effective_message  # type: Optional[Message]
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
+    message = update.effective_message
+    chat = update.effective_chat
+    user = update.effective_user
     args = context.args
     user_id = extract_user(message, args)
 
@@ -245,9 +244,9 @@ def reset_warns(update, context):
 @bot_admin
 @loggable
 def remove_warns(update, context):
-    message = update.effective_message  # type: Optional[Message]
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
+    message = update.effective_message
+    chat = update.effective_chat
+    user = update.effective_user
     args = context.args
     user_id = extract_user(message, args)
 
@@ -273,8 +272,8 @@ def remove_warns(update, context):
 
 
 def warns(update, context):
-    message = update.effective_message  # type: Optional[Message]
-    chat = update.effective_chat  # type: Optional[Chat]
+    message = update.effective_message
+    chat = update.effective_chat
     args = context.args
     user_id = extract_user(message, args) or update.effective_user.id
     result = sql.get_warns(user_id, chat.id)
@@ -304,8 +303,8 @@ def warns(update, context):
 # Dispatcher handler stop - do not async
 @user_admin
 def add_warn_filter(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    msg = update.effective_message
 
     args = msg.text.split(
         None, 1
@@ -337,8 +336,8 @@ def add_warn_filter(update, context):
 
 @user_admin
 def remove_warn_filter(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    msg = update.effective_message
 
     args = msg.text.split(
         None, 1
@@ -372,7 +371,7 @@ def remove_warn_filter(update, context):
 
 
 def list_warn_filters(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     all_handlers = sql.get_chat_warn_triggers(chat.id)
 
     if not all_handlers:
@@ -394,8 +393,8 @@ def list_warn_filters(update, context):
 
 @loggable
 def reply_filter(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    message = update.effective_message
 
     chat_warn_filters = sql.get_chat_warn_triggers(chat.id)
     to_match = extract_text(message)
@@ -405,7 +404,7 @@ def reply_filter(update, context) -> str:
     for keyword in chat_warn_filters:
         pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
         if re.search(pattern, to_match, flags=re.IGNORECASE):
-            user = update.effective_user  # type: Optional[User]
+            user = update.effective_user
             warn_filter = sql.get_warn_filter(chat.id, keyword)
             return warn(user, chat, warn_filter.reply, message)
     return ""
@@ -414,9 +413,9 @@ def reply_filter(update, context) -> str:
 @user_admin
 @loggable
 def set_warn_limit(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
     args = context.args
     if args:
         if args[0].isdigit():
@@ -446,9 +445,9 @@ def set_warn_limit(update, context) -> str:
 
 @user_admin
 def set_warn_strength(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
     args = context.args
     if args:
         if args[0].lower() in ("on", "yes"):

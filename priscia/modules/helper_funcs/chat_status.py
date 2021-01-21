@@ -1,5 +1,5 @@
 from functools import wraps
-from telegram import User, Chat, ChatMember
+from telegram import Chat, ChatMember
 
 from priscia import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
 from priscia.mwt import MWT
@@ -131,7 +131,7 @@ def bot_admin(func):
 def user_admin(func):
     @wraps(func)
     def is_admin(update, context, *args, **kwargs):
-        user = update.effective_user  # type: Optional[User]
+        user = update.effective_user
         if user and is_user_admin(update.effective_chat, user.id):
             return func(update, context, *args, **kwargs)
 
@@ -152,7 +152,7 @@ def user_admin(func):
 def user_admin_no_reply(func):
     @wraps(func)
     def is_admin(update, context, *args, **kwargs):
-        user = update.effective_user  # type: Optional[User]
+        user = update.effective_user
         if user and is_user_admin(update.effective_chat, user.id):
             return func(update, context, *args, **kwargs)
 
@@ -168,7 +168,7 @@ def user_admin_no_reply(func):
 def user_not_admin(func):
     @wraps(func)
     def is_not_admin(update, context, *args, **kwargs):
-        user = update.effective_user  # type: Optional[User]
+        user = update.effective_user
         if user and not is_user_admin(update.effective_chat, user.id):
             return func(update, context, *args, **kwargs)
 

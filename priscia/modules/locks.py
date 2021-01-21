@@ -1,14 +1,7 @@
 import html
 
 from alphabet_detector import AlphabetDetector
-from telegram import (
-    Chat,
-    ChatPermissions,
-    Message,
-    MessageEntity,
-    ParseMode,
-    TelegramError,
-)
+from telegram import ChatPermissions, MessageEntity, ParseMode, TelegramError
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
@@ -349,8 +342,8 @@ def unlock(update, context) -> str:
 
 @user_not_admin
 def del_lockables(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    message = update.effective_message
 
     for lockable, filter in LOCK_TYPES.items():
         if lockable == "rtl":
@@ -483,7 +476,7 @@ def build_lock_message(chat_id):
 
 @user_admin
 def list_locks(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     user = update.effective_user
 
     # Connection check

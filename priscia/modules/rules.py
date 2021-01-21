@@ -1,12 +1,4 @@
-from typing import Optional
-
-from telegram import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-    ParseMode,
-    User,
-)
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import escape_markdown
@@ -25,7 +17,7 @@ def get_rules(update, context):
 # Do not async - not from a handler
 def send_rules(update, chat_id, from_pm=False):
     bot = dispatcher.bot
-    user = update.effective_user  # type: Optional[User]
+    user = update.effective_user
     try:
         chat = bot.get_chat(chat_id)
     except BadRequest as excp:
@@ -73,7 +65,7 @@ def send_rules(update, chat_id, from_pm=False):
 @user_admin
 def set_rules(update, context):
     chat_id = update.effective_chat.id
-    msg = update.effective_message  # type: Optional[Message]
+    msg = update.effective_message
     raw_text = msg.text
     # use python's maxsplit to separate cmd and args
     args = raw_text.split(None, 1)

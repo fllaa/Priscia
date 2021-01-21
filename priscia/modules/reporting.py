@@ -1,14 +1,6 @@
 import html
-from typing import Optional
 
-from telegram import (
-    Chat,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-    ParseMode,
-    User,
-)
+from telegram import Chat, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackQueryHandler, CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
@@ -23,8 +15,8 @@ REPORT_GROUP = 5
 
 @user_admin
 def report_setting(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    msg = update.effective_message
     args = context.args
 
     if chat.type == chat.PRIVATE:
@@ -72,12 +64,11 @@ def report_setting(update, context):
 @user_not_admin
 @loggable
 def report(update, context) -> str:
-    message = update.effective_message  # type: Optional[Message]
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
+    message = update.effective_message
+    chat = update.effective_chat
+    user = update.effective_user
 
     if chat and message.reply_to_message and sql.chat_should_report(chat.id):
-        # type: Optional[User]
         reported_user = message.reply_to_message.from_user
         chat_name = chat.title or chat.first or chat.username
         admin_list = chat.get_administrators()

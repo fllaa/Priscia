@@ -1,7 +1,6 @@
 import html
-from typing import Optional
 
-from telegram import Chat, ChatPermissions, Message, User
+from telegram import ChatPermissions
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import mention_html
@@ -23,9 +22,9 @@ from priscia.modules.log_channel import loggable
 @user_admin
 @loggable
 def mute(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
     args = context.args
 
     if user_can_ban(chat, user, context.bot.id) == False:
@@ -79,9 +78,9 @@ def mute(update, context):
 @user_admin
 @loggable
 def unmute(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
     args = context.args
 
     if user_can_ban(chat, user, context.bot.id) == False:
@@ -145,9 +144,9 @@ def unmute(update, context):
 @user_admin
 @loggable
 def temp_mute(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
     args = context.args
 
     if user_can_ban(chat, user, context.bot.id) == False:

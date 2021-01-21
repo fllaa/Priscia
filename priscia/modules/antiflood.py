@@ -1,7 +1,6 @@
 import html
-from typing import Optional
 
-from telegram import Chat, ChatPermissions, Message, ParseMode, User
+from telegram import ChatPermissions, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
@@ -19,9 +18,9 @@ FLOOD_GROUP = 3
 
 @loggable
 def check_flood(update, context) -> str:
-    user = update.effective_user  # type: Optional[User]
-    chat = update.effective_chat  # type: Optional[Chat]
-    msg = update.effective_message  # type: Optional[Message]
+    user = update.effective_user
+    chat = update.effective_chat
+    msg = update.effective_message
 
     if not user:  # ignore channels
         return ""
@@ -99,9 +98,9 @@ def check_flood(update, context) -> str:
 @user_admin
 @loggable
 def set_flood(update, context) -> str:
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
     args = context.args
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
@@ -193,8 +192,8 @@ def set_flood(update, context) -> str:
 
 
 def flood(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
+    chat = update.effective_chat
+    user = update.effective_user
     msg = update.effective_message
 
     conn = connected(context.bot, update, chat, user.id, need_admin=False)
@@ -239,9 +238,9 @@ def flood(update, context):
 @user_admin
 @loggable
 def set_flood_mode(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
     args = context.args
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)

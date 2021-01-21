@@ -122,7 +122,7 @@ def gban(update, context):
         user_id, new_reason = extract_user_and_text(message, args)
 
         if old_reason:
-            banner = update.effective_user  # type: Optional[User]
+            banner = update.effective_user
             bannerid = banner.id
             bannername = banner.first_name
             new_reason = (
@@ -217,7 +217,7 @@ def ungban(update, context):
         message.reply_text("This user is not gbanned!")
         return
 
-    banner = update.effective_user  # type: Optional[User]
+    banner = update.effective_user
 
     message.reply_text(
         "I'll give {} a second chance, globally.".format(user_chat.first_name)

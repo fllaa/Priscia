@@ -1,7 +1,7 @@
 from typing import Union
 
 from future.utils import string_types
-from telegram import Chat, ParseMode, Update
+from telegram import ParseMode, Update
 from telegram.ext import CommandHandler, MessageHandler
 from telegram.utils.helpers import escape_markdown
 
@@ -89,7 +89,7 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     def disable(update, context):
-        chat = update.effective_chat  # type: Optional[Chat]
+        chat = update.effective_chat
         user = update.effective_user
         args = context.args
 
@@ -131,7 +131,7 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     def enable(update, context):
-        chat = update.effective_chat  # type: Optional[Chat]
+        chat = update.effective_chat
         user = update.effective_user
         args = context.args
 

@@ -3,10 +3,8 @@ import traceback
 import html
 import json
 import re
-from typing import Optional
 
 from pyrogram import idle
-from telegram import Message, Chat, User
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
@@ -317,7 +315,7 @@ def help_button(update, context):
 
 @typing_action
 def get_help(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     args = update.effective_message.text.split(None, 1)
 
     # ONLY send help in PM
@@ -479,9 +477,9 @@ def settings_button(update, context):
 
 @typing_action
 def get_settings(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
-    msg = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    user = update.effective_user
+    msg = update.effective_message
     msg.text.split(None, 1)
 
     # ONLY send settings in PM
@@ -511,7 +509,7 @@ def get_settings(update, context):
 
 
 def migrate_chats(update, context):
-    msg = update.effective_message  # type: Optional[Message]
+    msg = update.effective_message
     if msg.migrate_to_chat_id:
         old_chat = update.effective_chat.id
         new_chat = msg.migrate_to_chat_id
