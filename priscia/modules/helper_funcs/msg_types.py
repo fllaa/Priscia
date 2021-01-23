@@ -102,9 +102,8 @@ def get_welcome_type(msg: Message):
         offset = len(args[1]) - len(
             raw_text
         )  # set correct offset relative to command + notename
-        text, buttons = button_markdown_parser(
-            args[1], entities=msg.parse_entities() or msg.parse_caption_entities(), offset=offset
-        )
+        text, buttons = button_markdown_parser(args[1], entities=msg.parse_entities(
+        ) or msg.parse_caption_entities(), offset=offset)
         if buttons:
             data_type = Types.BUTTON_TEXT
         else:
