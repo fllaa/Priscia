@@ -449,15 +449,22 @@ def welcome(update, context):
                 keyb = build_keyboard(buttons)
                 keyboard = InlineKeyboardMarkup(keyb)
 
-                send(update, welcome_c, welcome_m, keyboard, welcome_type, sql.DEFAULT_WELCOME)
+                send(
+                    update,
+                    welcome_c,
+                    welcome_m,
+                    keyboard,
+                    welcome_type,
+                    sql.DEFAULT_WELCOME,
+                )
 
         else:
             if noformat:
-                ENUM_FUNC_MAP[welcome_type](chat.id, welcome_c, caption=welcome_m)
+                ENUM_FUNC_MAP[welcome_type](chat.id, welcome_c, welcome_m)
 
             else:
                 ENUM_FUNC_MAP[welcome_type](
-                    chat.id, welcome_c, caption=welcome_m, parse_mode=ParseMode.MARKDOWN
+                    chat.id, welcome_c, welcome_m, parse_mode=ParseMode.MARKDOWN
                 )
 
     elif len(args) >= 1:
