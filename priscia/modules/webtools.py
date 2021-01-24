@@ -134,8 +134,10 @@ def leavechat(update, context):
 
 
 def gitpull(update, context):
+    args = context.args
+    branch = args.split(" ")
     sent_msg = update.effective_message.reply_text("Pulling all changes from remote...")
-    subprocess.Popen("git pull", stdout=subprocess.PIPE, shell=True)
+    subprocess.Popen(f"git pull {branch}", stdout=subprocess.PIPE, shell=True)
 
     sent_msg_text = (
         sent_msg.text
@@ -169,7 +171,7 @@ def restart(update, context):
     os.system("bash start")
 
 
-def executor(update, context):
+def evaluator(update, context):
     msg = update.effective_message
     if msg.text:
         args = msg.text.split(None, 1)
@@ -191,6 +193,17 @@ def executor(update, context):
             )
 
 
+def executor(update, context):
+    msg = update.effective_message
+    if msg.text:
+        args = msg.text.split(None, 1)
+        code = args[1]
+        run = subprocess.run(code, stdout=subprocess.PIPE, shell=True)
+        msg.reply_text(
+            f"**Input:**\n\n`{code}`\n\n**Output:**\n\n`{run.stdout}`", parse_mode=ParseMode.MARKDOWN
+        )
+
+
 IP_HANDLER = CommandHandler("ip", get_bot_ip, filters=Filters.user(OWNER_ID))
 PING_HANDLER = CommandHandler("ping", ping, filters=CustomFilters.sudo_filter)
 SPEED_HANDLER = CommandHandler("speedtest", speedtst, filters=CustomFilters.sudo_filter)
@@ -205,6 +218,7 @@ LEAVECHAT_HANDLER = CommandHandler(
 )
 GITPULL_HANDLER = CommandHandler("gitpull", gitpull, filters=CustomFilters.sudo_filter)
 RESTART_HANDLER = CommandHandler("reboot", restart, filters=CustomFilters.sudo_filter)
+EVAL_HANDLER = CommandHandler("eval", evaluator, filters=Filters.user(OWNER_ID))
 EXEC_HANDLER = CommandHandler("exec", executor, filters=Filters.user(OWNER_ID))
 
 dispatcher.add_handler(IP_HANDLER)
@@ -214,4 +228,5 @@ dispatcher.add_handler(SYS_STATUS_HANDLER)
 dispatcher.add_handler(LEAVECHAT_HANDLER)
 dispatcher.add_handler(GITPULL_HANDLER)
 dispatcher.add_handler(RESTART_HANDLER)
+dispatcher.add_handler(EVAL_HANDLER)
 dispatcher.add_handler(EXEC_HANDLER)
