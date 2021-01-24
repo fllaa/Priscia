@@ -1,5 +1,5 @@
 # We're using Debian Slim Buster image
-FROM python:3.8.4-slim-buster
+FROM python:3.9.1-slim-buster
 
 ENV PIP_NO_CACHE_DIR 1
 
@@ -58,8 +58,7 @@ RUN apt update && apt upgrade -y && \
     xvfb \
     unzip \
     libopus0 \
-    libopus-dev \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
+    libopus-dev
 
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
