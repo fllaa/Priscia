@@ -75,7 +75,10 @@ def music(update, context):
     except Exception as excp:
         msg.reply_text(f"Failed. Error: {excp}")
         return
-    msg.reply_audio(audio=open(track, "rb"))
+    try:
+        msg.reply_audio(audio=open(track, "rb"))
+    except FileNotFoundError:
+        msg.reply_text("read /help music plox on me")
     shutil.rmtree(TEMP_PATH)
 
 
