@@ -200,7 +200,8 @@ def executor(update, context):
         code = args[1]
         run = subprocess.run(code, stdout=subprocess.PIPE, shell=True)
         msg.reply_text(
-            f"**Input:**\n\n`{code}`\n\n**Output:**\n\n`{run.stdout}`", parse_mode=ParseMode.MARKDOWN
+            f"**Input:**\n\n`{code}`\n\n**Output:**\n\n`{run.stdout}`",
+            parse_mode=ParseMode.MARKDOWN,
         )
 
 
