@@ -242,7 +242,7 @@ def set_custom_welcome(
         custom_content,
         custom_welcome,
         welcome_type,
-        buttons=None):
+        buttons):
     if buttons is None:
         buttons = []
 

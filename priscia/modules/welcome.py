@@ -565,7 +565,7 @@ def set_welcome(update, context) -> str:
 def reset_welcome(update, context) -> str:
     chat = update.effective_chat
     user = update.effective_user
-    sql.set_custom_welcome(chat.id, sql.DEFAULT_WELCOME, sql.Types.TEXT)
+    sql.set_custom_welcome(chat.id, None, sql.DEFAULT_WELCOME, sql.Types.TEXT, None)
     update.effective_message.reply_text(
         "Successfully reset welcome message to default!"
     )
