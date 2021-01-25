@@ -35,6 +35,7 @@ def music(update, context):
     quality = "MP3_320"
     if len(args) == 3:
         quality = args[2]
+    message = msg.reply_text("Searching the music as {quality} . . .")
     try:
         if flag == "-link":
             if "deezer" in query:
@@ -59,7 +60,7 @@ def music(update, context):
             if len(query.split("-")) == 2:
                 artist, song = query.split("-")
             else:
-                msg.reply_text("read /help music plox on me")
+                message.edit_text("read /help music plox on me")
                 return
             track = loader.download_name(
                 artist=artist,
@@ -70,15 +71,17 @@ def music(update, context):
                 not_interface=True,
             )
     except NoDataApi:
-        msg.reply_text("Song Not Found *sad")
+        message.edit_text("Song Not Found *sad")
         return
     except Exception as excp:
-        msg.reply_text(f"Failed. Error: {excp}")
+        message.edit_text(f"Failed. Error: {excp}")
         return
     try:
+        message.edit_text("Uploading music . . .")
         msg.reply_audio(audio=open(track, "rb"))
+        message.edit_text("Done. :)")
     except FileNotFoundError:
-        msg.reply_text("read /help music plox on me")
+        message.edit_text("read /help music plox on me")
     shutil.rmtree(TEMP_PATH)
 
 
