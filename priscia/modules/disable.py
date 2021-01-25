@@ -147,7 +147,6 @@ if is_module_loaded(FILENAME):
                 )
                 return ""
             chat = update.effective_chat
-            update.effective_chat.id
             chat_name = update.effective_message.chat.title
 
         if len(args) >= 1:

@@ -772,7 +772,7 @@ def user_button(update, context):
     query = update.callback_query
     match = re.match(r"user_join_\((.+?)\)", query.data)
     message = update.effective_message
-    db_checks = sql.set_human_checks(user.id, chat.id)
+    sql.set_human_checks(user.id, chat.id)
     join_user = int(match.group(1))
 
     if join_user == user.id:
@@ -792,7 +792,6 @@ def user_button(update, context):
             ),
         )
         context.bot.deleteMessage(chat.id, message.message_id)
-        db_checks
     else:
         query.answer(text="You're not allowed to do this!")
 

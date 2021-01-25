@@ -345,7 +345,7 @@ def del_lockables(update, context):
     chat = update.effective_chat
     message = update.effective_message
 
-    for lockable, filter in LOCK_TYPES.items():
+    for lockable, fil_ter in LOCK_TYPES.items():
         if lockable == "rtl":
             if sql.is_locked(chat.id, lockable) and can_delete(chat, context.bot.id):
                 if message.caption:
@@ -396,7 +396,7 @@ def del_lockables(update, context):
                 break
             continue
         if (
-            filter(update)
+            fil_ter(update)
             and sql.is_locked(chat.id, lockable)
             and can_delete(chat, context.bot.id)
         ):

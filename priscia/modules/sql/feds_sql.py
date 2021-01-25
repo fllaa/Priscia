@@ -44,6 +44,16 @@ class ChatF(BASE):
         self.fed_id = fed_id
 
 
+class UserF(BASE):
+    __tablename__ = "user_feds"
+    user_id = Column(String(14), primary_key=True)
+    fed_id = Column(UnicodeText, primary_key=True)
+
+    def __init__(self, user_id, fed_id):
+        self.user_id = user_id
+        self.fed_id = fed_id
+
+
 class BansF(BASE):
     __tablename__ = "bans_feds"
     fed_id = Column(UnicodeText, primary_key=True)
@@ -655,6 +665,7 @@ def search_fed_by_id(fed_id):
     else:
         return get
     result = False
+    curr = SESSION.query(ChatF).all()
     for Q in curr:
         if Q.fed_id == fed_id:
             result = Q.fed_id

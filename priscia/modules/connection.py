@@ -269,17 +269,11 @@ def connected(bot, update, chat, user_id, need_admin=True):
         ismember = getstatusadmin.status in ("member")
         isallow = sql.allow_connect_to_chat(conn_id)
 
-        if (
-            (isadmin)
-            or (isallow and ismember)
-            or (user.id in SUDO_USERS)
-            or (user.id in DEV_USERS)
-        ):
+        if (isadmin) or (isallow and ismember) or (user.id in SUDO_USERS):
             if need_admin:
                 if (
                     getstatusadmin.status in ("administrator", "creator")
                     or user_id in SUDO_USERS
-                    or user.id in DEV_USERS
                 ):
                     return conn_id
                 else:
@@ -313,9 +307,6 @@ CONN_HELP = """
 
 
 def help_connect_chat(update, context):
-
-    context.args
-
     if update.effective_message.chat.type != "private":
         send_message(update.effective_message, "PM me with that command to get help.")
         return

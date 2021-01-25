@@ -183,7 +183,6 @@ def evaluator(update, context):
     if msg.text:
         args = msg.text.split(None, 1)
         code = args[1]
-        msg.chat.id
         try:
             exec(code)
         except BaseException:

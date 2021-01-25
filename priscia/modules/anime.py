@@ -233,7 +233,6 @@ def anime(update, context):
         msg = msg[:-2] + "`\n"
         info = json.get("siteUrl")
         trailer = json.get("trailer", None)
-        json["id"]
         if trailer:
             trailer_id = trailer.get("id", None)
             site = trailer.get("site", None)

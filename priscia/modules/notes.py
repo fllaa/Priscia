@@ -56,7 +56,6 @@ def get(bot, update, notename, show_none=True, no_format=False):
     conn = connected(bot, update, chat, user.id, need_admin=False)
     if conn:
         chat_id = conn
-        user.id
     else:
         chat_id = update.effective_chat.id
 

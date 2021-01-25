@@ -465,7 +465,6 @@ def fed_admin(update, context):
 
     chat = update.effective_chat
     user = update.effective_user
-    context.args
 
     if chat.type == "private":
         send_message(
@@ -541,7 +540,7 @@ def fed_ban(update, context):
 
     user_id, reason = extract_unt_fedban(message, args)
 
-    fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user_id)
+    fban, fban_reason, fbantime = sql.get_fban_user(fed_id, user_id)
 
     if not user_id:
         message.reply_text("You don't seem to be referring to a user")
@@ -682,14 +681,22 @@ def fed_ban(update, context):
         for fedschat in fed_chats:
             try:
                 # Do not spam all fed chats
-                """
-                                context.bot.send_message(chat, "<b>FedBan reason updated</b>" \
-                                                         "\n<b>Federation:</b> {}" \
-                                                         "\n<b>Federation Admin:</b> {}" \
-                                                         "\n<b>User:</b> {}" \
-                                                         "\n<b>User ID:</b> <code>{}</code>" \
-                                                         "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
-                                """
+                context.bot.send_message(
+                    chat,
+                    "<b>FedBan reason updated</b>"
+                    "\n<b>Federation:</b> {}"
+                    "\n<b>Federation Admin:</b> {}"
+                    "\n<b>User:</b> {}"
+                    "\n<b>User ID:</b> <code>{}</code>"
+                    "\n<b>Reason:</b> {}".format(
+                        fed_name,
+                        mention_html(user.id, user.first_name),
+                        user_target,
+                        fban_user_id,
+                        reason,
+                    ),
+                    parse_mode="HTML",
+                )
                 context.bot.kick_chat_member(fedschat, fban_user_id)
             except BadRequest as excp:
                 if excp.message in FBAN_ERRORS:
@@ -949,8 +956,6 @@ def unfban(update, context):
         isvalid = True
         fban_user_id = user_chat.id
         fban_user_name = user_chat.first_name
-        user_chat.last_name
-        user_chat.username
     except BadRequest as excp:
         if not str(user_id).isdigit():
             send_message(update.effective_message, excp.message)
@@ -971,7 +976,7 @@ def unfban(update, context):
     else:
         user_target = fban_user_name
 
-    fban, fbanreason, fbantime = sql.get_fban_user(fed_id, fban_user_id)
+    fban, fban_reason, fbantime = sql.get_fban_user(fed_id, fban_user_id)
     if not fban:
         message.reply_text("This user is not fbanned!")
         return
@@ -1786,7 +1791,6 @@ def del_fed_button(update, context):
 
 
 def fed_stat_user(update, context):
-    update.effective_user
     msg = update.effective_message
     args = context.args
 
@@ -1930,7 +1934,6 @@ def set_fed_log(update, context):
 def unset_fed_log(update, context):
     chat = update.effective_chat
     user = update.effective_user
-    update.effective_message
     args = context.args
 
     if chat.type == "private":
@@ -2141,7 +2144,6 @@ def get_myfedsubs(update, context):
 
 
 def get_myfeds_list(update, context):
-    update.effective_chat
     user = update.effective_user
     update.effective_message
     context.args
@@ -2179,7 +2181,7 @@ def welcome_fed(update, context):
     user = update.effective_user
 
     fed_id = sql.get_fed_id(chat.id)
-    fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user.id)
+    fban, fban_reason, fbantime = sql.get_fban_user(fed_id, user.id)
     if fban:
         update.effective_message.reply_text(
             "This user is banned in current federation! I will remove him."

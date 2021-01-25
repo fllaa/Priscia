@@ -72,7 +72,6 @@ def report(update, context) -> str:
         reported_user = message.reply_to_message.from_user
         chat_name = chat.title or chat.first or chat.username
         admin_list = chat.get_administrators()
-        update.effective_message
 
         isadmeme = chat.get_member(reported_user.id).status
         if isadmeme in ["administrator", "creator"]:

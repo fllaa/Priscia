@@ -222,7 +222,6 @@ def invite(update, context):
     user = update.effective_user
     msg = update.effective_message
     chat = update.effective_chat
-    context.args
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:

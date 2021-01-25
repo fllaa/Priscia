@@ -10,7 +10,6 @@ from telegram.ext import CommandHandler
 # from priscia.modules.sql import warns_sql as warnssql
 import priscia.modules.sql.blacklist_sql as blacklistsql
 
-# from priscia.modules.sql import cust_filters_sql as filtersql
 # import priscia.modules.sql.welcome_sql as welcsql
 import priscia.modules.sql.locks_sql as locksql
 import priscia.modules.sql.notes_sql as sql
@@ -21,6 +20,7 @@ from priscia import LOGGER, MESSAGE_DUMP, OWNER_ID, dispatcher
 from priscia.__main__ import DATA_IMPORT
 from priscia.modules.connection import connected
 from priscia.modules.helper_funcs.chat_status import user_admin
+from priscia.modules.sql import cust_filters_sql as filtersql
 from priscia.modules.sql import disable_sql as disabledsql
 
 
@@ -235,41 +235,36 @@ def export_data(update, context):
     # Disabled command
     disabledcmd = list(disabledsql.get_all_disabled(chat_id))
     # Filters (TODO)
-    """
-	all_filters = list(filtersql.get_chat_triggers(chat_id))
-	export_filters = {}
-	for filters in all_filters:
-		filt = filtersql.get_filter(chat_id, filters)
-		# print(vars(filt))
-		if filt.is_sticker:
-			tipefilt = "sticker"
-		elif filt.is_document:
-			tipefilt = "doc"
-		elif filt.is_image:
-			tipefilt = "img"
-		elif filt.is_audio:
-			tipefilt = "audio"
-		elif filt.is_voice:
-			tipefilt = "voice"
-		elif filt.is_video:
-			tipefilt = "video"
-		elif filt.has_buttons:
-			tipefilt = "button"
-			buttons = filtersql.get_buttons(chat.id, filt.keyword)
-			print(vars(buttons))
-		elif filt.has_markdown:
-			tipefilt = "text"
-		if tipefilt == "button":
-			content = "{}#=#{}|btn|{}".format(tipefilt, filt.reply, buttons)
-		else:
-			content = "{}#=#{}".format(tipefilt, filt.reply)
-		print(content)
-		export_filters[filters] = content
-	print(export_filters)
-	"""
-    # Welcome (TODO)
-    # welc = welcsql.get_welc_pref(chat_id)
-    # Locked
+    all_filters = list(filtersql.get_chat_triggers(chat_id))
+    export_filters = {}
+    for filters in all_filters:
+        filt = filtersql.get_filter(chat_id, filters)
+        # print(vars(filt))
+        if filt.is_sticker:
+            tipefilt = "sticker"
+        elif filt.is_document:
+            tipefilt = "doc"
+        elif filt.is_image:
+            tipefilt = "img"
+        elif filt.is_audio:
+            tipefilt = "audio"
+        elif filt.is_voice:
+            tipefilt = "voice"
+        elif filt.is_video:
+            tipefilt = "video"
+        elif filt.has_buttons:
+            tipefilt = "button"
+            buttons = filtersql.get_buttons(chat.id, filt.keyword)
+            print(vars(buttons))
+        elif filt.has_markdown:
+            tipefilt = "text"
+            if tipefilt == "button":
+                content = "{}#=#{}|btn|{}".format(tipefilt, filt.reply, buttons)
+            else:
+                content = "{}#=#{}".format(tipefilt, filt.reply)
+            print(content)
+            export_filters[filters] = content
+    print(export_filters)
     curr_locks = locksql.get_locks(chat_id)
     curr_restr = locksql.get_restr(chat_id)
 
@@ -371,12 +366,14 @@ def get_chat(chat_id, chat_data):
 __mod_name__ = "Backups"
 
 __help__ = """
+
+
 *Only for chat administrator:*
 
  × /import: Reply to the backup file for the butler / emilia group to import as much as possible, making transfers very easy! \
  Note that files / photos cannot be imported due to telegram restrictions.
 
- × /export: Export group data, which will be exported are: rules, notes (documents, images, music, video, audio, voice, text, text buttons) \
+ × /export: Export group data, which will be exported are: rules, notes(documents, images, music, video, audio, voice, text, text buttons) \
 
 """
 
