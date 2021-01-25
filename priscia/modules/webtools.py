@@ -57,15 +57,21 @@ def get_bot_ip(update, context):
 
 
 def speedtst(update, context):
+    chat = update.effective_chat
     message = update.effective_message
+    edit_text = context.bot.editMessageText
     ed_msg = message.reply_text("Running high speed test . . .")
     test = speedtest.Speedtest()
+    edit_text("Looking for best server . . .", chat.id, ed_msg.message_id)
     test.get_best_server()
+    edit_text("Downloading . . .", chat.id, ed_msg.message_id)
     test.download()
+    edit_text("Uploading . . .", chat.id, ed_msg.message_id)
     test.upload()
+    edit_text("Finalizing . . .", chat.id, ed_msg.message_id)
     test.results.share()
     result = test.results.dict()
-    context.bot.editMessageText(
+    edit_text(
         "Download "
         f"{speed_convert(result['download'])} \n"
         "Upload "
@@ -74,7 +80,7 @@ def speedtst(update, context):
         f"{result['ping']} \n"
         "ISP "
         f"{result['client']['isp']}",
-        update.effective_chat.id,
+        chat.id,
         ed_msg.message_id,
     )
 
@@ -134,9 +140,10 @@ def leavechat(update, context):
 
 
 def gitpull(update, context):
-    args = context.args
-    branch = args.split(" ")
-    sent_msg = update.effective_message.reply_text("Pulling all changes from remote...")
+    msg = update.effective_message
+    args = msg.text.split(None, 1)
+    branch = args[1]
+    sent_msg = msg.reply_text("Pulling all changes from remote...")
     subprocess.Popen(f"git pull {branch}", stdout=subprocess.PIPE, shell=True)
 
     sent_msg_text = (
@@ -199,8 +206,9 @@ def executor(update, context):
         args = msg.text.split(None, 1)
         code = args[1]
         run = subprocess.run(code, stdout=subprocess.PIPE, shell=True)
+        output = run.stdout.decode()
         msg.reply_text(
-            f"**Input:**\n\n`{code}`\n\n**Output:**\n\n`{run.stdout}`",
+            f"*Input:*\n`{code}`\n\n*Output:*\n`{output}`",
             parse_mode=ParseMode.MARKDOWN,
         )
 
