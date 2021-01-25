@@ -3,9 +3,9 @@ import re
 import urllib
 from urllib.error import HTTPError, URLError
 
-import html2text
 import requests
 from bs4 import BeautifulSoup
+from search_engine_parser import GoogleSearch
 from telegram import InputMediaPhoto, TelegramError
 
 from priscia import dispatcher
@@ -270,22 +270,26 @@ def app(update, context):
 
 
 def google(update, context):
-    args = context.args
-    query = " ".join(args)
-    remove_space = query.split(" ")
-    # + " -inurl:(htm|html|php|pls|txt) intitle:index.of \"last modified\" (mkv|mp4|avi|epub|pdf|mp3)"
-    input_str = "%20".join(remove_space)
-    input_url = "https://bots.shrimadhavuk.me/search/?q={}".format(input_str)
-    headers = {"USER-AGENT": "UniBorg"}
-    response = requests.get(input_url, headers=headers).json()
-    output_str = " "
-    for result in response["results"]:
-        text = result.get("title")
-        url = result.get("url")
-        description = result.get("description")
-        last = html2text.html2text(description)
-        output_str += "[{}]({})\n{}\n".format(text, url, last)
-    update.effective_message.reply_text("{}".format(output_str), parse_mode="MARKDOWN")
+    message = update.effective_message
+    query = message.text.strip().split(" ", 1)
+    try:
+        gsearch = GoogleSearch()
+        gresults = gsearch.search(query)
+    except Exception as excp:
+        message.reply_text(f"Search failed, Error: {excp}")
+        return
+    output = ""
+    for i in range(5):
+        try:
+            title = gresults["titles"][i].replace("\n", " ")
+            link = gresults["links"][i]
+            desc = gresults["descriptions"][i]
+            output += f"[{title}]({link})\n"
+            output += f"`{desc}`\n\n"
+        except (IndexError, KeyError):
+            break
+    output = f"*Google Search:*\n`{query}`\n\n*Results:*\n{output}"
+    message.reply_text(output, parse_mode="Markdown")
 
 
 __help__ = """
