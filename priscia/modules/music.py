@@ -35,9 +35,6 @@ def music(update, context):
     quality = "MP3_320"
     if len(args) == 3:
         quality = args[2]
-    if quality != ["FLAC", "MP3_320", "MP3_256", "MP3_128"]:
-        msg.reply_text("Put flag correctly!")
-        return
     message = msg.reply_text(f"Searching the music as {quality} . . .")
     try:
         if flag == "-link":
