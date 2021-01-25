@@ -545,7 +545,6 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /ud <query> : Search stuffs in urban dictionary.
  × /wall <query> : Get random wallpapers directly from bot!
  × /gdpr: Deletes your information from the bot's database. Private chats only.
- × /paste: Saves replied content to nekobin.com and replies with a url
  × /imdb <movie>: search movie info and other stuff
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
 """

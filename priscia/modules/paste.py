@@ -10,15 +10,17 @@ from priscia.modules.disable import DisableAbleCommandHandler
 
 def paste(update, context):
     msg = update.effective_message
-
-    if msg.reply_to_message.document:
-        file = context.bot.get_file(msg.reply_to_message.document)
-        file.download("file.txt")
-        text = codecs.open("file.txt", "r+", encoding="utf-8")
-        paste_text = text.read()
+    if msg.reply_to_message:
+        if msg.reply_to_message.document:
+            file = context.bot.get_file(msg.reply_to_message.document)
+            file.download("file.txt")
+            text = codecs.open("file.txt", "r+", encoding="utf-8")
+            paste_text = text.read()
+        else:
+            paste_text = msg.reply_to_message.text
     else:
-        paste_text = msg.reply_to_message.text
-
+        msg.reply_text("What am I supposed to do with this?")
+        return
     try:
         link = (
             requests.post(
@@ -48,10 +50,17 @@ def paste(update, context):
             disable_web_page_preview=True,
         )
         os.remove("file.txt")
-    except Exception:
-        msg.reply_text("What am I supposed to do with this?")
+    except Exception as excp:
+        msg.reply_text(f"Failed. Error: {excp}")
         return
 
+__help__ = """
+Copy Paste your Text on Nekobin
+
+ × /paste: Saves replied content to nekobin.com and replies with a url
+"""
+
+__mod_name__ = "Paste"
 
 PASTE_HANDLER = DisableAbleCommandHandler("paste", paste)
 
