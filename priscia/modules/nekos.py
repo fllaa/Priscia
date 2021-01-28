@@ -2,6 +2,7 @@ import os
 
 import nekos
 import requests
+from nekos.errors import InvalidArgument
 from telegram import ParseMode
 
 from priscia import dispatcher
@@ -13,7 +14,11 @@ def neko(update, context):
     args = context.args
     flag = args[0]
     query = args[1]
-    img = nekos.img(query)
+    try:
+        img = nekos.img(query)
+    except InvalidArgument:
+        message.reply_text(f"{query} are'nt available! check available query on help!")
+        return
     try:
         if flag == "-i":
             message.reply_photo(photo=img, parse_mode=ParseMode.MARKDOWN)
