@@ -15,12 +15,16 @@ async def neko(client, message):
         flag = args[1]
         query = args[2]
     else:
-        await message.reply_text("use format `/nekos` <flag> <query>!", parse_mode="markdown")
+        await message.reply_text(
+            "use format `/nekos` <flag> <query>!", parse_mode="markdown"
+        )
         return
     try:
         img = nekos.img(query)
     except InvalidArgument:
-        await message.reply_text(f"{query} are'nt available! check available query on help!")
+        await message.reply_text(
+            f"{query} are'nt available! check available query on help!"
+        )
         return
     try:
         if flag == "-i":

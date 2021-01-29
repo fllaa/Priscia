@@ -5,10 +5,6 @@ from priscia import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
 from priscia.mwt import MWT
 
 
-def can_delete(chat: Chat, bot_id: int) -> bool:
-    return chat.get_member(bot_id).can_delete_messages
-
-
 def is_user_ban_protected(
         chat: Chat,
         user_id: int,
