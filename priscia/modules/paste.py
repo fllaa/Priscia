@@ -1,57 +1,49 @@
 import codecs
 import os
 
-import requests
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
+from nekobin import NekoBin
+from pyrogram import filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from priscia import dispatcher
-from priscia.modules.disable import DisableAbleCommandHandler
+from priscia import pciabot
 
 
-def paste(update, context):
-    msg = update.effective_message
-    if msg.reply_to_message:
-        if msg.reply_to_message.document:
-            file = context.bot.get_file(msg.reply_to_message.document)
-            file.download("file.txt")
-            text = codecs.open("file.txt", "r+", encoding="utf-8")
+@pciabot.on_message(filters.command("paste"))
+async def paste(client, message):
+    nekobin = NekoBin()
+    if message.reply_to_message:
+        if message.reply_to_message.document:
+            path = await message.reply_to_message.download("priscia/")
+            text = codecs.open(path, "r+", encoding="utf-8")
             paste_text = text.read()
+            os.remove(path)
         else:
-            paste_text = msg.reply_to_message.text
+            paste_text = message.reply_to_message.text
     else:
-        msg.reply_text("What am I supposed to do with this?")
+        await message.reply_text("What am I supposed to do with this?")
         return
     try:
-        link = (
-            requests.post(
-                "https://nekobin.com/api/documents",
-                json={"content": paste_text},
-            )
-            .json()
-            .get("result")
-            .get("key")
-        )
+        response = await nekobin.nekofy(paste_text)
         text = "**Pasted to Nekobin!!!**"
         buttons = [
             [
                 InlineKeyboardButton(
-                    text="View Link", url=f"https://nekobin.com/{link}"
+                    text="View Link", url=response.url
                 ),
                 InlineKeyboardButton(
                     text="View Raw",
-                    url=f"https://nekobin.com/raw/{link}",
+                    url=response.raw,
                 ),
             ]
         ]
-        msg.reply_text(
+        await message.reply_text(
             text,
             reply_markup=InlineKeyboardMarkup(buttons),
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode="markdown",
             disable_web_page_preview=True,
         )
-        os.remove("file.txt")
     except Exception as excp:
-        msg.reply_text(f"Failed. Error: {excp}")
+        await message.reply_text(f"Pasting Failed. Error: {excp}")
         return
 
 
@@ -62,7 +54,3 @@ Copy Paste your Text on Nekobin
 """
 
 __mod_name__ = "Paste"
-
-PASTE_HANDLER = DisableAbleCommandHandler("paste", paste)
-
-dispatcher.add_handler(PASTE_HANDLER)

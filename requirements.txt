@@ -17,6 +17,7 @@ google_trans_new
 gtts
 jikanpy
 lxml
+nekobin
 nekos.py
 pillow
 psutil
