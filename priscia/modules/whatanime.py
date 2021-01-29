@@ -9,8 +9,7 @@ from decimal import Decimal
 from urllib.parse import quote as urlencode
 
 import aiohttp
-from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram import filters
 
 from priscia import pciabot
 
@@ -47,18 +46,18 @@ def calculate_eta(current, total, start_time):
 
 
 @pciabot.on_message(filters.command("whatanime"))
-async def whatanime(c: Client, m: Message):
-    media = m.photo or m.animation or m.video or m.document
+async def whatanime(client, message):
+    media = message.photo or message.animation or message.video or message.document
     if not media:
-        reply = m.reply_to_message
+        reply = message.reply_to_message
         if not getattr(reply, "empty", True):
             media = reply.photo or reply.animation or reply.video or reply.document
     if not media:
-        await m.reply_text("Reply to a photo, GIF, or video with this command.")
+        await message.reply_text("Reply to a photo, GIF, or video with this command.")
         return
     with tempfile.TemporaryDirectory() as tempdir:
-        reply = await m.reply_text("Downloading...")
-        path = await c.download_media(
+        reply = await message.reply_text("Downloading...")
+        path = await client.download_media(
             media,
             file_name=os.path.join(tempdir, "0"),
             progress=progress_callback,
