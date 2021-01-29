@@ -27,9 +27,7 @@ async def paste(client, message):
         text = "**Pasted to Nekobin!!!**"
         buttons = [
             [
-                InlineKeyboardButton(
-                    text="View Link", url=response.url
-                ),
+                InlineKeyboardButton(text="View Link", url=response.url),
                 InlineKeyboardButton(
                     text="View Raw",
                     url=response.raw,

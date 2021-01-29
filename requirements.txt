@@ -1,7 +1,6 @@
 # Library
 pyrogram
 python-telegram-bot
-telethon
 # Other
 aiohttp
 alphabet_detector

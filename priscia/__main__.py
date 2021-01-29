@@ -29,7 +29,6 @@ from priscia import (
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from priscia.modules import ALL_MODULES
-from priscia.modules.purge import client
 from priscia.modules.helper_funcs.chat_status import is_user_admin
 from priscia.modules.helper_funcs.misc import paginate_modules
 from priscia.modules.helper_funcs.alternate import typing_action
@@ -603,12 +602,10 @@ def main():
                     "rb"))
         else:
             updater.bot.set_webhook(url=URL + TOKEN)
-            client.run_until_disconnected()
 
     else:
         LOGGER.info("Using long polling.")
         updater.start_polling(timeout=15, read_latency=4)
-        client.run_until_disconnected()
 
     updater.idle()
 
@@ -616,6 +613,5 @@ def main():
 if __name__ == "__main__":
     pciabot.start()
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
-    client.start(bot_token=TOKEN)
     main()
     idle()

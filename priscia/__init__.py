@@ -2,7 +2,6 @@ import logging
 import os
 import sys
 import spamwatch
-from telethon import TelegramClient
 from pyrogram import Client
 import telegram.ext as tg
 
@@ -169,8 +168,6 @@ if SPAMWATCH is None:
 else:
     spamwtc = spamwatch.Client(SPAMWATCH)
 
-# Telethon
-client = TelegramClient("priscia", api_id=API_ID, api_hash=API_HASH)
 # Pyrogram
 pciabot = Client(
     "PrisciaPyro",
