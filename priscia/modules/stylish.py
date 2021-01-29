@@ -1,7 +1,6 @@
-from telegram import ParseMode
+from pyrogram import filters
 
-from priscia import dispatcher
-from priscia.modules.disable import DisableAbleCommandHandler
+from priscia import pciabot
 
 normiefont = [
     "a",
@@ -257,19 +256,19 @@ linedfont = [
 ]
 
 
-def weebify(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("weebify"))
+async def weebify(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/weebify <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/weebify <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -278,24 +277,24 @@ def weebify(update, context):
             string = string.replace(normiecharacter, weebycharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
-def bubble(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("bubble"))
+async def bubble(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/bubble <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/bubble <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -304,24 +303,24 @@ def bubble(update, context):
             string = string.replace(normiecharacter, bubblecharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
-def fbubble(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("fbubble"))
+async def fbubble(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/fbubble <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/fbubble <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -330,24 +329,24 @@ def fbubble(update, context):
             string = string.replace(normiecharacter, fbubblecharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
-def square(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("square"))
+async def square(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/square <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/square <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -356,24 +355,24 @@ def square(update, context):
             string = string.replace(normiecharacter, squarecharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
-def fsquare(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("fsquare"))
+async def fsquare(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/fsquare <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/fsquare <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -382,24 +381,24 @@ def fsquare(update, context):
             string = string.replace(normiecharacter, fsquarecharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
-def blue(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("blue"))
+async def blue(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/blue <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/blue <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -408,24 +407,24 @@ def blue(update, context):
             string = string.replace(normiecharacter, bluecharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
-def latin(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("latin"))
+async def latin(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/latin <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/latin <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -434,24 +433,24 @@ def latin(update, context):
             string = string.replace(normiecharacter, latincharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
-def lined(update, context):
-    args = context.args
-    message = update.effective_message
+@pciabot.on_message(filters.command("lined"))
+async def lined(client, message):
+    args = message.text.split(None, 1)
     string = ""
 
     if message.reply_to_message:
-        string = message.reply_to_message.text.lower().replace(" ", "  ")
+        string = message.reply_to_message.text.lower()
 
-    if args:
-        string = "  ".join(args).lower()
+    if len(args) >= 2:
+        string = args[1].lower()
 
     if not string:
-        message.reply_text("Usage is `/lined <text>`", parse_mode=ParseMode.MARKDOWN)
+        await message.reply_text("Usage is `/lined <text>`", parse_mode="markdown")
         return
 
     for normiecharacter in string:
@@ -460,9 +459,9 @@ def lined(update, context):
             string = string.replace(normiecharacter, linedcharacter)
 
     if message.reply_to_message:
-        message.reply_to_message.reply_text(string)
+        await message.reply_to_message.reply_text(string)
     else:
-        message.reply_text(string)
+        await message.reply_text(string)
 
 
 __help__ = """
@@ -479,38 +478,3 @@ Stylish your text!
 """
 
 __mod_name__ = "StyleText"
-
-WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify)
-BUBBLE_HANDLER = DisableAbleCommandHandler("bubble", bubble)
-FBUBBLE_HANDLER = DisableAbleCommandHandler("fbubble", fbubble)
-SQUARE_HANDLER = DisableAbleCommandHandler("square", square)
-FSQUARE_HANDLER = DisableAbleCommandHandler("fsquare", fsquare)
-BLUE_HANDLER = DisableAbleCommandHandler("blue", blue)
-LATIN_HANDLER = DisableAbleCommandHandler("latin", latin)
-LINED_HANDLER = DisableAbleCommandHandler("lined", lined)
-
-dispatcher.add_handler(WEEBIFY_HANDLER)
-dispatcher.add_handler(BUBBLE_HANDLER)
-dispatcher.add_handler(FBUBBLE_HANDLER)
-dispatcher.add_handler(SQUARE_HANDLER)
-dispatcher.add_handler(FSQUARE_HANDLER)
-dispatcher.add_handler(BLUE_HANDLER)
-dispatcher.add_handler(LATIN_HANDLER)
-dispatcher.add_handler(LINED_HANDLER)
-
-__command_list__ = ["weebify"]
-__command_list__ = ["bubble"]
-__command_list__ = ["fbubble"]
-__command_list__ = ["square"]
-__command_list__ = ["fsquare"]
-__command_list__ = ["blue"]
-__command_list__ = ["latin"]
-__command_list__ = ["lined"]
-__handlers__ = [WEEBIFY_HANDLER]
-__handlers__ = [BUBBLE_HANDLER]
-__handlers__ = [FBUBBLE_HANDLER]
-__handlers__ = [SQUARE_HANDLER]
-__handlers__ = [FSQUARE_HANDLER]
-__handlers__ = [BLUE_HANDLER]
-__handlers__ = [LATIN_HANDLER]
-__handlers__ = [LINED_HANDLER]
