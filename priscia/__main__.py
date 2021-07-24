@@ -35,13 +35,12 @@ from priscia.modules.helper_funcs.misc import paginate_modules
 from priscia.modules.helper_funcs.alternate import typing_action
 
 
-PM_START_TEXT = f"""
-Kon'nichiwa! my name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, Click Help button.
+PM_START_TEXT = f" oiee! my name is *{ktayberry}*. If you have any questions on how to use me, Click Help button.
 
 I'm here to make your group management fun and easy!
 i have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
 
-Thanks to [my creator](tg://user?id={OWNER_ID}).
+Thanks to [my owner https://t.me/the_first_ray_of_the_sun..
 
 Wanna Add me to your Group? Just click the button below!
 """
@@ -50,18 +49,16 @@ buttons = [
     [
         InlineKeyboardButton(
             text="Add to Group 👥",
-            url="t.me/PrisciaBot?startgroup=true"),
-        InlineKeyboardButton(
-            text="Join Channel ℹ️",
-            url="https://t.me/fvllprojekt"),
+            url="//t.me/kyat_berry_bot?startgroup=true"),
+        
+  
     ]]
 
 buttons += [[InlineKeyboardButton(text="Help & Commands ❔",
-                                  url=f"t.me/{dispatcher.bot.username}?start=help",)]]
+                                  url=f"t.me//kyat_berry_bot}?start=help",)]]
 
 
-HELP_STRINGS = f"""
-Kon'nichiwa! My name is *{dispatcher.bot.first_name}*.
+HELP_STRINGS = f""oiee! My name is *{kyat_berry_bot}*.
 I'm a advanced modular group management bot with a lot of additional features! \
 Have a look at the following for an idea of some of the things I can help you with.
 
@@ -88,7 +85,7 @@ USER_SETTINGS = {}
 GDPR = []
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("priscia.modules." + module_name)
+    imported_module = importlib.import_module("ktayberry.modules." + module_name)
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 
@@ -200,7 +197,7 @@ def send_start(update, context):
             update.effective_message.edit_media(
                 chat_id=query.message.chat_id,
                 message_id=query.message.message_id,
-                media="https://telegra.ph/file/47343fdcd34ccdccd4867.mp4",
+                media="https://telegra.ph/file/af4581b3bfbe2c22d2045.jpg",
                 caption=PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
@@ -210,7 +207,7 @@ def send_start(update, context):
             return
     else:
         update.effective_message.reply_video(
-            "https://telegra.ph/file/47343fdcd34ccdccd4867.mp4",
+            "https://telegra.ph/file/4340acdebaa9aeba46235.mp4",
             caption=PM_START_TEXT,
             reply_markup=InlineKeyboardMarkup(buttons),
             parse_mode=ParseMode.MARKDOWN,
