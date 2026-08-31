@@ -1,3 +1,5 @@
+
+
 # Priscia • ペリセイア
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
@@ -64,6 +66,7 @@ your other settings.
 
 It is recommended to import sample_config and extend the Config class, as this will ensure your config contains all 
 defaults set in the sample_config, hence making it easier to upgrade.
+When `ENV` is not set, the bot imports the `Development` class from `priscia.config`.
 
 An example `config.py` file could be:
 ```
@@ -169,4 +172,3 @@ it is necessary to migrate it in the db.
 
 The `__stats__()` function is for retrieving module statistics, eg number of users, number of chats. This is accessed 
 through the `/stats` command, which is only available to the bot owner.
-
